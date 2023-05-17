@@ -1,0 +1,13 @@
+# Directories
+node_modules
+.husky
+images
+vendor
+
+# File patterns
+*.md
+*.scss
+*.min.js
+
+# Miscellaneous files
+package-lock.json
