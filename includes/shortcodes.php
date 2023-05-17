@@ -21,8 +21,17 @@ class NutritionNavigatorShortcodes {
         wp_register_script(
             'nutrition-navigator',
             plugin_dir_url(__DIR__) . 'dist/nutrition-navigator/index.js',
+            [],
             null,
             true
+        );
+
+        // Load React app build styles
+        wp_enqueue_style(
+            'nutrition-navigator',
+            plugin_dir_url(__DIR__) . 'dist/nutrition-navigator/index.css',
+            [],
+            null
         );
     }
 
