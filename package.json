@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Food Trust Nutrition Navigator",
   "type": "module",
-  "main": "index.js",
+  "main": "nutrition-navigator.js",
   "scripts": {
     "dev": "vite build --watch -m development",
     "build": "tsc && vite build",

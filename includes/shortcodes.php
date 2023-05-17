@@ -20,7 +20,7 @@ class NutritionNavigatorShortcodes {
     public function wp_enqueue_scripts() {
         wp_register_script(
             'nutrition-navigator',
-            plugin_dir_url(__DIR__) . 'dist/assets/index-09bcdb25.js',
+            plugin_dir_url(__DIR__) . 'dist/nutrition-navigator/index.js',
             null,
             true
         );
@@ -33,7 +33,7 @@ class NutritionNavigatorShortcodes {
     public function nutrition_navigator_shortcode() {
         $this->shortcode_rendered = true;
 
-//        return '<div id="nutrition-navigator"></div>';
+        return '<div id="nutrition-navigator"></div>';
     }
 
     public function wp_footer() {
