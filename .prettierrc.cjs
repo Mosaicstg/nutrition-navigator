@@ -1,11 +1,11 @@
 module.exports = {
   printWidth: 80,
-  tabWidth: 4,
+  tabWidth: 2,
   useTabs: false,
   singleQuote: true,
   overrides: [
     {
-      files: ['*.js', '*.json'],
+      files: ['*.js', '*.json', '*.cjs', '*.tsx', '*.ts'],
       options: {
         tabWidth: 2,
         trailingComma: 'none'
@@ -14,6 +14,7 @@ module.exports = {
     {
       files: '*.php',
       options: {
+        tabWidth: 4,
         trailingCommaPHP: false,
         braceStyle: '1tbs',
         requirePragma: false,
