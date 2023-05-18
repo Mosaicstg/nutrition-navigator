@@ -16,12 +16,12 @@ class FoodTrustPrograms {
     }
 
     public function init() {
-        $this->register_taxonomy();
+        $this->register_taxonomies();
         $this->register_post_type();
         $this->register_post_meta_fields();
     }
 
-    public function register_taxonomy() {
+    public function register_taxonomies() {
         // Program Type
         register_taxonomy(self::PROGRAM_TYPE_TAXONOMY_SLUG, self::POST_SLUG, [
             'labels' => [
@@ -35,7 +35,8 @@ class FoodTrustPrograms {
                 'add_new_item' => __('Add Program Type', 'nutrition-navigator'),
                 'not_found' => __('No Program Type found', 'nutrition-navigator')
             ],
-            'public' => true,
+            'public' => false,
+            'show_ui' => true,
             'has_archive' => false,
             'hierarchical' => true,
             'show_in_rest' => true,
@@ -55,7 +56,8 @@ class FoodTrustPrograms {
                 'add_new_item' => __('Add Venue', 'nutrition-navigator'),
                 'not_found' => __('No Venues found', 'nutrition-navigator')
             ],
-            'public' => true,
+            'public' => false,
+            'show_ui' => true,
             'has_archive' => false,
             'hierarchical' => true,
             'show_in_rest' => true,
@@ -75,7 +77,8 @@ class FoodTrustPrograms {
                 'add_new_item' => __('Add Audience', 'nutrition-navigator'),
                 'not_found' => __('No Audiences found', 'nutrition-navigator')
             ],
-            'public' => true,
+            'public' => false,
+            'show_ui' => true,
             'has_archive' => false,
             'hierarchical' => true,
             'show_in_rest' => true,
@@ -196,6 +199,8 @@ class FoodTrustPrograms {
     }
 
     /**
+     * Render 'Program' meta box fields
+     *
      * @return void
      */
     public function program_meta_box($post) {
@@ -261,7 +266,7 @@ class FoodTrustPrograms {
      * @return void
      */
     public function contact_meta_box($post) {
-        $phone = $this->get_contact_phone($post);
+        $phone = $this->get_program_contact_phone($post);
 
         echo '<p>';
         echo '<label for="program-contact-phone">Phone Number:</label>';
@@ -270,7 +275,7 @@ class FoodTrustPrograms {
             '" name="program-contact-phone" class="widefat" placeholder="(999) 999-9999"/>';
         echo '</p>';
 
-        $email = $this->get_contact_email($post);
+        $email = $this->get_program_contact_email($post);
 
         echo '<p>';
         echo '<label for="program-contact-email">Email:</label>';
@@ -281,6 +286,8 @@ class FoodTrustPrograms {
     }
 
     /**
+     * Taps into the `save_post` WP action hook to save custom meta fields
+     *
      * @param int     $post_id
      * @param WP_Post $post
      * @param bool    $update
@@ -339,6 +346,8 @@ class FoodTrustPrograms {
     }
 
     /**
+     * A getter for a Program's description
+     *
      * @param WP_Post $post
      *
      * @return string
@@ -354,6 +363,8 @@ class FoodTrustPrograms {
     }
 
     /**
+     * A getter for a Program's location name
+     *
      * @param WP_Post $post
      *
      * @return string
@@ -369,6 +380,8 @@ class FoodTrustPrograms {
     }
 
     /**
+     * A getter for a Program's location address
+     *
      * @param WP_Post $post
      *
      * @return string
@@ -384,6 +397,8 @@ class FoodTrustPrograms {
     }
 
     /**
+     * A getter for a Program's location latitude
+     *
      * @param WP_Post $post
      *
      * @return string
@@ -399,6 +414,8 @@ class FoodTrustPrograms {
     }
 
     /**
+     * A getter for a Program's location longitude
+     *
      * @param WP_Post $post
      *
      * @return string
@@ -414,11 +431,13 @@ class FoodTrustPrograms {
     }
 
     /**
+     * A getter for a Program's contact phone number
+     *
      * @param WP_Post $post
      *
      * @return string
      */
-    public function get_contact_phone($post) {
+    public function get_program_contact_phone($post) {
         $phone = get_post_meta($post->ID, 'program-contact-phone', true);
 
         if (empty($phone)) {
@@ -429,11 +448,13 @@ class FoodTrustPrograms {
     }
 
     /**
+     * A getter for a Program's contact email
+     *
      * @param WP_Post $post
      *
      * @return string
      */
-    public function get_contact_email($post) {
+    public function get_program_contact_email($post) {
         $email = get_post_meta($post->ID, 'program-contact-email', true);
 
         if (empty($email)) {
