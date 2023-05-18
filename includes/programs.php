@@ -100,7 +100,8 @@ class NutritionNavigatorPrograms {
                 'not_found' => __('No Programs found', 'nutrition-navigator')
             ],
             'menu_icon' => 'dashicons-location',
-            'public' => true,
+            'public' => false,
+            'show_ui' => true,
             'has_archive' => false,
             'taxonomies' => [self::PROGRAM_TYPE_TAXONOMY_SLUG, self::VENUE_TAXONOMY_SLUG, self::AUDIENCE_TAXONOMY_SLUG],
             'show_in_rest' => true,
