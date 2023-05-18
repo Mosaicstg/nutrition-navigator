@@ -1,6 +1,6 @@
 <?php
 
-class FoodTrustPrograms {
+class NutritionNavigatorPrograms {
     const POST_SLUG = 'programs';
     const POST_REWRITE_SLUG = 'programs';
 
@@ -465,4 +465,4 @@ class FoodTrustPrograms {
     }
 }
 
-new FoodTrustPrograms();
+new NutritionNavigatorPrograms();
