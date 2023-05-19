@@ -243,6 +243,31 @@ class Nutrition_Navigator_Programs {
 	public function program_meta_box($post) {
 		wp_nonce_field(plugin_basename(__FILE__), 'program_nonce');
 
+		$organizations = $this->get_current_organizations();
+
+		if (!empty($organizations)) {
+			$organization = $this->get_program_organization($post);
+
+			echo '<p>';
+			echo '<label class="program-organization">Organization: <span style="color: red; font-weight: bold">*</span></label>';
+			echo '<select id="program-organization" name="program-organization" class="widefat" required>';
+			echo '<option value="">Select Organization..</option>';
+
+			foreach ($organizations as $index => $organization_title) {
+				echo '<option value="' .
+					esc_attr($index) .
+					'" ' .
+					(is_int(intval($organization)) && intval($organization) === $index ? 'selected' : '') .
+					'>';
+				echo esc_html($organization_title);
+				echo '</option>';
+			}
+
+			echo '</select>';
+			echo '<small>This field will be available as long as there are published Organization posts.</small>';
+			echo '</p>';
+		}
+
 		$description = $this->get_program_description($post);
 
 		echo '<p><label>Description</label></p>';
@@ -371,6 +396,15 @@ class Nutrition_Navigator_Programs {
 		}
 
 		// Save/update Program Description
+		if (array_key_exists('program-organization', $_POST)) {
+			update_post_meta(
+				$post_id,
+				'program-organization',
+				sanitize_text_field(wp_unslash($_POST['program-organization']))
+			);
+		}
+
+		// Save/update Program Description
 		if (array_key_exists('program-description', $_POST)) {
 			update_post_meta(
 				$post_id,
@@ -433,6 +467,61 @@ class Nutrition_Navigator_Programs {
 				sanitize_textarea_field(wp_unslash($_POST['program-contact-email']))
 			);
 		}
+	}
+
+	/**
+	 * Get all Organizations posts
+	 *
+	 * @return array
+	 */
+	public function get_current_organizations() {
+		// Get ALL published Organization posts
+		$organizations = get_posts([
+			'post_type' => Nutrition_Navigator_Organizations::POST_SLUG,
+			'posts_per_page' => -1,
+			'post_status' => 'publish'
+		]);
+
+		if (empty($organizations)) {
+			return [];
+		}
+
+		$organizations_array = array_reduce(
+			$organizations,
+			/**
+			 * Callback for transforming array of objects to [post ID => post name] array
+			 *
+			 * @param array   $acc
+			 * @param WP_Post $current
+			 *
+			 * @return array
+			 */
+			function ($acc, $current) {
+				$acc[$current->ID] = $current->post_title;
+
+				return $acc;
+			},
+			[]
+		);
+
+		return $organizations_array;
+	}
+
+	/**
+	 * A getter for the Program's associated 'Organization'
+	 *
+	 * @param WP_Post $post Post object.
+	 *
+	 * @return string
+	 */
+	public function get_program_organization($post) {
+		$organization = get_post_meta($post->ID, 'program-organization', true);
+
+		if (empty($organization)) {
+			$organization = '';
+		}
+
+		return $organization;
 	}
 
 	/**
