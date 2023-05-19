@@ -33,34 +33,36 @@ organizations offerings food for certain demographics.
 
 Setup Node and Composer packages to ensure code quality and formatting
 
-#### Node
+### Node
 
 Run the following to install node packages:
 
-``
+```
 npm install
-``
+```
 
 If you run into any issues installed please be sure you're using node v. `^18.x`.
 
-#### Composer
+### Composer
 
 Run the following to install composer packages:
 
-``
+```
 composer install
-``
+```
 
 If you run into any issues installing packages be sure your version of php is v. `^7.3.x`.
 
-#### Git `pre-commit` hooks
+### Git `pre-commit` hooks
 
 To ensure code quality and formatting consistency across developers and commits we're using pre-commits to handle
 linting, formatting and code sniffing.
 
 Run the following to ensure `lint-staged` is set up on your machine:
 
-``npx mrm@2 lint-staged``
+```
+npx mrm@2 lint-staged
+```
 
 In some instances `lint-staged` assumes hooks you want to set up so keep an eye on the `pacakge.json` file for any new
 hook file patterns. If any new ones are added please remove them.
