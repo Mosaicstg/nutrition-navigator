@@ -1,4 +1,9 @@
 <?php
+/**
+ * Nutrition Navigator
+ *
+ * @package Nutrition Navigator
+ */
 
 /**
  * Plugin Name: Nutrition Navigator
