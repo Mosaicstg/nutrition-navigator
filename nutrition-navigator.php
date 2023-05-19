@@ -13,5 +13,5 @@
  * Author URI: https://www.mosaicstg.com
  */
 require_once 'includes/programs.php';
-require_once 'includes/organization.php';
+require_once 'includes/class-nutritionnavigatororganizations.php';
 require_once 'includes/class-nutritionnavigatorshortcodes.php';

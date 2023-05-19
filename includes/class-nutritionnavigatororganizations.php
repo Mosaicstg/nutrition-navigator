@@ -1,8 +1,19 @@
 <?php
+/**
+ * Nutrition Navigator: Create Organization custom post type
+ *
+ * @package Nutrition Navigator
+ */
 
+/**
+ * Custom post type with custom meta fields.
+ */
 class NutritionNavigatorOrganizations {
 	const POST_SLUG = 'organizations';
 
+	/**
+	 * Class constructor
+	 */
 	public function __construct() {
 		// WordPress action hooks
 		add_action('init', [$this, 'init']);
@@ -10,11 +21,21 @@ class NutritionNavigatorOrganizations {
 		add_action('save_post', [$this, 'save_post'], 10, 3);
 	}
 
+	/**
+	 * Taps into the `init` WP action hook to register custom post type and respective custom meta fields
+	 *
+	 * @return void
+	 */
 	public function init() {
 		$this->register_post_type();
 		$this->register_custom_meta_fields();
 	}
 
+	/**
+	 * Register Organizations custom post type
+	 *
+	 * @return void
+	 */
 	public function register_post_type() {
 		register_post_type(self::POST_SLUG, [
 			'labels' => [
@@ -41,6 +62,11 @@ class NutritionNavigatorOrganizations {
 		]);
 	}
 
+	/**
+	 * Register custom meta fields for Organizations post type
+	 *
+	 * @return void
+	 */
 	public function register_custom_meta_fields() {
 		// Organization Website
 		register_post_meta(self::POST_SLUG, 'organization-website', [
@@ -67,8 +93,8 @@ class NutritionNavigatorOrganizations {
 	/**
 	 * Taps into the `add_meta_boxes` WP action hook to render custom meta boxes for Organization post type
 	 *
-	 * @param string  $post_type
-	 * @param WP_Post $post
+	 * @param string  $post_type Post type.
+	 * @param WP_Post $post      Post object.
 	 *
 	 * @return void
 	 */
@@ -96,33 +122,41 @@ class NutritionNavigatorOrganizations {
 	}
 
 	/**
-	 * @param WP_Post $post
+	 * Handle rendering fields in 'Organization' meta box
+	 *
+	 * @param WP_Post $post Post object.
 	 *
 	 * @return void
 	 */
 	public function organization_meta_box($post) {
+		wp_nonce_field(plugin_basename(__FILE__), 'organization_nonce');
+
 		$website = $this->get_organization_website($post);
 
 		echo '<p>';
 		echo '<label for="organization-website">Website</label>';
 		echo '<input type="text" id="organization-website" value="' .
-			$website .
+			esc_attr($website) .
 			'" name="organization-website" class="widefat" placeholder="https://www.google.com"/>';
 		echo '</p>';
 	}
 
 	/**
-	 * @param WP_Post $post
+	 * Handle rendering fields in 'Contact' meta box
+	 *
+	 * @param WP_Post $post Post object.
 	 *
 	 * @return void
 	 */
 	public function contact_meta_box($post) {
+		//		wp_nonce_field(plugin_basename(__FILE__), 'organization_contact_nonce');
+
 		$contact_email = $this->get_organization_contact_email($post);
 
 		echo '<p>';
 		echo '<label for="organization-contact-email">Email Address</label>';
 		echo '<input type="text" id="organization-contact-email" value="' .
-			$contact_email .
+			esc_attr($contact_email) .
 			'" name="organization-contact-email" class="widefat" placeholder="test@google.com"/>';
 		echo '</p>';
 
@@ -131,7 +165,7 @@ class NutritionNavigatorOrganizations {
 		echo '<p>';
 		echo '<label for="organization-contact-phone">Phone Number</label>';
 		echo '<input type="text" id="organization-contact-phone" value="' .
-			$contact_phone .
+			esc_attr($contact_phone) .
 			'" name="organization-contact-phone" class="widefat" placeholder="(999) 999-9999"/>';
 		echo '</p>';
 	}
@@ -139,13 +173,29 @@ class NutritionNavigatorOrganizations {
 	/**
 	 * Taps into the `save_post` WP action hook to save custom meta fields
 	 *
-	 * @param int     $post_id
-	 * @param WP_Post $post
-	 * @param bool    $update
+	 * @param int     $post_id Post ID.
+	 * @param WP_Post $post    Post object.
+	 * @param bool    $update  A bool value is post is being updated or not.
 	 *
 	 * @return void
 	 */
 	public function save_post($post_id, $post, $update) {
+		// Verify meta box nonce
+		if (
+			isset($_POST['organization_nonce']) &&
+			isset($_POST['organization_contact_nonce']) &&
+			!wp_verify_nonce(
+				sanitize_text_field(wp_unslash($_POST['organization_nonce'])),
+				plugin_basename(__FILE__)
+			) &&
+			!wp_verify_nonce(
+				sanitize_text_field(wp_unslash($_POST['organization_contact_nonce'])),
+				plugin_basename(__FILE__)
+			)
+		) {
+			return;
+		}
+
 		// Check permissions
 		if (
 			(array_key_exists('post_type', $_POST) && self::POST_SLUG !== $_POST['post_type']) ||
@@ -162,24 +212,36 @@ class NutritionNavigatorOrganizations {
 
 		// Save/update Organization Website
 		if (array_key_exists('organization-website', $_POST)) {
-			update_post_meta($post_id, 'organization-website', $_POST['organization-website']);
+			update_post_meta(
+				$post_id,
+				'organization-website',
+				sanitize_text_field(wp_unslash($_POST['organization-website']))
+			);
 		}
 
 		// Save/update Organization Contact Email
 		if (array_key_exists('organization-contact-email', $_POST)) {
-			update_post_meta($post_id, 'organization-contact-email', $_POST['organization-contact-email']);
+			update_post_meta(
+				$post_id,
+				'organization-contact-email',
+				sanitize_text_field(wp_unslash($_POST['organization-contact-email']))
+			);
 		}
 
 		// Save/update Organization Contact Phone
 		if (array_key_exists('organization-contact-phone', $_POST)) {
-			update_post_meta($post_id, 'organization-contact-phone', $_POST['organization-contact-phone']);
+			update_post_meta(
+				$post_id,
+				'organization-contact-phone',
+				sanitize_text_field(wp_unslash($_POST['organization-contact-phone']))
+			);
 		}
 	}
 
 	/**
 	 * A getter for an Organization's Website field
 	 *
-	 * @param WP_Post $post
+	 * @param WP_Post $post Post object.
 	 *
 	 * @return string
 	 */
@@ -196,9 +258,9 @@ class NutritionNavigatorOrganizations {
 	/**
 	 * A getter for an Organization's Contact Email field
 	 *
-	 * @param WP_Post $post
+	 * @param WP_Post $post Post object.
 	 *
-	 * @return void
+	 * @return string
 	 */
 	public function get_organization_contact_email($post) {
 		$email = get_post_meta($post->ID, 'organization-contact-email', true);
@@ -213,9 +275,9 @@ class NutritionNavigatorOrganizations {
 	/**
 	 * A getter for an Organization's Contact Phone field
 	 *
-	 * @param WP_Post $post
+	 * @param WP_Post $post Post object.
 	 *
-	 * @return void
+	 * @return string
 	 */
 	public function get_organization_contact_phone($post) {
 		$phone = get_post_meta($post->ID, 'organization-contact-phone', true);

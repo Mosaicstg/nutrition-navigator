@@ -15,6 +15,7 @@
     <rule ref="WordPress">
         <exclude name="Generic.Arrays.DisallowShortArraySyntax.Found"/>
         <exclude name="Squiz.Commenting.InlineComment.InvalidEndChar"/>
+        <exclude name="Squiz.Functions.FunctionDeclarationArgumentSpacing.SpacingAfterOpen"/>
 
         <!-- Formatting only rules -->
         <exclude name="Generic.WhiteSpace.DisallowSpaceIndent.SpacesUsed"/>
@@ -26,5 +27,12 @@
         <exclude name="WordPress.WhiteSpace.OperatorSpacing.NoSpaceAfter"/>
         <exclude name="WordPress.WhiteSpace.ControlStructureSpacing.NoSpaceAfterOpenParenthesis"/>
         <exclude name="WordPress.WhiteSpace.ControlStructureSpacing.NoSpaceBeforeCloseParenthesis"/>
+        <exclude name="WordPress.Arrays.MultipleStatementAlignment.DoubleArrowNotAligned"/>
+        <exclude name="WordPress.Arrays.CommaAfterArrayItem.NoComma"/>
+        <exclude name="PEAR.Functions.FunctionCallSignature.ContentAfterOpenBracket"/>
+        <exclude name="PEAR.Functions.FunctionCallSignature.MultipleArguments"/>
+        <exclude name="PEAR.Functions.FunctionCallSignature.CloseBracketLine"/>
+        <exclude name="Generic.WhiteSpace.ArbitraryParenthesesSpacing.SpaceBeforeClose"/>
+        <exclude name="Generic.WhiteSpace.ArbitraryParenthesesSpacing.SpaceAfterOpen"/>
     </rule>
 </ruleset>
