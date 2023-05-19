@@ -37,7 +37,7 @@ Setup Node and Composer packages to ensure code quality and formatting
 
 Run the following to install node packages:
 
-```
+```bash
 npm install
 ```
 
@@ -47,7 +47,7 @@ If you run into any issues installed please be sure you're using node v. `^18.x`
 
 Run the following to install composer packages:
 
-```
+```bash
 composer install
 ```
 
@@ -60,7 +60,7 @@ linting, formatting and code sniffing.
 
 Run the following to ensure `lint-staged` is set up on your machine:
 
-```
+```bash
 npx mrm@2 lint-staged
 ```
 
