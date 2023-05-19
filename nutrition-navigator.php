@@ -9,4 +9,4 @@
  */
 require_once 'includes/programs.php';
 require_once 'includes/organization.php';
-require_once 'includes/shortcodes.php';
+require_once 'includes/class-nutritionnavigatorshortcodes.php';

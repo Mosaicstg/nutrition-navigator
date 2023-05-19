@@ -15,6 +15,7 @@ module.exports = {
       files: '*.php',
       options: {
         tabWidth: 4,
+        useTabs: true,
         trailingCommaPHP: false,
         braceStyle: '1tbs',
         requirePragma: false,

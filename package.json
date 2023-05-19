@@ -9,7 +9,8 @@
     "build": "tsc && vite build",
     "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "phpcs": "vendor/bin/phpcs ."
   },
   "dependencies": {
     "react": "^18.2.0",
@@ -56,8 +57,12 @@
       "prettier --write",
       "stylelint --fix"
     ],
-    "*.{js,php}": [
+    "*.{js}": [
       "prettier --write"
+    ],
+    "*.{php}": [
+      "prettier --write",
+      "vendor/bin/phpcbf"
     ]
   }
 }
