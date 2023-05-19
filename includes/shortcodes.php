@@ -27,7 +27,7 @@ class NutritionNavigatorShortcodes {
         );
 
         // Load React app build styles
-        wp_enqueue_style(
+        wp_register_style(
             'nutrition-navigator',
             plugin_dir_url(__DIR__) . 'dist/nutrition-navigator/index.css',
             [],
@@ -41,6 +41,9 @@ class NutritionNavigatorShortcodes {
 
     public function nutrition_navigator_shortcode() {
         $this->shortcode_rendered = true;
+
+        // Only loads styles when shortcode is rendered
+        wp_enqueue_style('nutrition-navigator');
 
         return '<div id="nutrition-navigator"></div>';
     }
