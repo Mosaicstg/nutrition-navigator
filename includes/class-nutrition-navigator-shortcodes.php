@@ -8,7 +8,7 @@
 /**
  * Create shortcodes for plugin
  */
-class NutritionNavigatorShortcodes {
+class Nutrition_Navigator_Shortcodes {
 	/**
 	 * A bool value that tracks if shortcode is rendered.
 	 *
@@ -95,4 +95,4 @@ class NutritionNavigatorShortcodes {
 	}
 }
 
-new NutritionNavigatorShortcodes();
+new Nutrition_Navigator_Shortcodes();

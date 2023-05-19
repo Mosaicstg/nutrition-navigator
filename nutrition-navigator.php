@@ -12,6 +12,6 @@
  * Author: Mosaic Strategies Group
  * Author URI: https://www.mosaicstg.com
  */
-require_once 'includes/programs.php';
-require_once 'includes/class-nutritionnavigatororganizations.php';
-require_once 'includes/class-nutritionnavigatorshortcodes.php';
+require_once 'includes/class-nutrition-navigator-programs.php';
+require_once 'includes/class-nutrition-navigator-organizations.php';
+require_once 'includes/class-nutrition-navigator-shortcodes.php';

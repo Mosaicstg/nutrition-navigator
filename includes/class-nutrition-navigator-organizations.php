@@ -8,7 +8,7 @@
 /**
  * Custom post type with custom meta fields.
  */
-class NutritionNavigatorOrganizations {
+class Nutrition_Navigator_Organizations {
 	const POST_SLUG = 'organizations';
 
 	/**
@@ -290,4 +290,4 @@ class NutritionNavigatorOrganizations {
 	}
 }
 
-new NutritionNavigatorOrganizations();
+new Nutrition_Navigator_Organizations();

@@ -1,13 +1,27 @@
 <?php
+/**
+ * Nutrition Navigator: "Programs" custom post type
+ *
+ * @package Nutrition Navigator
+ */
 
-class NutritionNavigatorPrograms {
+/**
+ * Create custom post type 'Programs', taxonomies and meta fields
+ */
+class Nutrition_Navigator_Programs {
 	const POST_SLUG = 'programs';
+
 	const POST_REWRITE_SLUG = 'programs';
 
 	const PROGRAM_TYPE_TAXONOMY_SLUG = 'program-type';
+
 	const VENUE_TAXONOMY_SLUG = 'venue';
+
 	const AUDIENCE_TAXONOMY_SLUG = 'audience';
 
+	/**
+	 * Class constructor
+	 */
 	public function __construct() {
 		// WordPress action hooks
 		add_action('init', [$this, 'init']);
@@ -15,12 +29,22 @@ class NutritionNavigatorPrograms {
 		add_action('save_post', [$this, 'save_post'], 10, 3);
 	}
 
+	/**
+	 * Taps into the `init` WP action hook to register post type, taxonomies and custom meta fields
+	 *
+	 * @return void
+	 */
 	public function init() {
 		$this->register_taxonomies();
 		$this->register_post_type();
 		$this->register_post_meta_fields();
 	}
 
+	/**
+	 * Register custom taxonomies for Programs custom post type
+	 *
+	 * @return void
+	 */
 	public function register_taxonomies() {
 		// Program Type
 		register_taxonomy(self::PROGRAM_TYPE_TAXONOMY_SLUG, self::POST_SLUG, [
@@ -86,6 +110,11 @@ class NutritionNavigatorPrograms {
 		]);
 	}
 
+	/**
+	 * Register 'Programs' custom post type
+	 *
+	 * @return void
+	 */
 	public function register_post_type() {
 		register_post_type(self::POST_SLUG, [
 			'labels' => [
@@ -114,6 +143,11 @@ class NutritionNavigatorPrograms {
 		]);
 	}
 
+	/**
+	 * Register custom post meta fields for 'Programs' custom post type
+	 *
+	 * @return void
+	 */
 	public function register_post_meta_fields() {
 		// Location Name
 		register_post_meta(self::POST_SLUG, 'program-location-name', [
@@ -168,8 +202,8 @@ class NutritionNavigatorPrograms {
 	/**
 	 * Taps into the `add_meta_boxes` WP action hook to render custom meta boxes for Programs post type
 	 *
-	 * @param string  $post_type
-	 * @param WP_Post $post
+	 * @param string  $post_type Post type.
+	 * @param WP_Post $post      Post object.
 	 *
 	 * @return void
 	 */
@@ -202,9 +236,13 @@ class NutritionNavigatorPrograms {
 	/**
 	 * Render 'Program' meta box fields
 	 *
+	 * @param WP_Post $post Post object.
+	 *
 	 * @return void
 	 */
 	public function program_meta_box($post) {
+		wp_nonce_field(plugin_basename(__FILE__), 'program_nonce');
+
 		$description = $this->get_program_description($post);
 
 		echo '<p><label>Description</label></p>';
@@ -217,17 +255,19 @@ class NutritionNavigatorPrograms {
 	/**
 	 * Render 'Location' meta box fields
 	 *
-	 * @param WP_Post $post
+	 * @param WP_Post $post Post object.
 	 *
 	 * @return void
 	 */
 	public function location_meta_box($post) {
+		wp_nonce_field(plugin_basename(__FILE__), 'program_location_nonce');
+
 		$location_name = $this->get_program_location_name($post);
 
 		echo '<p>';
 		echo '<label for="program-location-name">Name</label>';
 		echo '<input type="text" id="program-location-name" value="' .
-			$location_name .
+			esc_attr($location_name) .
 			'" name="program-location-name" class="widefat" placeholder="Location Name"/>';
 		echo '</p>';
 
@@ -236,7 +276,7 @@ class NutritionNavigatorPrograms {
 		echo '<p>';
 		echo '<label for="program-location-address">Address</label>';
 		echo '<input type="text" id="program-location-address" value="' .
-			$location_address .
+			esc_attr($location_address) .
 			'" name="program-location-address" class="widefat" placeholder="123 Placeholder Lane"/>';
 		echo '</p>';
 
@@ -245,7 +285,7 @@ class NutritionNavigatorPrograms {
 		echo '<p>';
 		echo '<label for="program-location-latitude">Latitude <span style="color:red; font-weight: bold">*</span></label>';
 		echo '<input type="text" id="program-location-latitude" value="' .
-			$latitude .
+			esc_attr($latitude) .
 			'" name="program-location-latitude" class="widefat" placeholder="-99.222" required/>';
 		echo '</p>';
 
@@ -254,7 +294,7 @@ class NutritionNavigatorPrograms {
 		echo '<p>';
 		echo '<label for="program-location-longitude">Longitude <span style="color:red; font-weight: bold">*</span></label>';
 		echo '<input type="text" id="program-location-longitude" value="' .
-			$longitude .
+			esc_attr($longitude) .
 			'" name="program-location-longitude" class="widefat" placeholder="-99.22" required/>';
 		echo '</p>';
 	}
@@ -262,17 +302,19 @@ class NutritionNavigatorPrograms {
 	/**
 	 * Render 'Contact' meta box fields
 	 *
-	 * @param WP_Post $post
+	 * @param WP_Post $post Post object.
 	 *
 	 * @return void
 	 */
 	public function contact_meta_box($post) {
+		wp_nonce_field(plugin_basename(__FILE__), 'program_contact_nonce');
+
 		$phone = $this->get_program_contact_phone($post);
 
 		echo '<p>';
 		echo '<label for="program-contact-phone">Phone Number:</label>';
 		echo '<input type="text" id="program-contact-phone" value="' .
-			$phone .
+			esc_attr($phone) .
 			'" name="program-contact-phone" class="widefat" placeholder="(999) 999-9999"/>';
 		echo '</p>';
 
@@ -281,7 +323,7 @@ class NutritionNavigatorPrograms {
 		echo '<p>';
 		echo '<label for="program-contact-email">Email:</label>';
 		echo '<input type="text" id="program-contact-email" value="' .
-			$email .
+			esc_attr($email) .
 			'" name="program-contact-email" class="widefat" placeholder="test@google.com"/>';
 		echo '</p>';
 	}
@@ -289,13 +331,31 @@ class NutritionNavigatorPrograms {
 	/**
 	 * Taps into the `save_post` WP action hook to save custom meta fields
 	 *
-	 * @param int     $post_id
-	 * @param WP_Post $post
-	 * @param bool    $update
+	 * @param int     $post_id Post ID.
+	 * @param WP_Post $post    Post object.
+	 * @param bool    $update  A bool flag is post is being updated or not.
 	 *
 	 * @return void
 	 */
 	public function save_post($post_id, $post, $update) {
+		// Verify meta box nonce
+		if (
+			isset($_POST['program_nonce']) &&
+			isset($_POST['program_location_nonce']) &&
+			isset($_POST['program_contact_nonce']) &&
+			!wp_verify_nonce(sanitize_text_field(wp_unslash($_POST['program_nonce'])), plugin_basename(__FILE__)) &&
+			!wp_verify_nonce(
+				sanitize_text_field(wp_unslash($_POST['program_location_nonce'])),
+				plugin_basename(__FILE__)
+			) &&
+			!wp_verify_nonce(
+				sanitize_text_field(wp_unslash($_POST['program_contact_nonce'])),
+				plugin_basename(__FILE__)
+			)
+		) {
+			return;
+		}
+
 		// Check permissions
 		if (
 			(array_key_exists('post_type', $_POST) && self::POST_SLUG !== $_POST['post_type']) ||
@@ -312,44 +372,73 @@ class NutritionNavigatorPrograms {
 
 		// Save/update Program Description
 		if (array_key_exists('program-description', $_POST)) {
-			update_post_meta($post_id, 'program-description', $_POST['program-description']);
+			update_post_meta(
+				$post_id,
+				'program-description',
+				// This fields is a WYSIWYG
+				sanitize_textarea_field(wp_unslash($_POST['program-description']))
+			);
 		}
 
 		// Save/update Program Location Name
 		if (array_key_exists('program-location-name', $_POST)) {
-			update_post_meta($post_id, 'program-location-name', $_POST['program-location-name']);
+			update_post_meta(
+				$post_id,
+				'program-location-name',
+				sanitize_text_field(wp_unslash($_POST['program-location-name']))
+			);
 		}
 
 		// Save/update Program Location Address
 		if (array_key_exists('program-location-address', $_POST)) {
-			update_post_meta($post_id, 'program-location-address', $_POST['program-location-address']);
+			update_post_meta(
+				$post_id,
+				'program-location-address',
+				sanitize_text_field(wp_unslash($_POST['program-location-address']))
+			);
 		}
 
 		// Save/update Program Location Latitude
 		if (array_key_exists('program-location-latitude', $_POST)) {
-			update_post_meta($post_id, 'program-location-latitude', $_POST['program-location-latitude']);
+			update_post_meta(
+				$post_id,
+				'program-location-latitude',
+				sanitize_text_field(wp_unslash($_POST['program-location-latitude']))
+			);
 		}
 
 		// Save/update Program Location Latitude
 		if (array_key_exists('program-location-longitude', $_POST)) {
-			update_post_meta($post_id, 'program-location-longitude', $_POST['program-location-longitude']);
+			update_post_meta(
+				$post_id,
+				'program-location-longitude',
+				sanitize_text_field(wp_unslash($_POST['program-location-longitude']))
+			);
 		}
 
 		// Save/update Program Contact Phone
 		if (array_key_exists('program-contact-phone', $_POST)) {
-			update_post_meta($post_id, 'program-contact-phone', $_POST['program-contact-phone']);
+			update_post_meta(
+				$post_id,
+				'program-contact-phone',
+				sanitize_text_field(wp_unslash($_POST['program-contact-phone']))
+			);
 		}
 
 		// Save/update Program Contact Email
 		if (array_key_exists('program-contact-email', $_POST)) {
-			update_post_meta($post_id, 'program-contact-email', $_POST['program-contact-email']);
+			update_post_meta(
+				$post_id,
+				'program-contact-email',
+				sanitize_textarea_field(wp_unslash($_POST['program-contact-email']))
+			);
 		}
 	}
 
 	/**
 	 * A getter for a Program's description
 	 *
-	 * @param WP_Post $post
+	 * @param WP_Post $post Post object.
 	 *
 	 * @return string
 	 */
@@ -366,7 +455,7 @@ class NutritionNavigatorPrograms {
 	/**
 	 * A getter for a Program's location name
 	 *
-	 * @param WP_Post $post
+	 * @param WP_Post $post Post object.
 	 *
 	 * @return string
 	 */
@@ -383,7 +472,7 @@ class NutritionNavigatorPrograms {
 	/**
 	 * A getter for a Program's location address
 	 *
-	 * @param WP_Post $post
+	 * @param WP_Post $post Post object.
 	 *
 	 * @return string
 	 */
@@ -400,7 +489,7 @@ class NutritionNavigatorPrograms {
 	/**
 	 * A getter for a Program's location latitude
 	 *
-	 * @param WP_Post $post
+	 * @param WP_Post $post Post object.
 	 *
 	 * @return string
 	 */
@@ -417,7 +506,7 @@ class NutritionNavigatorPrograms {
 	/**
 	 * A getter for a Program's location longitude
 	 *
-	 * @param WP_Post $post
+	 * @param WP_Post $post Post object.
 	 *
 	 * @return string
 	 */
@@ -434,7 +523,7 @@ class NutritionNavigatorPrograms {
 	/**
 	 * A getter for a Program's contact phone number
 	 *
-	 * @param WP_Post $post
+	 * @param WP_Post $post Post object.
 	 *
 	 * @return string
 	 */
@@ -451,7 +540,7 @@ class NutritionNavigatorPrograms {
 	/**
 	 * A getter for a Program's contact email
 	 *
-	 * @param WP_Post $post
+	 * @param WP_Post $post Post object.
 	 *
 	 * @return string
 	 */
@@ -466,4 +555,4 @@ class NutritionNavigatorPrograms {
 	}
 }
 
-new NutritionNavigatorPrograms();
+new Nutrition_Navigator_Programs();
