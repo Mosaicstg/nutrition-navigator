@@ -149,7 +149,7 @@ class NutritionNavigatorOrganizations {
 	 * @return void
 	 */
 	public function contact_meta_box($post) {
-		//		wp_nonce_field(plugin_basename(__FILE__), 'organization_contact_nonce');
+		wp_nonce_field(plugin_basename(__FILE__), 'organization_contact_nonce');
 
 		$contact_email = $this->get_organization_contact_email($post);
 
