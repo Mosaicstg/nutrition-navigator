@@ -10,7 +10,8 @@
     "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
     "prepare": "husky install",
-    "phpcs": "vendor/bin/phpcs ."
+    "phpcs": "vendor/bin/phpcs .",
+    "phpcbf": "vendor/bin/phpcbf ."
   },
   "dependencies": {
     "react": "^18.2.0",
@@ -57,11 +58,8 @@
       "prettier --write",
       "stylelint --fix"
     ],
-    "*.{js}": [
+    "*.{js,php}": [
       "prettier --write"
-    ],
-    "*.{php}": [
-      "vendor/bin/phpcbf"
     ]
   }
 }
