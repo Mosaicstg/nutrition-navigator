@@ -5,8 +5,9 @@
   "type": "module",
   "main": "nutrition-navigator.js",
   "scripts": {
-    "dev": "vite build --watch -m development",
+    "dev": "vite",
     "build": "tsc && vite build",
+    "build:watch": "vite build --watch -m development",
     "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
     "prepare": "husky install",

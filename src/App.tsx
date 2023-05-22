@@ -2,13 +2,18 @@ import { useState } from 'react';
 import './App.scss';
 
 import useVenues from './hooks/useVenues.tsx';
+import useAudiences from './hooks/useAudiences.tsx';
+import useProgramTypes from './hooks/useProgramTypes.tsx';
 
 function App() {
   const [count, setCount] = useState(0);
 
-  const { data } = useVenues();
+  const { data: venuesData } = useVenues();
+  const { data: audiencesData } = useAudiences();
+  const { data: programTypesData } = useProgramTypes();
 
-  console.log(data);
+  // Testings hooks output
+  console.log({ venuesData, audiencesData, programTypesData });
 
   return (
     <>
@@ -21,7 +26,7 @@ function App() {
           <div className={'logo'}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              xmlns:xlink="http://www.w3.org/1999/xlink"
+              xmlnsXlink="http://www.w3.org/1999/xlink"
               aria-hidden="true"
               role="img"
               className="iconify iconify--logos"
@@ -38,8 +43,8 @@ function App() {
                   y1="7.652%"
                   y2="78.411%"
                 >
-                  <stop offset="0%" stop-color="#41D1FF"></stop>
-                  <stop offset="100%" stop-color="#BD34FE"></stop>
+                  <stop offset="0%" stopColor="#41D1FF"></stop>
+                  <stop offset="100%" stopColor="#BD34FE"></stop>
                 </linearGradient>
                 <linearGradient
                   id="IconifyId1813088fe1fbc01fb467"
@@ -48,9 +53,9 @@ function App() {
                   y1="2.242%"
                   y2="89.03%"
                 >
-                  <stop offset="0%" stop-color="#FFEA83"></stop>
-                  <stop offset="8.333%" stop-color="#FFDD35"></stop>
-                  <stop offset="100%" stop-color="#FFA800"></stop>
+                  <stop offset="0%" stopColor="#FFEA83"></stop>
+                  <stop offset="8.333%" stopColor="#FFDD35"></stop>
+                  <stop offset="100%" stopColor="#FFA800"></stop>
                 </linearGradient>
               </defs>
               <path
@@ -68,7 +73,7 @@ function App() {
           <div className={'logo react'}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              xmlns:xlink="http://www.w3.org/1999/xlink"
+              xmlnsXlink="http://www.w3.org/1999/xlink"
               aria-hidden="true"
               role="img"
               className="iconify iconify--logos"
