@@ -18,10 +18,6 @@ function App() {
   return (
     <>
       <div>
-        <p>Hello World</p>
-        <p>Hello World Again</p>
-      </div>
-      <div>
         <a href="https://vitejs.dev" target="_blank">
           <div className={'logo'}>
             <svg
