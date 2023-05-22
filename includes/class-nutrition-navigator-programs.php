@@ -177,6 +177,13 @@ class Nutrition_Navigator_Programs {
 			'show_in_rest' => true
 		]);
 
+		// Location Dates/times offered
+		register_post_meta(self::POST_SLUG, 'program-location-dates-times-offered', [
+			'type' => 'string',
+			'single' => true,
+			'show_in_rest' => true
+		]);
+
 		// Description
 		register_post_meta(self::POST_SLUG, 'program-description', [
 			'type' => 'string',
@@ -322,6 +329,14 @@ class Nutrition_Navigator_Programs {
 			esc_attr($longitude) .
 			'" name="program-location-longitude" class="widefat" placeholder="-99.22" required/>';
 		echo '</p>';
+
+		$dates_times_offered = $this->get_program_dates_times_offered($post);
+
+		echo '<p><label>Dates/times offered</label></p>';
+		wp_editor($dates_times_offered, self::POST_SLUG . '-program-location-dates-times-offered', [
+			'textarea_name' => 'program-location-dates-times-offered',
+			'textarea_rows' => 5
+		]);
 	}
 
 	/**
@@ -447,6 +462,14 @@ class Nutrition_Navigator_Programs {
 				$post_id,
 				'program-location-longitude',
 				sanitize_text_field(wp_unslash($_POST['program-location-longitude']))
+			);
+		}
+
+		if (array_key_exists('program-location-dates-times-offered', $_POST)) {
+			update_post_meta(
+				$post_id,
+				'program-location-dates-times-offered',
+				sanitize_textarea_field(wp_unslash($_POST['program-location-dates-times-offered']))
 			);
 		}
 
@@ -607,6 +630,23 @@ class Nutrition_Navigator_Programs {
 		}
 
 		return $longitude;
+	}
+
+	/**
+	 * A getter for a Program's location dates/times offered
+	 *
+	 * @param WP_Post $post Post object.
+	 *
+	 * @return string
+	 */
+	public function get_program_dates_times_offered($post) {
+		$dates_times_offered = get_post_meta($post->ID, 'program-location-dates-times-offered', true);
+
+		if (empty($dates_times_offered)) {
+			$dates_times_offered = '';
+		}
+
+		return $dates_times_offered;
 	}
 
 	/**
