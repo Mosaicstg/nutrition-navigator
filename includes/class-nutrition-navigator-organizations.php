@@ -50,7 +50,7 @@ class Nutrition_Navigator_Organizations {
 				'not_found' => __('No Organizations found', 'nutrition-navigator')
 			],
 			'menu_icon' => 'dashicons-groups',
-			'public' => false,
+			'public' => true,
 			'show_ui' => true,
 			'has_archive' => false,
 			'show_in_rest' => true,
