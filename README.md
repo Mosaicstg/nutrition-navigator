@@ -1,5 +1,9 @@
 # Nutrition Navigator
 
+![Screenshot of Nutrition Navigator](./screenshot.png)
+
+## Table of contents
+
 - [Background Information](#description)
 - [Development](#development)
 - [Custom Post Types](#custom-post-types)
