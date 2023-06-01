@@ -211,7 +211,7 @@ class Nutrition_Navigator_Programs {
 				'slug' => self::POST_REWRITE_SLUG,
 				'with_front' => false
 			],
-			'supports' => ['title', 'revisions', 'thumbnail', 'custom-fields']
+			'supports' => ['title', 'revisions', 'thumbnail', 'custom-fields', 'author']
 		]);
 	}
 
