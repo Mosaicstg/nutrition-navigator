@@ -23,10 +23,63 @@ class Nutrition_Navigator_Programs {
 	 * Class constructor
 	 */
 	public function __construct() {
+		// WordPress filter hooks
+		add_filter('manage_edit-' . self::PROGRAM_TYPE_TAXONOMY_SLUG . '_columns', [
+			$this,
+			'manage_edit_program_type_columns'
+		]);
+		add_filter(
+			'manage_' . self::PROGRAM_TYPE_TAXONOMY_SLUG . '_custom_column',
+			[$this, 'manage_program_type_custom_column'],
+			10,
+			3
+		);
+
 		// WordPress action hooks
 		add_action('init', [$this, 'init']);
 		add_action('add_meta_boxes', [$this, 'add_meta_boxes'], 10, 2);
 		add_action('save_post', [$this, 'save_post'], 10, 3);
+		add_action('admin_enqueue_scripts', [$this, 'admin_enqueue_scripts']);
+		add_action(
+			self::PROGRAM_TYPE_TAXONOMY_SLUG . '_edit_form_fields',
+			[$this, 'program_type_edit_form_fields'],
+			10,
+			2
+		);
+		add_action('edited_' . self::PROGRAM_TYPE_TAXONOMY_SLUG, [$this, 'edited_program_type'], 10, 3);
+	}
+
+	/**
+	 * Taps into the `manage_edit_program-type_columns` WP filter hook to add custom columns in admin screen when
+	 * viewing all Program Types
+	 *
+	 * @param array $columns An array of all columns in view all of the taxonomy terms.
+	 *
+	 * @return array
+	 */
+	public function manage_edit_program_type_columns($columns) {
+		$columns['icon'] = 'Icon';
+
+		return $columns;
+	}
+
+	/**
+	 * Taps into the `manage_program_type_custom_column` to render HTML for custom column.
+	 *
+	 * @param string $string      String HTML content of column.
+	 * @param string $column_name Slug of current column that's to render.
+	 * @param int    $term_id     Current taxonomy term ID.
+	 *
+	 * @return string
+	 */
+	public function manage_program_type_custom_column($string, $column_name, $term_id) {
+		$icon = $this->get_program_type_icon($term_id);
+
+		if ('icon' === $column_name && !empty($icon)) {
+			$string = '<img src="' . esc_url($icon) . '" alt="" style="max-width: 100%;"/>';
+		}
+
+		return $string;
 	}
 
 	/**
@@ -36,6 +89,7 @@ class Nutrition_Navigator_Programs {
 	 */
 	public function init() {
 		$this->register_taxonomies();
+		$this->register_taxonomy_meta_fields();
 		$this->register_post_type();
 		$this->register_post_meta_fields();
 	}
@@ -64,7 +118,8 @@ class Nutrition_Navigator_Programs {
 			'has_archive' => false,
 			'hierarchical' => true,
 			'show_in_rest' => true,
-			'show_in_nav_menus' => false
+			'show_in_nav_menus' => false,
+			'show_admin_column' => true
 		]);
 
 		// Venue
@@ -85,7 +140,8 @@ class Nutrition_Navigator_Programs {
 			'has_archive' => false,
 			'hierarchical' => true,
 			'show_in_rest' => true,
-			'show_in_nav_menus' => false
+			'show_in_nav_menus' => false,
+			'show_admin_column' => true
 		]);
 
 		// Audiences
@@ -106,7 +162,23 @@ class Nutrition_Navigator_Programs {
 			'has_archive' => false,
 			'hierarchical' => true,
 			'show_in_rest' => true,
-			'show_in_nav_menus' => false
+			'show_in_nav_menus' => false,
+			'show_admin_column' => true
+		]);
+	}
+
+	/**
+	 * Register custom meta fields for taxonomies
+	 *
+	 * @return void
+	 */
+	public function register_taxonomy_meta_fields() {
+		// Icon field for Program Type
+		register_term_meta(self::PROGRAM_TYPE_TAXONOMY_SLUG, 'icon', [
+			'type' => 'string',
+			'single' => true,
+			'default' => '',
+			'show_in_rest' => true
 		]);
 	}
 
@@ -493,6 +565,96 @@ class Nutrition_Navigator_Programs {
 	}
 
 	/**
+	 * Taps into the `admin_enqueue_scripts` WP action hook to load custom scripts on admin dashboard
+	 *
+	 * @return void
+	 */
+	public function admin_enqueue_scripts() {
+		if (!is_admin()) {
+			return;
+		}
+
+		$current_screen = get_current_screen();
+
+		if (self::POST_SLUG !== $current_screen->post_type) {
+			return;
+		}
+
+		if (self::PROGRAM_TYPE_TAXONOMY_SLUG !== $current_screen->taxonomy) {
+			return;
+		}
+
+		wp_enqueue_media();
+		wp_enqueue_script('program-type', plugin_dir_url(__DIR__) . 'admin/program-type.js', ['jquery'], '1.0.0', true);
+	}
+
+	/**
+	 * Taps into to the `program-type_edit_form_fields` WP action hook that fires on the edit screen for a taxonomy term
+	 *
+	 * @param WP_Term $tag      The current taxonomy term.
+	 * @param string  $taxonomy The current taxonomy.
+	 *
+	 * @return void
+	 */
+	public function program_type_edit_form_fields($tag, $taxonomy) {
+		$icon = $this->get_program_type_icon($tag->term_id);
+
+		echo '<tr class="form-field term-icon-wrap">';
+		echo '<th scope="row">' . esc_html(__('Icon', 'nutrition-navigator')) . '</th>';
+		echo '<td>';
+
+		echo '<div class="custom-img-container">';
+
+		if (!empty($icon)) {
+			echo '<img src="' . esc_url($icon) . '" style="max-width:100%;"/>';
+		}
+
+		echo '</div>';
+
+		echo '<p class="hide-if-no-js">';
+		echo '<button type="button" class="button upload-custom-img ' .
+			(!empty($icon) ? 'hidden' : '') .
+			'">' .
+			esc_html(__('Add Icon', 'nutrition-navigator')) .
+			'</button>';
+		echo '<button type="button" class="button delete-custom-img ' .
+			(empty($icon) ? 'hidden' : '') .
+			'">' .
+			esc_html(__('Remove Icon', 'nutrition-navigator')) .
+			'</button>';
+		echo '</p>';
+
+		wp_nonce_field(plugin_basename(__FILE__), 'program_type_nonce');
+		echo '<input class="custom-img-id" name="icon" type="hidden" value="' . esc_attr($icon) . '" />';
+
+		echo '</td>';
+		echo '</tr>';
+	}
+
+	/**
+	 * Taps into the `edited_{$taxonomy}` WP filter hook to save custom meta for Program Type taxonomy.
+	 *
+	 * @param int   $term_id Term ID.
+	 * @param int   $tt_id   Term taxonomy ID.
+	 * @param array $args    Arguments passed to wp_update_term().
+	 *
+	 * @return void
+	 * @see wp_update_term()
+	 */
+	public function edited_program_type($term_id, $tt_id, $args) {
+		if (
+			isset($_POST['program_type_nonce']) &&
+			!wp_verify_nonce(sanitize_text_field(wp_unslash($_POST['program_type_nonce'])), plugin_basename(__FILE__))
+		) {
+			return;
+		}
+
+		$icon = isset($_POST['icon']) ? sanitize_text_field(wp_unslash($_POST['icon'])) : '';
+
+		update_term_meta($term_id, 'icon', $icon);
+	}
+
+	/**
 	 * Get all Organizations posts
 	 *
 	 * @return array
@@ -681,6 +843,23 @@ class Nutrition_Navigator_Programs {
 		}
 
 		return $email;
+	}
+
+	/**
+	 * A getter for a Program Type's icon image URL string
+	 *
+	 * @param int $term_id ID of taxonomy term.
+	 *
+	 * @return string
+	 */
+	public function get_program_type_icon($term_id) {
+		$icon = get_term_meta($term_id, 'icon', true);
+
+		if (empty($icon)) {
+			$icon = '';
+		}
+
+		return $icon;
 	}
 }
 
