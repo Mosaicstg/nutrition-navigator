@@ -15,3 +15,4 @@
 require_once 'includes/class-nutrition-navigator-programs.php';
 require_once 'includes/class-nutrition-navigator-organizations.php';
 require_once 'includes/class-nutrition-navigator-shortcodes.php';
+require_once 'includes/class-nutrition-navigator-rest-api.php';
