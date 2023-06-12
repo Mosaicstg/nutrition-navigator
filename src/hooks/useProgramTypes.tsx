@@ -1,4 +1,4 @@
-import { useQuery } from 'react-query';
+import { useQuery } from '@tanstack/react-query';
 import { fetchApi } from '../api/fetch.ts';
 
 const fetchAllProgramTypes = () => {
@@ -8,9 +8,12 @@ const fetchAllProgramTypes = () => {
 };
 
 const useProgramTypes = () => {
-  return useQuery('allProgramTypes', fetchAllProgramTypes, {
+  return useQuery({
+    queryKey: ['allProgramTypes'],
+    queryFn: fetchAllProgramTypes,
     // Only run query on page load or component mount
-    retry: false
+    retry: false,
+    select: (data) => data
   });
 };
 
