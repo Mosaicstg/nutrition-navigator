@@ -1,34 +1,21 @@
-import './App.scss';
+// Components
 import { MapContainer, Marker, Popup, TileLayer } from 'react-leaflet';
-import 'leaflet/dist/leaflet.css';
-import usePrograms from './hooks/usePrograms.tsx';
 import MapFilters from './components/MapFilters.tsx';
-import { useState } from 'react';
-import { Filters } from './types.ts';
 
-const Loading = () => {
-  return null;
-};
+// Hooks
+import useAllPrograms from './hooks/useAllPrograms.tsx';
 
-const defaultFilters: Filters = {
-  'program-types': [],
-  venues: [],
-  audiences: [],
-  'organization-name': '',
-  address: ''
-};
+// CSS
+import 'leaflet/dist/leaflet.css';
+import './App.scss';
 
 const App = () => {
-  const [filters, setFilters] = useState(() => defaultFilters);
-  const { data: allPrograms, status: allProgramsStatus } = usePrograms(filters);
-
-  if ('loading' === allProgramsStatus) {
-    return <Loading />;
-  }
+  const { state, dispatch } = useAllPrograms();
+  const { filteredPrograms } = state;
 
   return (
     <div className={'nutrition-navigator__map'}>
-      <MapFilters {...{ filters, setFilters }} />
+      <MapFilters {...{ state, dispatch }} />
       <MapContainer
         center={[51.505, -0.09]}
         zoom={13}
@@ -42,7 +29,7 @@ const App = () => {
             'pk.eyJ1IjoibW9zYWljc2VydmljZXMiLCJhIjoiY2w4ZGkzaTRmMDUzMzNwbnZ3cGw3N2t6MSJ9.Zbkp1mgAgfzBcmVhr4GG4A'
           }
         />
-        {allPrograms?.map((program, index) => {
+        {filteredPrograms?.map((program, index) => {
           return (
             <Marker
               key={index}
