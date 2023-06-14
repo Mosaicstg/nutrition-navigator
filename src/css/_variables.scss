@@ -1,0 +1,137 @@
+@use "sass:meta";
+
+@import url("https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Lato:wght@700;900&display=swap");
+
+// Color system
+//
+// Brand Colors (https://chir.ag/projects/name-that-color/)
+$masala: #403c3b;
+$concrete: #f3f3f3;
+$tango: #f27024;
+$atomic-tangerine: #fb9e72;
+$fresh-eggplant: #980062;
+$forget-me-not: #fff1eb;
+$sushi: #8cc540;
+$frost: #f3faee;
+
+$white: #fff;
+$pale-green: #f3faee;
+$green: #8cc540;
+$orange: #f27024;
+$purple: #980062;
+$blue: #101d3d;
+$dark-gray: #403c3b;
+
+$body-font: "Source Sans Pro", sans-serif;
+$heading-font: "Lato", sans-serif;
+
+$font-weight-normal: 400;
+$font-weight-bold: 700;
+$font-weight-black: 900;
+
+$h1-font: $heading-font;
+$h1-font-size: 44px;
+$h1-line-height: 1.1em;
+$h1-font-weight: $font-weight-bold;
+$h1-letter-spacing: 0;
+$h1-text-transform: none;
+$mobile-h1-font-size: 31px;
+
+$h2-font: $heading-font;
+$h2-font-size: 28px;
+$h2-line-height: 1.1em;
+$h2-font-weight: $font-weight-black;
+$h2-letter-spacing: 0;
+$h2-text-transform: uppercase;
+$mobile-h2-font-size: 25px;
+
+$h3-font: $heading-font;
+$h3-font-size: 22px;
+$h3-line-height: 1.1em;
+$h3-font-weight: $font-weight-black;
+$h3-letter-spacing: 0;
+$h3-text-transform: none;
+$mobile-h3-font-size: 19px;
+
+$h4-font: $heading-font;
+$h4-font-size: 20px;
+$h4-line-height: 1.3em;
+$h4-font-weight: $font-weight-black;
+$h4-letter-spacing: 0;
+$h4-text-transform: none;
+$mobile-h4-font-size: 15px;
+
+$h5-font: $heading-font;
+$h5-font-size: 15px;
+$h5-line-height: 1.5em;
+$h5-font-weight: $font-weight-black;
+$h5-letter-spacing: 0;
+$h5-text-transform: none;
+$mobile-h5-font-size: 15px;
+
+$h6-font: $body-font;
+$h6-font-size: 20px;
+$h6-line-height: 1em;
+$h6-font-weight: $font-weight-bold;
+$h6-letter-spacing: .08em;
+$h6-text-transform: uppercase;
+$mobile-h6-font-size: 12px;
+
+
+:root {
+  // Typography
+  --nutrition-navigator-body-font: #{meta.inspect($body-font)};
+  --nutrition-navigator-heading-font: #{meta.inspect($heading-font)};
+
+  --nutrition-navigator-heading-h1-font: #{$h1-font};
+  --nutrition-navigator-heading-h1-font-size: #{$h1-font-size};
+  --nutrition-navigator-heading-h1-line-height: #{$h1-line-height};
+  --nutrition-navigator-heading-h1-font-weight: #{$h1-font-weight};
+  --nutrition-navigator-heading-h1-letter-spacing: #{$h1-letter-spacing};
+  --nutrition-navigator-heading-h1-text-transform: #{$h1-text-transform};
+
+  --nutrition-navigator-heading-h2-font: #{$h2-font};
+  --nutrition-navigator-heading-h2-font-size: #{$h2-font-size};
+  --nutrition-navigator-heading-h2-line-height: #{$h2-line-height};
+  --nutrition-navigator-heading-h2-font-weight: #{$h2-font-weight};
+  --nutrition-navigator-heading-h2-letter-spacing: #{$h2-letter-spacing};
+  --nutrition-navigator-heading-h2-text-transform: #{$h2-text-transform};
+
+  --nutrition-navigator-heading-h3-font: #{$h3-font};
+  --nutrition-navigator-heading-h3-font-size: #{$h3-font-size};
+  --nutrition-navigator-heading-h3-line-height: #{$h3-line-height};
+  --nutrition-navigator-heading-h3-font-weight: #{$h3-font-weight};
+  --nutrition-navigator-heading-h3-letter-spacing: #{$h3-letter-spacing};
+  --nutrition-navigator-heading-h3-text-transform: #{$h3-text-transform};
+
+  --nutrition-navigator-heading-h4-font: #{$h4-font};
+  --nutrition-navigator-heading-h4-font-size: #{$h4-font-size};
+  --nutrition-navigator-heading-h4-line-height: #{$h4-line-height};
+  --nutrition-navigator-heading-h4-font-weight: #{$h4-font-weight};
+  --nutrition-navigator-heading-h4-letter-spacing: #{$h4-letter-spacing};
+  --nutrition-navigator-heading-h4-text-transform: #{$h4-text-transform};
+
+  --nutrition-navigator-heading-h5-font: #{$h5-font};
+  --nutrition-navigator-heading-h5-font-size: #{$h5-font-size};
+  --nutrition-navigator-heading-h5-line-height: #{$h5-line-height};
+  --nutrition-navigator-heading-h5-font-weight: #{$h5-font-weight};
+  --nutrition-navigator-heading-h5-letter-spacing: #{$h5-letter-spacing};
+  --nutrition-navigator-heading-h5-text-transform: #{$h5-text-transform};
+
+  --nutrition-navigator-heading-h6-font: #{$h6-font};
+  --nutrition-navigator-heading-h6-font-size: #{$h6-font-size};
+  --nutrition-navigator-heading-h6-line-height: #{$h6-line-height};
+  --nutrition-navigator-heading-h6-font-weight: #{$h6-font-weight};
+  --nutrition-navigator-heading-h6-letter-spacing: #{$h6-letter-spacing};
+  --nutrition-navigator-heading-h6-text-transform: #{$h6-text-transform};
+
+  // Colors
+  --nutrition-navigator-white: #{$white};
+  --nutrition-navigator-pale-green: #{$pale-green};
+  --nutrition-navigator-green: #{$green};
+  --nutrition-navigator-orange: #{$orange};
+  --nutrition-navigator-purple: #{$purple};
+  --nutrition-navigator-blue: #{$blue};
+  --nutrition-navigator-dark-gray: #{$dark-gray};
+}
