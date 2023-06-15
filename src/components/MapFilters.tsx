@@ -19,7 +19,7 @@ const MapFilters = (props: MapFiltersProps) => {
   const { data: venues, status: venuesStatus } = useVenues();
   const { data: audiences, status: audiencesStatus } = useAudiences();
 
-  const [open, setOpen] = React.useState(false);
+  const [isFiltersOpen, setIsFiltersIsFiltersOpen] = React.useState(false);
 
   const onProgramTypeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { filters: prevFilters } = state;
@@ -79,35 +79,111 @@ const MapFilters = (props: MapFiltersProps) => {
   return (
     <div
       className={`nutrition-navigator__filters-wrap ${
-        open ? 'nutrition-navigator__filters-wrap--open' : ''
+        isFiltersOpen ? 'nutrition-navigator__filters-wrap--open' : ''
       }`}
     >
       <div className="nutrition-navigator__filters-header-wrap">
-        <input type="text" name="address" />
-        <button onClick={() => setOpen(!open)} type="button">
+        <div className="nutrition-navigator__address-input-wrap">
+          <label htmlFor="address" className="nutrition-navigator__helper-text">
+            Address
+          </label>
+          <input
+            type="text"
+            id="address"
+            name="address"
+            placeholder="Address"
+            className="nutrition-navigator__text-field"
+          />
+        </div>
+        <button
+          className="nutrition-navigator__button"
+          onClick={() => setIsFiltersIsFiltersOpen(!isFiltersOpen)}
+          type="button"
+          aria-label="Toggle Filters Window Open and Closed"
+          aria-expanded={isFiltersOpen}
+          aria-controls="nutrition-navigator-filters"
+          id="toggle-filters"
+        >
           Filters
         </button>
-        <button onClick={() => dispatch({ type: 'RESET' })} type="button">
-          Reset
-        </button>
-        <button
-          onClick={() => dispatch({ type: 'UPDATE_PROGRAMS' })}
-          type="button"
-        >
-          Search
-        </button>
+        <div className="nutrition-navigator__filters-reset-submit-button-group">
+          <button
+            className="nutrition-navigator__button nutrition-navigator__button--outline"
+            onClick={() => dispatch({ type: 'RESET' })}
+            type="button"
+          >
+            Reset
+          </button>
+          <button
+            className="nutrition-navigator__button"
+            onClick={() => dispatch({ type: 'UPDATE_PROGRAMS' })}
+            type="button"
+          >
+            Search
+          </button>
+        </div>
       </div>
-      {open && (
-        <div className={'nutrition-navigator__filters-body-wrap'}>
-          <div className={'nutrition-navigator__program-types-body-wrap'}>
-            <h2>I want to...</h2>
-            <ul
-              className={
-                'nutrition-navigator__checkbox-items-wrap nutrition-navigator__program-types'
-              }
-            >
-              {programsTypesStatus === 'success' &&
-                programTypes.map(({ name, slug, meta: { icon } }, index) => {
+      <div
+        id="nutrition-navigator-filters"
+        className="nutrition-navigator__filters-body-wrap"
+        aria-labelledby="toggle-filters"
+        aria-hidden={!isFiltersOpen}
+        hidden={!isFiltersOpen}
+      >
+        <div className={'nutrition-navigator__program-types-body-wrap'}>
+          <h2>I want to...</h2>
+          <ul
+            className={
+              'nutrition-navigator__checkbox-items-wrap nutrition-navigator__program-types'
+            }
+          >
+            {programsTypesStatus === 'success' &&
+              programTypes.map(({ name, slug, meta: { icon } }, index) => {
+                return (
+                  <li
+                    className="nutrition-navigator__checkbox-wrap"
+                    key={index}
+                  >
+                    <label
+                      className="nutrition-navigator__checkbox-label"
+                      htmlFor={slug}
+                    >
+                      {icon ? (
+                        <img
+                          src={icon}
+                          className={
+                            'nutrition-navigator__checkbox-label-icon nutrition-navigator__program-type-icon'
+                          }
+                          alt={`Icon for ${name}`}
+                        />
+                      ) : (
+                        ''
+                      )}
+                      {name}
+                    </label>
+                    <input
+                      type="checkbox"
+                      name="program-type[]"
+                      value={slug}
+                      id={slug}
+                      className="nutrition-navigator__checkbox"
+                      onChange={onProgramTypeChange}
+                    />
+                  </li>
+                );
+              })}
+          </ul>
+        </div>
+        <div className="nutrition-navigator__filters-grid">
+          <details className="nutrition-navigator__filter-details" open>
+            <summary>
+              <h5 className="nutrition-navigator__heading--h5">
+                By Venues (Select All That Apply)
+              </h5>
+            </summary>
+            <ul className="nutrition-navigator__checkbox-items-wrap">
+              {venuesStatus === 'success' &&
+                venues.map((venue, index) => {
                   return (
                     <li
                       className="nutrition-navigator__checkbox-wrap"
@@ -115,111 +191,78 @@ const MapFilters = (props: MapFiltersProps) => {
                     >
                       <label
                         className="nutrition-navigator__checkbox-label"
-                        htmlFor={slug}
+                        htmlFor={venue.slug}
                       >
-                        {icon ? (
-                          <img
-                            src={icon}
-                            className={
-                              'nutrition-navigator__checkbox-label-icon nutrition-navigator__program-type-icon'
-                            }
-                            alt={`Icon for ${name}`}
-                          />
-                        ) : (
-                          ''
-                        )}
-                        {name}
+                        {venue.name}
                       </label>
                       <input
                         type="checkbox"
-                        name="program-type[]"
-                        value={slug}
-                        id={slug}
+                        name="venue[]"
+                        value={venue.slug}
+                        id={venue.slug}
                         className="nutrition-navigator__checkbox"
-                        onChange={onProgramTypeChange}
+                        onChange={onVenueChange}
                       />
                     </li>
                   );
                 })}
             </ul>
-          </div>
-          <div className="nutrition-navigator__filters-grid">
-            <details className="nutrition-navigator__filter-details" open>
-              <summary>
-                <h4>By Venues (Select All That Apply)</h4>
-              </summary>
-              <ul className="nutrition-navigator__checkbox-items-wrap">
-                {venuesStatus === 'success' &&
-                  venues.map((venue, index) => {
-                    return (
-                      <li
-                        className="nutrition-navigator__checkbox-wrap"
-                        key={index}
+          </details>
+          <details className="nutrition-navigator__filter-details" open>
+            <summary>
+              <h5 className="nutrition-navigator__heading--h5">
+                By Audience (Select All That Apply)
+              </h5>
+            </summary>
+            <ul className="nutrition-navigator__checkbox-items-wrap">
+              {audiencesStatus === 'success' &&
+                audiences.map((audience, index) => {
+                  return (
+                    <li
+                      className="nutrition-navigator__checkbox-wrap"
+                      key={index}
+                    >
+                      <label
+                        className="nutrition-navigator__checkbox-label"
+                        htmlFor={audience.slug}
                       >
-                        <label
-                          className="nutrition-navigator__checkbox-label"
-                          htmlFor={venue.slug}
-                        >
-                          {venue.name}
-                        </label>
-                        <input
-                          type="checkbox"
-                          name="venue[]"
-                          value={venue.slug}
-                          id={venue.slug}
-                          className="nutrition-navigator__checkbox"
-                          onChange={onVenueChange}
-                        />
-                      </li>
-                    );
-                  })}
-              </ul>
-            </details>
-            <details className="nutrition-navigator__filter-details" open>
-              <summary>
-                <h4>By Audience (Select All That Apply)</h4>
-              </summary>
-              <ul className="nutrition-navigator__checkbox-items-wrap">
-                {audiencesStatus === 'success' &&
-                  audiences.map((audience, index) => {
-                    return (
-                      <li
-                        className="nutrition-navigator__checkbox-wrap"
-                        key={index}
-                      >
-                        <label
-                          className="nutrition-navigator__checkbox-label"
-                          htmlFor={audience.slug}
-                        >
-                          {audience.name}
-                        </label>
-                        <input
-                          type="checkbox"
-                          name="audience[]"
-                          value={audience.slug}
-                          id={audience.slug}
-                          className="nutrition-navigator__checkbox"
-                          onChange={onAudienceChange}
-                        />
-                      </li>
-                    );
-                  })}
-              </ul>
-            </details>
-            <details className="nutrition-navigator__filter-details" open>
-              <summary>
-                <h4>By Organization</h4>
-              </summary>
-              <input
-                type="text"
-                placeholder="Search Name"
-                name="organization-name"
-                onChange={onOrgNameChange}
-              />
-            </details>
-          </div>
+                        {audience.name}
+                      </label>
+                      <input
+                        type="checkbox"
+                        name="audience[]"
+                        value={audience.slug}
+                        id={audience.slug}
+                        className="nutrition-navigator__checkbox"
+                        onChange={onAudienceChange}
+                      />
+                    </li>
+                  );
+                })}
+            </ul>
+          </details>
+          <details className="nutrition-navigator__filter-details" open>
+            <summary>
+              <h5 className="nutrition-navigator__heading--h5">
+                By Organization
+              </h5>
+            </summary>
+            <label
+              htmlFor="organization-name"
+              className="nutrition-navigator__helper-text"
+            >
+              Search Organization Name
+            </label>
+            <input
+              type="text"
+              placeholder="Search Name"
+              name="organization-name"
+              className="nutrition-navigator__text-field"
+              onChange={onOrgNameChange}
+            />
+          </details>
         </div>
-      )}
+      </div>
     </div>
   );
 };

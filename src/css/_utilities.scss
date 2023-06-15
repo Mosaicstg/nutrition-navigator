@@ -1,0 +1,99 @@
+.nutrition-navigator__hide {
+  display: none;
+}
+
+.nutrition-navigator__show {
+  display: inherit;
+}
+
+.nutrition-navigator__helper-text {
+  position: absolute;
+  width: 0;
+  height: 0;
+  font-size: 0;
+}
+
+.nutrition-navigator__button {
+  min-width: 120px;
+  padding: 11px 30px;
+  transition: all .25s ease-in-out;
+  border: 1px solid var(--nutrition-navigator-dark-gray);
+  border-radius: 15px;
+  background: var(--nutrition-navigator-dark-gray);
+  color: var(--nutrition-navigator-white);
+  letter-spacing: .03em;
+  line-height: 1;
+  text-align: center;
+  text-transform: uppercase;
+  cursor: pointer;
+
+  &:focus {
+    border-color: var(--nutrition-navigator-dark-gray);
+    background: transparent;
+    color: var(--nutrition-navigator-dark-gray);
+  }
+
+  @media (hover: hover) {
+    &:hover {
+      border-color: var(--nutrition-navigator-dark-gray);
+      background: transparent;
+      color: var(--nutrition-navigator-dark-gray);
+    }
+  }
+
+  &--outline {
+    border-color: var(--nutrition-navigator-dark-gray);
+    background: none;
+    color: var(--nutrition-navigator-dark-gray);
+
+    &:focus {
+      border-color: var(--nutrition-navigator-dark-gray);
+      background: var(--nutrition-navigator-dark-gray);
+      color: var(--nutrition-navigator-white);
+    }
+
+    @media (hover: hover) {
+      &:hover {
+        border-color: var(--nutrition-navigator-dark-gray);
+        background: var(--nutrition-navigator-dark-gray);
+        color: var(--nutrition-navigator-white);
+      }
+    }
+  }
+
+  &--green {
+    border-color: var(--nutrition-navigator-dark-gray);
+    background: var(--nutrition-navigator-green);
+    color: var(--nutrition-navigator-dark-gray);
+
+    &:focus {
+      border-color: var(--nutrition-navigator-dark-gray);
+      background: var(--nutrition-navigator-white);
+      color: var(--nutrition-navigator-dark-gray);
+    }
+
+    @media (hover: hover) {
+      border-color: var(--nutrition-navigator-dark-gray);
+      background: var(--nutrition-navigator-white);
+      color: var(--nutrition-navigator-dark-gray);
+    }
+  }
+
+  &--white {
+    border-color: var(--nutrition-navigator-dark-gray);
+    background: var(--nutrition-navigator-white);
+    color: var(--nutrition-navigator-dark-gray);
+
+    &:focus {
+      border-color: var(--nutrition-navigator-dark-gray);
+      background: var(--nutrition-navigator-green);
+      color: var(--nutrition-navigator-dark-gray);
+    }
+
+    @media (hover: hover) {
+      border-color: var(--nutrition-navigator-dark-gray);
+      background: var(--nutrition-navigator-green);
+      color: var(--nutrition-navigator-dark-gray);
+    }
+  }
+}
