@@ -71,3 +71,14 @@
   border-top: 1px solid var(--nutrition-navigator-dark-gray);
 }
 
+
+.nutrition-navigator__marker-cluster-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 100%;
+  background: var(--nutrition-navigator-orange);
+  color: var(--nutrition-navigator-white);
+  font-family: var(--nutrition-navigator-body-font);
+  font-weight: bold;
+}

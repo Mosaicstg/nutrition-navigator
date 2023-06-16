@@ -2,7 +2,8 @@ import React from 'react';
 import { fetchApi } from '../api/fetch.ts';
 
 // Types
-import { AllProgramsAction, AllProgramsState, Program } from '../types.ts';
+import { AllProgramsAction, AllProgramsState } from '../types.ts';
+import { Program, ProgramSchema } from '../schema.ts';
 
 const reducer = (
   state: AllProgramsState,
@@ -12,9 +13,22 @@ const reducer = (
     case 'SET': {
       const programs = action.data;
 
+      const validatedPrograms = programs.filter((program) => {
+        const validation = ProgramSchema.safeParse(program);
+
+        if (!validation.success) {
+          console.error(
+            `Program with name: "${program.name}" is invalid`,
+            validation.error
+          );
+        }
+
+        return validation.success;
+      });
+
       return {
         ...state,
-        programs,
+        programs: validatedPrograms,
         filteredPrograms: programs
       };
     }

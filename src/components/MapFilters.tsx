@@ -20,6 +20,7 @@ const MapFilters = (props: MapFiltersProps) => {
   const { data: audiences, status: audiencesStatus } = useAudiences();
 
   const [isFiltersOpen, setIsFiltersIsFiltersOpen] = React.useState(false);
+  const { filters } = state;
 
   const onProgramTypeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { filters: prevFilters } = state;
@@ -168,6 +169,7 @@ const MapFilters = (props: MapFiltersProps) => {
                       id={slug}
                       className="nutrition-navigator__checkbox"
                       onChange={onProgramTypeChange}
+                      checked={filters['program-types'].includes(slug)}
                     />
                   </li>
                 );
@@ -183,11 +185,11 @@ const MapFilters = (props: MapFiltersProps) => {
             </summary>
             <ul className="nutrition-navigator__checkbox-items-wrap">
               {venuesStatus === 'success' &&
-                venues.map((venue, index) => {
+                venues.map((venue) => {
                   return (
                     <li
                       className="nutrition-navigator__checkbox-wrap"
-                      key={index}
+                      key={venue.id}
                     >
                       <label
                         className="nutrition-navigator__checkbox-label"
@@ -202,6 +204,7 @@ const MapFilters = (props: MapFiltersProps) => {
                         id={venue.slug}
                         className="nutrition-navigator__checkbox"
                         onChange={onVenueChange}
+                        checked={filters.venues.includes(venue.slug)}
                       />
                     </li>
                   );
@@ -216,11 +219,11 @@ const MapFilters = (props: MapFiltersProps) => {
             </summary>
             <ul className="nutrition-navigator__checkbox-items-wrap">
               {audiencesStatus === 'success' &&
-                audiences.map((audience, index) => {
+                audiences.map((audience) => {
                   return (
                     <li
                       className="nutrition-navigator__checkbox-wrap"
-                      key={index}
+                      key={audience.id}
                     >
                       <label
                         className="nutrition-navigator__checkbox-label"
@@ -235,6 +238,7 @@ const MapFilters = (props: MapFiltersProps) => {
                         id={audience.slug}
                         className="nutrition-navigator__checkbox"
                         onChange={onAudienceChange}
+                        checked={filters.audiences.includes(audience.slug)}
                       />
                     </li>
                   );

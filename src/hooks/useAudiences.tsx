@@ -1,13 +1,13 @@
 import { useQuery } from '@tanstack/react-query';
 import { fetchApi } from '../api/fetch.ts';
 
-interface Audience {
+type Audience = {
   id: number;
   name: string;
   slug: string;
   taxonomy: string;
   link: string;
-}
+};
 
 const fetchAllAudiences = () => {
   return fetchApi('/wp-json/wp/v2/audience?per_page=100').then((res) =>

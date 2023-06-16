@@ -1,5 +1,9 @@
+import L, { MarkerCluster } from 'leaflet';
+import config from './config';
+
 // Components
 import { MapContainer, Marker, Popup, TileLayer } from 'react-leaflet';
+import MarkerClusterGroup from 'react-leaflet-cluster';
 import MapFilters from './components/MapFilters.tsx';
 
 // Hooks
@@ -8,6 +12,19 @@ import useAllPrograms from './hooks/useAllPrograms.tsx';
 // CSS
 import 'leaflet/dist/leaflet.css';
 import './App.scss';
+
+const createClusterCustomIcon = function (cluster: MarkerCluster) {
+  return L.divIcon({
+    html: `<span>${cluster.getChildCount()}</span>`,
+    className: 'nutrition-navigator__marker-cluster-icon',
+    iconSize: L.point(33, 33, true)
+  });
+};
+
+const createCustomMapPin = L.icon({
+  iconUrl: './assets/map-pin.png',
+  iconSize: new L.Point(30, 35)
+});
 
 const App = () => {
   const { state, dispatch } = useAllPrograms();
@@ -25,23 +42,38 @@ const App = () => {
       >
         <TileLayer
           url="https://api.mapbox.com/styles/v1/mapbox/streets-v12/tiles/{z}/{x}/{y}?access_token={accessToken}"
-          accessToken={
-            'pk.eyJ1IjoibW9zYWljc2VydmljZXMiLCJhIjoiY2w4ZGkzaTRmMDUzMzNwbnZ3cGw3N2t6MSJ9.Zbkp1mgAgfzBcmVhr4GG4A'
-          }
+          accessToken={config.mapBoxToken}
         />
-        {filteredPrograms?.map((program, index) => {
-          return (
-            <Marker
-              key={index}
-              position={[program.latitude, program.longitude]}
-            />
-          );
-        })}
-        <Marker position={[51.505, -0.09]}>
-          <Popup>
-            A pretty CSS3 popup. <br /> Easily customizable.
-          </Popup>
-        </Marker>
+        <MarkerClusterGroup
+          iconCreateFunction={createClusterCustomIcon}
+          chunkedLoading
+        >
+          {filteredPrograms?.map((program, index) => {
+            return (
+              <Marker
+                icon={createCustomMapPin}
+                key={index}
+                position={[program.latitude, program.longitude]}
+              >
+                <Popup className={'nutrition-navigator__marker-popup'}>
+                  <div className={'nutrition-navigator__marker-content-wrap'}>
+                    Hello World
+                  </div>
+                </Popup>
+              </Marker>
+            );
+          })}
+          <Marker icon={createCustomMapPin} position={[51.505, -0.08]}>
+            <Popup>
+              A pretty CSS3 popup. <br /> Easily customizable.
+            </Popup>
+          </Marker>
+          <Marker icon={createCustomMapPin} position={[51.505, -0.09]}>
+            <Popup>
+              A pretty CSS3 popup. <br /> Easily customizable.
+            </Popup>
+          </Marker>
+        </MarkerClusterGroup>
       </MapContainer>
     </div>
   );
