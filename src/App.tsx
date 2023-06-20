@@ -1,5 +1,6 @@
 import L, { MarkerCluster } from 'leaflet';
 import config from './config/index.ts';
+import mapPinImage from './assets/map-pin.png';
 
 // Components
 import {
@@ -29,7 +30,7 @@ const createClusterCustomIcon = function (cluster: MarkerCluster) {
 };
 
 const createCustomMapPin = L.icon({
-  iconUrl: './assets/map-pin.png',
+  iconUrl: mapPinImage,
   iconSize: new L.Point(30, 35)
 });
 
