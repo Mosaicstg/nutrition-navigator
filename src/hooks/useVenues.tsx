@@ -14,6 +14,8 @@ const VenueSchema = z.object({
 type Venue = z.infer<typeof VenueSchema>;
 
 const fetchAllVenues = () => {
+  // There's probably NEVER going to be more than 5 or 6 so for now querying the first 100
+  // suits our use case.
   return fetchApi('/wp-json/wp/v2/venue?per_page=100').then((res) =>
     res.json()
   );
