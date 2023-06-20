@@ -82,4 +82,10 @@ export const ProgramSchema = z.object({
     .optional()
 });
 
-export type Program = z.infer<typeof ProgramSchema>;
+export const FiltersSchema = z.object({
+  'program-types': z.string().array(),
+  venues: z.string().array(),
+  audiences: z.string().array(),
+  'organization-name': z.string(),
+  address: z.string()
+});

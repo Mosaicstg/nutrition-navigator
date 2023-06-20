@@ -1,6 +1,6 @@
-import { Program } from '../schema.ts';
 import { Popup } from 'react-leaflet';
 import useProgramTypes from '../hooks/useProgramTypes.tsx';
+import { Program } from '../hooks/useAllPrograms/types.ts';
 
 const MarkerPopUp = (props: { program: Program }) => {
   const { program } = props;

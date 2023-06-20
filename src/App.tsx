@@ -14,7 +14,7 @@ import MapFilters from './components/MapFilters.tsx';
 import MarkerPopUp from './components/MarkerPopUp.tsx';
 
 // Hooks
-import useAllPrograms from './hooks/useAllPrograms.tsx';
+import useAllPrograms from './hooks/useAllPrograms/useAllPrograms.tsx';
 
 // CSS
 import 'leaflet/dist/leaflet.css';

@@ -6,7 +6,11 @@ import useAudiences from '../hooks/useAudiences.tsx';
 import useProgramTypes from '../hooks/useProgramTypes.tsx';
 
 // Types
-import { AllProgramsAction, AllProgramsState, Filters } from '../types.ts';
+import {
+  AllProgramsAction,
+  AllProgramsState,
+  Filters
+} from '../hooks/useAllPrograms/types.ts';
 
 type MapFiltersProps = {
   state: AllProgramsState;

@@ -1,12 +1,8 @@
-import { Program } from './schema.ts';
+import { FiltersSchema, ProgramSchema } from './schema.ts';
+import { z } from 'zod';
 
-export type Filters = {
-  'program-types': string[];
-  venues: string[];
-  audiences: string[];
-  'organization-name': string;
-  address: string;
-};
+export type Program = z.infer<typeof ProgramSchema>;
+export type Filters = z.infer<typeof FiltersSchema>;
 
 export type AllProgramsState = {
   filters: Filters;
@@ -19,3 +15,5 @@ export type AllProgramsAction =
   | { type: 'UPDATE_FILTERS'; data: Filters }
   | { type: 'UPDATE_PROGRAMS'; data?: Program[] }
   | { type: 'RESET' };
+
+export type MatchAction<T> = Extract<AllProgramsAction, { type: T }>;

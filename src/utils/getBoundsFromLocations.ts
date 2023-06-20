@@ -1,5 +1,6 @@
 import L, { LatLngBounds } from 'leaflet';
-import { ProgramSchema, Program } from '../schema.ts';
+import { ProgramSchema } from '../hooks/useAllPrograms/schema.ts';
+import { Program } from '../hooks/useAllPrograms/types.ts';
 
 export const getBoundsFromLocations = (programs: Program[]): LatLngBounds => {
   const locations = programs.filter((program) => {
