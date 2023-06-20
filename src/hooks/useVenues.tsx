@@ -1,13 +1,17 @@
 import { useQuery } from '@tanstack/react-query';
 import { fetchApi } from '../api/fetch.ts';
+import { z } from 'zod';
 
-type Venue = {
-  id: number;
-  name: string;
-  slug: string;
-  taxonomy: string;
-  link: string;
-};
+// eslint-disable-next-line react-refresh/only-export-components
+const VenueSchema = z.object({
+  id: z.number(),
+  name: z.string(),
+  slug: z.string(),
+  taxonomy: z.string(),
+  link: z.string()
+});
+
+type Venue = z.infer<typeof VenueSchema>;
 
 const fetchAllVenues = () => {
   return fetchApi('/wp-json/wp/v2/venue?per_page=100').then((res) =>
@@ -20,7 +24,20 @@ const useVenues = () => {
     queryKey: ['allVenues'],
     queryFn: fetchAllVenues,
     // Only run query on page load or component mount
-    retry: false
+    retry: false,
+    select: (data) =>
+      data.filter((venue) => {
+        const validatedVenue = VenueSchema.safeParse(venue);
+
+        if (!validatedVenue.success) {
+          console.error(
+            `Venue with name ${venue.name} is invalid`,
+            validatedVenue.error
+          );
+        }
+
+        return validatedVenue.success;
+      })
   });
 };
 

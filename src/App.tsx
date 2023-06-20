@@ -11,6 +11,7 @@ import {
 } from 'react-leaflet';
 import MarkerClusterGroup from 'react-leaflet-cluster';
 import MapFilters from './components/MapFilters.tsx';
+import MarkerPopUp from './components/MarkerPopUp.tsx';
 
 // Hooks
 import useAllPrograms from './hooks/useAllPrograms.tsx';
@@ -18,7 +19,6 @@ import useAllPrograms from './hooks/useAllPrograms.tsx';
 // CSS
 import 'leaflet/dist/leaflet.css';
 import './App.scss';
-import MarkerPopUp from './components/MarkerPopUp.tsx';
 
 const createClusterCustomIcon = function (cluster: MarkerCluster) {
   return L.divIcon({
