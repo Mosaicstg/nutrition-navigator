@@ -14,6 +14,7 @@
 }
 
 .nutrition-navigator__button {
+  display: inline-block;
   min-width: 120px;
   padding: 11px 30px;
   transition: all .25s ease-in-out;
@@ -24,8 +25,14 @@
   letter-spacing: .03em;
   line-height: 1;
   text-align: center;
+  text-decoration: none;
   text-transform: uppercase;
   cursor: pointer;
+
+  // Override for React leaflet
+  .leaflet-container & {
+    color: var(--nutrition-navigator-white);
+  }
 
   &:focus {
     border-color: var(--nutrition-navigator-dark-gray);
@@ -96,4 +103,5 @@
       color: var(--nutrition-navigator-dark-gray);
     }
   }
+
 }

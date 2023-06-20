@@ -1,8 +1,14 @@
 import L, { MarkerCluster } from 'leaflet';
-import config from './config';
+import config from './config/index.ts';
 
 // Components
-import { MapContainer, Marker, Popup, TileLayer } from 'react-leaflet';
+import {
+  MapContainer,
+  MapContainerProps,
+  Marker,
+  Popup,
+  TileLayer
+} from 'react-leaflet';
 import MarkerClusterGroup from 'react-leaflet-cluster';
 import MapFilters from './components/MapFilters.tsx';
 
@@ -12,6 +18,7 @@ import useAllPrograms from './hooks/useAllPrograms.tsx';
 // CSS
 import 'leaflet/dist/leaflet.css';
 import './App.scss';
+import MarkerPopUp from './components/MarkerPopUp.tsx';
 
 const createClusterCustomIcon = function (cluster: MarkerCluster) {
   return L.divIcon({
@@ -26,6 +33,14 @@ const createCustomMapPin = L.icon({
   iconSize: new L.Point(30, 35)
 });
 
+const mapContainerProps: MapContainerProps = {
+  zoom: 13,
+  center: [51.505, -0.09],
+  scrollWheelZoom: false,
+  style: { height: 500 },
+  attributionControl: false
+};
+
 const App = () => {
   const { state, dispatch } = useAllPrograms();
   const { filteredPrograms } = state;
@@ -33,13 +48,7 @@ const App = () => {
   return (
     <div className={'nutrition-navigator__map'}>
       <MapFilters {...{ state, dispatch }} />
-      <MapContainer
-        center={[51.505, -0.09]}
-        zoom={13}
-        scrollWheelZoom={false}
-        style={{ height: 500 }}
-        attributionControl={false}
-      >
+      <MapContainer {...mapContainerProps}>
         <TileLayer
           url="https://api.mapbox.com/styles/v1/mapbox/streets-v12/tiles/{z}/{x}/{y}?access_token={accessToken}"
           accessToken={config.mapBoxToken}
@@ -55,11 +64,7 @@ const App = () => {
                 key={index}
                 position={[program.latitude, program.longitude]}
               >
-                <Popup className={'nutrition-navigator__marker-popup'}>
-                  <div className={'nutrition-navigator__marker-content-wrap'}>
-                    Hello World
-                  </div>
-                </Popup>
+                <MarkerPopUp program={program} />
               </Marker>
             );
           })}

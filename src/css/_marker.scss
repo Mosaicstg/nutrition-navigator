@@ -1,0 +1,39 @@
+.nutrition-navigator__marker-content-wrap {
+  display: flex;
+  grid-gap: 15px;
+  flex-flow: column;
+  padding: 20px 20px 10px;
+
+  h4,
+  p {
+    margin: 0;
+  }
+}
+
+.nutrition-navigator__marker-content-footer-wrap {
+  display: flex;
+  grid-gap: 10px;
+  flex-flow: row nowrap;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.nutrition-navigator__marker-program-types {
+  display: flex;
+  grid-gap: 10px;
+  flex-flow: row nowrap;
+  flex-shrink: 0;
+}
+
+.nutrition-navigator__marker-program-icon {
+  flex-shrink: 0;
+  max-width: 34px;
+
+  img {
+    width: 100%;
+  }
+}
+
+.nutrition-navigator__marker-link-wrap {
+  flex-shrink: 0;
+}
