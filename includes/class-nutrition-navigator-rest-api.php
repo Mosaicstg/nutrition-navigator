@@ -48,6 +48,7 @@ class Nutrition_Navigator_REST_API {
 		foreach ($posts as $post) {
 			$program_data = [];
 
+			$program_data['id'] = $post->ID;
 			$program_data['program-name'] = $post->post_title;
 			$program_data['url'] = get_the_permalink($post);
 
