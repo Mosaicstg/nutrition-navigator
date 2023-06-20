@@ -1,6 +1,10 @@
 import { z } from 'zod';
 
 export const ProgramSchema = z.object({
+  id: z.number({
+    required_error: 'Program does not have an ID',
+    invalid_type_error: 'Program ID is not a number'
+  }),
   'program-name': z.string({
     required_error: 'Program does not a have name.',
     invalid_type_error: 'Program name is not a string.'
