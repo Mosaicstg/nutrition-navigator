@@ -25,10 +25,11 @@ const MarkerPopUp = (props: { program: Program }) => {
                   return programProgramType.includes(programType.slug);
                 })
                 .map((programType) => {
-                  const { meta } = programType;
+                  const { meta, id } = programType;
 
                   return (
                     <span
+                      key={id}
                       className={'nutrition-navigator__marker-program-icon'}
                     >
                       <img
