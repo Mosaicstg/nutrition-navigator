@@ -101,7 +101,7 @@ const MapFilters = (props: MapFiltersProps) => {
           />
         </div>
         <button
-          className="nutrition-navigator__button"
+          className="nutrition-navigator__button nutrition-navigator__filters-toggle-button"
           onClick={() => setIsFiltersIsFiltersOpen(!isFiltersOpen)}
           type="button"
           aria-label="Toggle Filters Window Open and Closed"
@@ -113,14 +113,18 @@ const MapFilters = (props: MapFiltersProps) => {
         </button>
         <div className="nutrition-navigator__filters-reset-submit-button-group">
           <button
-            className="nutrition-navigator__button nutrition-navigator__button--outline"
+            className={`nutrition-navigator__button nutrition-navigator__button--outline ${
+              isFiltersOpen ? 'nutrition-navigator__button--green' : ''
+            }`}
             onClick={() => dispatch({ type: 'RESET' })}
             type="button"
           >
             Reset
           </button>
           <button
-            className="nutrition-navigator__button"
+            className={`nutrition-navigator__button ${
+              isFiltersOpen ? 'nutrition-navigator__button--white' : ''
+            }`}
             onClick={() => dispatch({ type: 'UPDATE_PROGRAMS' })}
             type="button"
           >

@@ -3,6 +3,7 @@
 @import "css/variables";
 @import "css/utilities";
 @import "css/form";
+@import "css/filters";
 @import "css/marker";
 
 
@@ -17,6 +18,7 @@
 
   @media only screen and (min-width: 769px) {
     flex-flow: row nowrap;
+    align-items: center;
     justify-content: space-between;
   }
 }

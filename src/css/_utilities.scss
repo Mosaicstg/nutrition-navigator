@@ -80,9 +80,11 @@
     }
 
     @media (hover: hover) {
-      border-color: var(--nutrition-navigator-dark-gray);
-      background: var(--nutrition-navigator-white);
-      color: var(--nutrition-navigator-dark-gray);
+      &:hover {
+        border-color: var(--nutrition-navigator-dark-gray);
+        background: var(--nutrition-navigator-white);
+        color: var(--nutrition-navigator-dark-gray);
+      }
     }
   }
 
@@ -98,9 +100,11 @@
     }
 
     @media (hover: hover) {
-      border-color: var(--nutrition-navigator-dark-gray);
-      background: var(--nutrition-navigator-green);
-      color: var(--nutrition-navigator-dark-gray);
+      &:hover {
+        border-color: var(--nutrition-navigator-dark-gray);
+        background: var(--nutrition-navigator-green);
+        color: var(--nutrition-navigator-dark-gray);
+      }
     }
   }
 
