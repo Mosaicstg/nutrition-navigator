@@ -117,3 +117,14 @@
     width: 100%;
   }
 }
+
+.nutrition-navigator__filter-details {
+  summary {
+    margin-bottom: 20px;
+  }
+
+  h5 {
+    margin: 0;
+    padding-bottom: 0;
+  }
+}

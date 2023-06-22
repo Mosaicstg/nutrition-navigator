@@ -239,7 +239,21 @@ class Nutrition_Navigator_Programs {
 		register_post_meta(self::POST_SLUG, 'program-location-latitude', [
 			'type' => 'string',
 			'single' => true,
-			'show_in_rest' => true
+			'show_in_rest' => true,
+			'sanitize_callback' =>
+				/**
+				 * A sanitizer function for the latitude field.
+				 *
+				 * @param mixed  $meta_value
+				 * @param string $meta_key
+				 * @param string $object_type
+				 * @param string $object_subtype
+				 *
+				 * @return float
+				 */
+				function ($meta_value, $meta_key, $object_type, $object_subtype) {
+					return floatval($meta_value);
+				}
 		]);
 
 		// Location Longitude
@@ -524,7 +538,7 @@ class Nutrition_Navigator_Programs {
 			update_post_meta(
 				$post_id,
 				'program-location-latitude',
-				sanitize_text_field(wp_unslash($_POST['program-location-latitude']))
+				floatval(sanitize_text_field(wp_unslash($_POST['program-location-latitude'])))
 			);
 		}
 
@@ -533,7 +547,7 @@ class Nutrition_Navigator_Programs {
 			update_post_meta(
 				$post_id,
 				'program-location-longitude',
-				sanitize_text_field(wp_unslash($_POST['program-location-longitude']))
+				floatval(sanitize_text_field(wp_unslash($_POST['program-location-longitude'])))
 			);
 		}
 

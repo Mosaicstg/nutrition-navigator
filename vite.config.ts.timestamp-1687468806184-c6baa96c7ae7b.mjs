@@ -1,0 +1,20 @@
+// vite.config.ts
+import { defineConfig } from "file:///Applications/MAMP/htdocs/wp_food_trust/wp-content/plugins/nutrition-navigator/node_modules/vite/dist/node/index.js";
+import react from "file:///Applications/MAMP/htdocs/wp_food_trust/wp-content/plugins/nutrition-navigator/node_modules/@vitejs/plugin-react/dist/index.mjs";
+var vite_config_default = defineConfig({
+  plugins: [react()],
+  build: {
+    target: "es2015",
+    rollupOptions: {
+      output: {
+        entryFileNames: "nutrition-navigator/[name].js",
+        chunkFileNames: "nutrition-navigator/[name].js",
+        assetFileNames: "nutrition-navigator/[name].[ext]"
+      }
+    }
+  }
+});
+export {
+  vite_config_default as default
+};
+//# sourceMappingURL=data:application/json;base64,ewogICJ2ZXJzaW9uIjogMywKICAic291cmNlcyI6IFsidml0ZS5jb25maWcudHMiXSwKICAic291cmNlc0NvbnRlbnQiOiBbImNvbnN0IF9fdml0ZV9pbmplY3RlZF9vcmlnaW5hbF9kaXJuYW1lID0gXCIvQXBwbGljYXRpb25zL01BTVAvaHRkb2NzL3dwX2Zvb2RfdHJ1c3Qvd3AtY29udGVudC9wbHVnaW5zL251dHJpdGlvbi1uYXZpZ2F0b3JcIjtjb25zdCBfX3ZpdGVfaW5qZWN0ZWRfb3JpZ2luYWxfZmlsZW5hbWUgPSBcIi9BcHBsaWNhdGlvbnMvTUFNUC9odGRvY3Mvd3BfZm9vZF90cnVzdC93cC1jb250ZW50L3BsdWdpbnMvbnV0cml0aW9uLW5hdmlnYXRvci92aXRlLmNvbmZpZy50c1wiO2NvbnN0IF9fdml0ZV9pbmplY3RlZF9vcmlnaW5hbF9pbXBvcnRfbWV0YV91cmwgPSBcImZpbGU6Ly8vQXBwbGljYXRpb25zL01BTVAvaHRkb2NzL3dwX2Zvb2RfdHJ1c3Qvd3AtY29udGVudC9wbHVnaW5zL251dHJpdGlvbi1uYXZpZ2F0b3Ivdml0ZS5jb25maWcudHNcIjtpbXBvcnQgeyBkZWZpbmVDb25maWcgfSBmcm9tICd2aXRlJztcbmltcG9ydCByZWFjdCBmcm9tICdAdml0ZWpzL3BsdWdpbi1yZWFjdCc7XG5cbi8vIGh0dHBzOi8vdml0ZWpzLmRldi9jb25maWcvXG5leHBvcnQgZGVmYXVsdCBkZWZpbmVDb25maWcoe1xuICBwbHVnaW5zOiBbcmVhY3QoKV0sXG4gIGJ1aWxkOiB7XG4gICAgdGFyZ2V0OiAnZXMyMDE1JyxcbiAgICByb2xsdXBPcHRpb25zOiB7XG4gICAgICBvdXRwdXQ6IHtcbiAgICAgICAgZW50cnlGaWxlTmFtZXM6ICdudXRyaXRpb24tbmF2aWdhdG9yL1tuYW1lXS5qcycsXG4gICAgICAgIGNodW5rRmlsZU5hbWVzOiAnbnV0cml0aW9uLW5hdmlnYXRvci9bbmFtZV0uanMnLFxuICAgICAgICBhc3NldEZpbGVOYW1lczogJ251dHJpdGlvbi1uYXZpZ2F0b3IvW25hbWVdLltleHRdJ1xuICAgICAgfVxuICAgIH1cbiAgfVxufSk7XG4iXSwKICAibWFwcGluZ3MiOiAiO0FBQTRaLFNBQVMsb0JBQW9CO0FBQ3piLE9BQU8sV0FBVztBQUdsQixJQUFPLHNCQUFRLGFBQWE7QUFBQSxFQUMxQixTQUFTLENBQUMsTUFBTSxDQUFDO0FBQUEsRUFDakIsT0FBTztBQUFBLElBQ0wsUUFBUTtBQUFBLElBQ1IsZUFBZTtBQUFBLE1BQ2IsUUFBUTtBQUFBLFFBQ04sZ0JBQWdCO0FBQUEsUUFDaEIsZ0JBQWdCO0FBQUEsUUFDaEIsZ0JBQWdCO0FBQUEsTUFDbEI7QUFBQSxJQUNGO0FBQUEsRUFDRjtBQUNGLENBQUM7IiwKICAibmFtZXMiOiBbXQp9Cg==

@@ -25,6 +25,6 @@ export const set = ([state, action]: [
   return {
     ...state,
     programs: validatedPrograms,
-    filteredPrograms: programs
+    filteredPrograms: validatedPrograms
   };
 };

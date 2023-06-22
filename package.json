@@ -9,6 +9,7 @@
     "build": "tsc && vite build",
     "build:watch": "vite build --watch -m development",
     "build:development": "tsc && vite build --mode development",
+    "test": "vitest",
     "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
     "prepare": "husky install",
@@ -36,6 +37,10 @@
   },
   "devDependencies": {
     "@prettier/plugin-php": "^0.19.4",
+    "@testing-library/jest-dom": "^5.16.5",
+    "@testing-library/react": "^14.0.0",
+    "@testing-library/react-hooks": "^8.0.1",
+    "@testing-library/user-event": "^14.4.3",
     "@types/leaflet": "^1.9.3",
     "@types/leaflet.markercluster": "^1.5.1",
     "@types/react": "^18.0.28",
@@ -55,7 +60,8 @@
     "stylelint-config-property-sort-order-smacss": "^9.1.0",
     "stylelint-config-sass-guidelines": "^10.0.0",
     "typescript": "^5.0.2",
-    "vite": "^4.3.2"
+    "vite": "^4.3.2",
+    "vitest": "^0.32.2"
   },
   "repository": {
     "type": "git",

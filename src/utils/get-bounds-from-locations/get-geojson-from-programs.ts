@@ -1,8 +1,7 @@
-import L, { LatLngBounds } from 'leaflet';
-import { ProgramSchema } from '../hooks/useAllPrograms/schema.ts';
-import { Program } from '../hooks/useAllPrograms/types.ts';
+import { ProgramSchema } from '../../hooks/useAllPrograms/schema.ts';
+import { Program } from '../../hooks/useAllPrograms/types.ts';
 
-export const getBoundsFromLocations = (programs: Program[]): LatLngBounds => {
+export const getGeoJSONFromPrograms = (programs: Program[]) => {
   const locations = programs.filter((program) => {
     const validatedProgram = ProgramSchema.safeParse(program);
 
@@ -23,5 +22,5 @@ export const getBoundsFromLocations = (programs: Program[]): LatLngBounds => {
     type: 'FeatureCollection'
   };
 
-  return L.geoJSON(geoJSON).getBounds();
+  return geoJSON;
 };

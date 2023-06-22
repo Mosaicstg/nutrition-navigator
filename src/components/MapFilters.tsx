@@ -184,95 +184,100 @@ const MapFilters = (props: MapFiltersProps) => {
               })}
           </ul>
         </div>
-        <div className="nutrition-navigator__filters-grid">
-          <details className="nutrition-navigator__filter-details" open>
-            <summary>
-              <h5 className="nutrition-navigator__heading--h5">
-                By Venues (Select All That Apply)
-              </h5>
-            </summary>
-            <ul className="nutrition-navigator__checkbox-items-wrap">
-              {venuesStatus === 'success' &&
-                venues.map((venue) => {
-                  return (
-                    <li
-                      className="nutrition-navigator__checkbox-wrap"
-                      key={venue.id}
-                    >
-                      <label
-                        className="nutrition-navigator__checkbox-label"
-                        htmlFor={venue.slug}
+        <div className="nutrtition-navigator__sub-filters">
+          <h2 className="nutrtition-navigator__heading--h2">
+            More Ways To Search:
+          </h2>
+          <div className="nutrition-navigator__filters-grid">
+            <details className="nutrition-navigator__filter-details" open>
+              <summary>
+                <h5 className="nutrition-navigator__heading--h5">
+                  By Venues (Select All That Apply)
+                </h5>
+              </summary>
+              <ul className="nutrition-navigator__checkbox-items-wrap">
+                {venuesStatus === 'success' &&
+                  venues.map((venue) => {
+                    return (
+                      <li
+                        className="nutrition-navigator__checkbox-wrap"
+                        key={venue.id}
                       >
-                        {venue.name}
-                      </label>
-                      <input
-                        type="checkbox"
-                        name="venue[]"
-                        value={venue.slug}
-                        id={venue.slug}
-                        className="nutrition-navigator__checkbox"
-                        onChange={onVenueChange}
-                        checked={filters.venues.includes(venue.slug)}
-                      />
-                    </li>
-                  );
-                })}
-            </ul>
-          </details>
-          <details className="nutrition-navigator__filter-details" open>
-            <summary>
-              <h5 className="nutrition-navigator__heading--h5">
-                By Audience (Select All That Apply)
-              </h5>
-            </summary>
-            <ul className="nutrition-navigator__checkbox-items-wrap">
-              {audiencesStatus === 'success' &&
-                audiences.map((audience) => {
-                  return (
-                    <li
-                      className="nutrition-navigator__checkbox-wrap"
-                      key={audience.id}
-                    >
-                      <label
-                        className="nutrition-navigator__checkbox-label"
-                        htmlFor={audience.slug}
+                        <label
+                          className="nutrition-navigator__checkbox-label"
+                          htmlFor={venue.slug}
+                        >
+                          {venue.name}
+                        </label>
+                        <input
+                          type="checkbox"
+                          name="venue[]"
+                          value={venue.slug}
+                          id={venue.slug}
+                          className="nutrition-navigator__checkbox"
+                          onChange={onVenueChange}
+                          checked={filters.venues.includes(venue.slug)}
+                        />
+                      </li>
+                    );
+                  })}
+              </ul>
+            </details>
+            <details className="nutrition-navigator__filter-details" open>
+              <summary>
+                <h5 className="nutrition-navigator__heading--h5">
+                  By Audience (Select All That Apply)
+                </h5>
+              </summary>
+              <ul className="nutrition-navigator__checkbox-items-wrap">
+                {audiencesStatus === 'success' &&
+                  audiences.map((audience) => {
+                    return (
+                      <li
+                        className="nutrition-navigator__checkbox-wrap"
+                        key={audience.id}
                       >
-                        {audience.name}
-                      </label>
-                      <input
-                        type="checkbox"
-                        name="audience[]"
-                        value={audience.slug}
-                        id={audience.slug}
-                        className="nutrition-navigator__checkbox"
-                        onChange={onAudienceChange}
-                        checked={filters.audiences.includes(audience.slug)}
-                      />
-                    </li>
-                  );
-                })}
-            </ul>
-          </details>
-          <details className="nutrition-navigator__filter-details" open>
-            <summary>
-              <h5 className="nutrition-navigator__heading--h5">
-                By Organization
-              </h5>
-            </summary>
-            <label
-              htmlFor="organization-name"
-              className="nutrition-navigator__helper-text"
-            >
-              Search Organization Name
-            </label>
-            <input
-              type="text"
-              placeholder="Search Name"
-              name="organization-name"
-              className="nutrition-navigator__text-field"
-              onChange={onOrgNameChange}
-            />
-          </details>
+                        <label
+                          className="nutrition-navigator__checkbox-label"
+                          htmlFor={audience.slug}
+                        >
+                          {audience.name}
+                        </label>
+                        <input
+                          type="checkbox"
+                          name="audience[]"
+                          value={audience.slug}
+                          id={audience.slug}
+                          className="nutrition-navigator__checkbox"
+                          onChange={onAudienceChange}
+                          checked={filters.audiences.includes(audience.slug)}
+                        />
+                      </li>
+                    );
+                  })}
+              </ul>
+            </details>
+            <details className="nutrition-navigator__filter-details" open>
+              <summary>
+                <h5 className="nutrition-navigator__heading--h5">
+                  By Organization
+                </h5>
+              </summary>
+              <label
+                htmlFor="organization-name"
+                className="nutrition-navigator__helper-text"
+              >
+                Search Organization Name
+              </label>
+              <input
+                type="text"
+                placeholder="Search Name"
+                name="organization-name"
+                className="nutrition-navigator__text-field"
+                onChange={onOrgNameChange}
+              />
+            </details>
+          </div>
         </div>
       </div>
     </div>

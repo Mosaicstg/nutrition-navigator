@@ -38,7 +38,7 @@ const mapContainerProps: MapContainerProps = {
   zoom: 13,
   center: [51.505, -0.09],
   scrollWheelZoom: false,
-  style: { height: 500 },
+  style: { height: 630 },
   attributionControl: false
 };
 
