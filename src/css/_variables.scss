@@ -78,6 +78,21 @@ $h6-letter-spacing: .08em;
 $h6-text-transform: uppercase;
 $mobile-h6-font-size: 12px;
 
+// Breakpoints
+$sm: 576px;
+$md: 768px;
+$lg: 992px;
+$xl: 1200px;
+$xxl: 1420px;
+
+$breakpoints: (
+        xs: 0,
+        sm: $sm,
+        md: $md,
+        lg: $lg,
+        xl: $xl,
+        xxl: $xxl
+);
 
 :root {
   // Typography

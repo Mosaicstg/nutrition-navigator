@@ -3,8 +3,30 @@
   z-index: 9999;
 }
 
+.nutrition-navigator__filters-header-wrap {
+  display: flex;
+  grid-gap: 15px;
+  flex-flow: column;
+  padding: 30px 40px;
+  background: var(--nutrition-navigator-pale-green);
+  box-shadow: 0 0 6px rgba(0, 0, 0, .16);
+  color: var(--nutrition-navigator-dark-gray);
+
+  @include media-breakpoint-up(md) {
+    flex-flow: row nowrap;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .nutrition-navigator__filters-wrap--open & {
+    background: var(--nutrition-navigator-blue);
+    color: var(--nutrition-navigator-white);
+  }
+}
+
 .nutrition-navigator__address-input-wrap {
   --input-search-field-icon-url: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='21' viewBox='0 0 20 21' fill='none'%3E%3Cpath d='M19.7319 17.6756L15.9418 13.8854C15.7707 13.7144 15.5388 13.6193 15.2955 13.6193H14.6759C15.7251 12.2774 16.3486 10.5895 16.3486 8.75338C16.3486 4.38542 12.8093 0.846191 8.44137 0.846191C4.07341 0.846191 0.53418 4.38542 0.53418 8.75338C0.53418 13.1213 4.07341 16.6606 8.44137 16.6606C10.2775 16.6606 11.9654 16.0371 13.3073 14.9879V15.6075C13.3073 15.8508 13.4024 16.0827 13.5734 16.2538L17.3636 20.0439C17.7209 20.4013 18.2987 20.4013 18.6523 20.0439L19.7281 18.9681C20.0855 18.6108 20.0855 18.0329 19.7319 17.6756ZM8.44137 13.6193C5.75368 13.6193 3.57541 11.4449 3.57541 8.75338C3.57541 6.0657 5.74988 3.88742 8.44137 3.88742C11.129 3.88742 13.3073 6.06189 13.3073 8.75338C13.3073 11.4411 11.1329 13.6193 8.44137 13.6193Z' fill='%23403c3b'/%3E%3C/svg%3E");;
+
   position: relative;
 
   &::before {
@@ -22,7 +44,7 @@
     background-size: 100%;
   }
 
-  @media only screen and (min-width: 769px) {
+  @include media-breakpoint-up(md) {
     min-width: 300px;
   }
 
@@ -85,16 +107,7 @@
   }
 }
 
-.nutrition-navigator__filters-header-wrap {
-  .nutrition-navigator__filters-wrap--open & {
-    background: var(--nutrition-navigator-blue);
-    color: var(--nutrition-navigator-white);
-  }
-}
-
 .nutrition-navigator__text-field {
-  transition: all .25s ease-in-out;
-
   .nutrition-navigator__filters-header-wrap & {
     .nutrition-navigator__filters-wrap--open & {
       color: var(--nutrition-navigator-white);
@@ -107,10 +120,27 @@
   }
 }
 
+
+.nutrition-navigator__filters-reset-submit-button-group {
+  display: flex;
+  grid-gap: 15px;
+  flex-flow: column;
+  text-align: center;
+
+  @include media-breakpoint-up(md) {
+    grid-gap: 18px;
+    flex-flow: row nowrap;
+    flex-shrink: 0;
+  }
+}
+
 .nutrition-navigator__filters-body-wrap {
   z-index: 2;
+  padding: 40px;
+  background: var(--nutrition-navigator-white);
+  box-shadow: 0 0 6px rgba(0, 0, 0, .16);
 
-  @media only screen and (min-width: 769px) {
+  @include media-breakpoint-up(md) {
     position: absolute;
     top: 100%;
     left: 0;
@@ -118,13 +148,92 @@
   }
 }
 
+.nutrition-navigator__program-types-body-wrap {
+  h2 {
+    margin: 0;
+  }
+
+  @include media-breakpoint-up(md) {
+    display: grid;
+    grid-gap: 30px;
+    grid-template-columns: 1fr 1fr 1fr;
+    padding-bottom: 20px;
+
+    > :last-child {
+      grid-column: span 2;
+    }
+  }
+}
+
+.nutrition-navigator__program-types {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  font-weight: 700;
+}
+
 .nutrition-navigator__filter-details {
   summary {
+    display: flex;
+    grid-gap: 7px;
     margin-bottom: 20px;
+    list-style: none;
+    cursor: pointer;
+
+    &::before {
+      content: "";
+      display: block;
+      padding: 5px;
+      background-image: url("data:image/svg+xml,%3Csvg width='9' height='10' viewBox='0 0 9 10' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M8.07422 4.35321C8.74089 4.73811 8.74089 5.70036 8.07422 6.08526L2.07422 9.54936C1.40755 9.93426 0.574219 9.45314 0.574219 8.68334V1.75514C0.574219 0.985337 1.40755 0.504211 2.07422 0.889111L8.07422 4.35321Z' fill='%23F27024'/%3E%3C/svg%3E%0A");
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: 100%;
+    }
   }
 
   h5 {
     margin: 0;
     padding-bottom: 0;
+  }
+}
+
+.nutrition-navigator__sub-filters {
+  margin-top: 20px;
+  padding-top: 30px;
+  border-top: .2px solid var(--nutrition-navigator-dark-gray);
+
+  > h2 {
+    margin-top: 0;
+  }
+}
+
+.nutrition-navigator__filters-grid {
+  display: grid;
+  grid-gap: 30px;
+  grid-template-columns: repeat(auto-fit, minmax(min(30ch, 100%), 1fr));
+  padding-top: 10px;
+
+  @include media-breakpoint-up(lg) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.nutrition-navigator__organization-name-search-field-wrap {
+  position: relative;
+
+  input[type="text"] {
+    width: 100%;
+    padding-left: 20px;
+  }
+
+  &::after {
+    content: "";
+    display: block;
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    width: 20px;
+    height: 10px;
+    transform: translateY(-50%);
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='21' height='11' viewBox='0 0 21 11' fill='none'%3E%3Cpath d='M14.5152 3.26706H1.03571C0.739866 3.26706 0.5 3.51105 0.5 3.81198V6.35497C0.5 6.6559 0.739866 6.89989 1.03571 6.89989H14.5152V8.99145C14.5152 9.96241 15.6693 10.4487 16.3443 9.76211L20.1862 5.85413C20.6046 5.4285 20.6046 4.73845 20.1862 4.31286L16.3443 0.404885C15.6693 -0.281675 14.5152 0.20458 14.5152 1.17555V3.26706Z' fill='%23403C3B'/%3E%3C/svg%3E");
   }
 }

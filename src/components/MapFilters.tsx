@@ -5,6 +5,9 @@ import useVenues from '../hooks/useVenues.tsx';
 import useAudiences from '../hooks/useAudiences.tsx';
 import useProgramTypes from '../hooks/useProgramTypes.tsx';
 
+// Components
+import LabelCheckBox from './LabelCheckBox.tsx';
+
 // Types
 import {
   AllProgramsAction,
@@ -184,7 +187,7 @@ const MapFilters = (props: MapFiltersProps) => {
               })}
           </ul>
         </div>
-        <div className="nutrtition-navigator__sub-filters">
+        <div className="nutrition-navigator__sub-filters">
           <h2 className="nutrtition-navigator__heading--h2">
             More Ways To Search:
           </h2>
@@ -203,20 +206,14 @@ const MapFilters = (props: MapFiltersProps) => {
                         className="nutrition-navigator__checkbox-wrap"
                         key={venue.id}
                       >
-                        <label
-                          className="nutrition-navigator__checkbox-label"
-                          htmlFor={venue.slug}
-                        >
-                          {venue.name}
-                        </label>
-                        <input
-                          type="checkbox"
-                          name="venue[]"
-                          value={venue.slug}
-                          id={venue.slug}
-                          className="nutrition-navigator__checkbox"
-                          onChange={onVenueChange}
-                          checked={filters.venues.includes(venue.slug)}
+                        <LabelCheckBox
+                          {...{
+                            label: venue.name,
+                            name: 'audience[]',
+                            value: venue.slug,
+                            onChange: onVenueChange,
+                            isChecked: filters.venues.includes(venue.slug)
+                          }}
                         />
                       </li>
                     );
@@ -237,20 +234,14 @@ const MapFilters = (props: MapFiltersProps) => {
                         className="nutrition-navigator__checkbox-wrap"
                         key={audience.id}
                       >
-                        <label
-                          className="nutrition-navigator__checkbox-label"
-                          htmlFor={audience.slug}
-                        >
-                          {audience.name}
-                        </label>
-                        <input
-                          type="checkbox"
-                          name="audience[]"
-                          value={audience.slug}
-                          id={audience.slug}
-                          className="nutrition-navigator__checkbox"
-                          onChange={onAudienceChange}
-                          checked={filters.audiences.includes(audience.slug)}
+                        <LabelCheckBox
+                          {...{
+                            label: audience.name,
+                            name: 'audience[]',
+                            value: audience.slug,
+                            onChange: onAudienceChange,
+                            isChecked: filters.audiences.includes(audience.slug)
+                          }}
                         />
                       </li>
                     );
@@ -263,19 +254,21 @@ const MapFilters = (props: MapFiltersProps) => {
                   By Organization
                 </h5>
               </summary>
-              <label
-                htmlFor="organization-name"
-                className="nutrition-navigator__helper-text"
-              >
-                Search Organization Name
-              </label>
-              <input
-                type="text"
-                placeholder="Search Name"
-                name="organization-name"
-                className="nutrition-navigator__text-field"
-                onChange={onOrgNameChange}
-              />
+              <div className="nutrition-navigator__organization-name-search-field-wrap">
+                <label
+                  htmlFor="organization-name"
+                  className="nutrition-navigator__helper-text"
+                >
+                  Search Organization Name
+                </label>
+                <input
+                  type="text"
+                  placeholder="Search Name"
+                  name="organization-name"
+                  className="nutrition-navigator__text-field"
+                  onChange={onOrgNameChange}
+                />
+              </div>
             </details>
           </div>
         </div>

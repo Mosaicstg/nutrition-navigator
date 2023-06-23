@@ -1,88 +1,9 @@
 @import "css/reset";
-@import "css/typography";
 @import "css/variables";
+@import "css/functions";
+@import "css/mixins";
+@import "css/typography";
 @import "css/utilities";
 @import "css/form";
 @import "css/filters";
 @import "css/marker";
-
-
-.nutrition-navigator__filters-header-wrap {
-  display: flex;
-  grid-gap: 15px;
-  flex-flow: column;
-  padding: 30px 40px;
-  background: var(--nutrition-navigator-pale-green);
-  box-shadow: 0 0 6px rgba(0, 0, 0, .16);
-  color: var(--nutrition-navigator-dark-gray);
-
-  @media only screen and (min-width: 769px) {
-    flex-flow: row nowrap;
-    align-items: center;
-    justify-content: space-between;
-  }
-}
-
-.nutrition-navigator__filters-reset-submit-button-group {
-  display: flex;
-  grid-gap: 15px;
-  flex-flow: column;
-  text-align: center;
-
-  @media only screen and (min-width: 769px) {
-    grid-gap: 18px;
-    flex-flow: row nowrap;
-    flex-shrink: 0;
-  }
-}
-
-.nutrition-navigator__filters-body-wrap {
-  padding: 40px;
-  background: var(--nutrition-navigator-white);
-  box-shadow: 0 0 6px rgba(0, 0, 0, .16);
-}
-
-.nutrition-navigator__program-types {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-}
-
-.nutrition-navigator__filter-details {
-  summary {
-    display: flex;
-    grid-gap: 7px;
-    list-style: none;
-    cursor: pointer;
-
-    &::before {
-      content: "";
-      display: block;
-      padding: 5px;
-      background-image: url("data:image/svg+xml,%3Csvg width='9' height='10' viewBox='0 0 9 10' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M8.07422 4.35321C8.74089 4.73811 8.74089 5.70036 8.07422 6.08526L2.07422 9.54936C1.40755 9.93426 0.574219 9.45314 0.574219 8.68334V1.75514C0.574219 0.985337 1.40755 0.504211 2.07422 0.889111L8.07422 4.35321Z' fill='%23F27024'/%3E%3C/svg%3E%0A");
-      background-repeat: no-repeat;
-      background-position: center;
-      background-size: 100%;
-    }
-  }
-}
-
-.nutrition-navigator__filters-grid {
-  display: grid;
-  grid-gap: 30px;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  margin-top: 30px;
-  padding-top: 20px;
-  border-top: 1px solid var(--nutrition-navigator-dark-gray);
-}
-
-
-.nutrition-navigator__marker-cluster-icon {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 100%;
-  background: var(--nutrition-navigator-orange);
-  color: var(--nutrition-navigator-white);
-  font-family: var(--nutrition-navigator-body-font);
-  font-weight: bold;
-}
