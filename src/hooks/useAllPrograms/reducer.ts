@@ -3,8 +3,8 @@ import { match, P } from 'ts-pattern';
 // Helper functions
 import { reset } from './reset/reset.ts';
 import { set } from './set/set.ts';
-import { updateFilters } from './updateFilters/update-filters.ts';
-import { updatePrograms } from './updatePrograms/updatePrograms.ts';
+import { updateFilters } from './update-filters/update-filters.ts';
+import { updatePrograms } from './update-programs/update-programs.ts';
 
 // Types
 import { AllProgramsAction, AllProgramsState } from './types.ts';
