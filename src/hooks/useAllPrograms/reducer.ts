@@ -3,7 +3,7 @@ import { match, P } from 'ts-pattern';
 // Helper functions
 import { reset } from './reset/reset.ts';
 import { set } from './set/set.ts';
-import { updateFilters } from './updateFilters/updateFilters.ts';
+import { updateFilters } from './updateFilters/update-filters.ts';
 import { updatePrograms } from './updatePrograms/updatePrograms.ts';
 
 // Types
