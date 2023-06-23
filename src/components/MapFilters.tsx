@@ -113,15 +113,6 @@ const MapFilters = (props: MapFiltersProps) => {
         </button>
         <div className="nutrition-navigator__filters-reset-submit-button-group">
           <button
-            className={`nutrition-navigator__button nutrition-navigator__button--outline ${
-              isFiltersOpen ? 'nutrition-navigator__button--green' : ''
-            }`}
-            onClick={() => dispatch({ type: 'RESET' })}
-            type="button"
-          >
-            Reset
-          </button>
-          <button
             className={`nutrition-navigator__button ${
               isFiltersOpen ? 'nutrition-navigator__button--white' : ''
             }`}
@@ -129,6 +120,15 @@ const MapFilters = (props: MapFiltersProps) => {
             type="button"
           >
             Search
+          </button>
+          <button
+            className={`nutrition-navigator__button nutrition-navigator__button--outline ${
+              isFiltersOpen ? 'nutrition-navigator__button--green' : ''
+            }`}
+            onClick={() => dispatch({ type: 'RESET' })}
+            type="button"
+          >
+            Reset
           </button>
         </div>
       </div>
