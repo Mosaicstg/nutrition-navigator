@@ -100,7 +100,11 @@ const MapFilters = (props: MapFiltersProps) => {
             id="address"
             name="address"
             placeholder="Address"
-            className="nutrition-navigator__text-field"
+            className={`nutrition-navigator__text-field ${
+              isFiltersOpen
+                ? 'nutrition-navigator__text-field--filters-open'
+                : ''
+            }`}
           />
         </div>
         <button
@@ -143,7 +147,7 @@ const MapFilters = (props: MapFiltersProps) => {
         hidden={!isFiltersOpen}
       >
         <div className={'nutrition-navigator__program-types-body-wrap'}>
-          <h2>I want to...</h2>
+          <h2 className="nutrition-navigator__heading--h2">I want to...</h2>
           <ul
             className={
               'nutrition-navigator__checkbox-items-wrap nutrition-navigator__program-types'
@@ -188,7 +192,7 @@ const MapFilters = (props: MapFiltersProps) => {
           </ul>
         </div>
         <div className="nutrition-navigator__sub-filters">
-          <h2 className="nutrtition-navigator__heading--h2">
+          <h2 className="nutrition-navigator__heading--h3">
             More Ways To Search:
           </h2>
           <div className="nutrition-navigator__filters-grid">

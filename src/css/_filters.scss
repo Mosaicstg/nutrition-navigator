@@ -108,8 +108,9 @@
 }
 
 .nutrition-navigator__text-field {
-  .nutrition-navigator__filters-header-wrap & {
-    .nutrition-navigator__filters-wrap--open & {
+  &--filters-open {
+    &,
+    #nutrition-navigator & {
       color: var(--nutrition-navigator-white);
 
       &::placeholder {
@@ -119,7 +120,6 @@
     }
   }
 }
-
 
 .nutrition-navigator__filters-reset-submit-button-group {
   display: flex;
@@ -168,7 +168,12 @@
 .nutrition-navigator__program-types {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  max-width: 100%;
   font-weight: 700;
+
+  @include media-breakpoint-up(md) {
+    grid-template-columns: 1fr 1fr;
+  }
 }
 
 .nutrition-navigator__filter-details {
@@ -222,7 +227,10 @@
 
   input[type="text"] {
     width: 100%;
-    padding-left: 20px;
+
+    #nutrition-navigator & {
+      padding-left: 20px;
+    }
   }
 
   &::after {
