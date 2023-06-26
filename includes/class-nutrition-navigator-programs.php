@@ -237,30 +237,18 @@ class Nutrition_Navigator_Programs {
 
 		// Location Latitude
 		register_post_meta(self::POST_SLUG, 'program-location-latitude', [
-			'type' => 'string',
+			'type' => 'number',
 			'single' => true,
 			'show_in_rest' => true,
-			'sanitize_callback' =>
-				/**
-				 * A sanitizer function for the latitude field.
-				 *
-				 * @param mixed  $meta_value
-				 * @param string $meta_key
-				 * @param string $object_type
-				 * @param string $object_subtype
-				 *
-				 * @return float
-				 */
-				function ($meta_value, $meta_key, $object_type, $object_subtype) {
-					return floatval($meta_value);
-				}
+			'sanitize_callback' => [$this, 'sanitize_map_position_custom_fields']
 		]);
 
 		// Location Longitude
 		register_post_meta(self::POST_SLUG, 'program-location-longitude', [
-			'type' => 'string',
+			'type' => 'number',
 			'single' => true,
-			'show_in_rest' => true
+			'show_in_rest' => true,
+			'sanitize_callback' => [$this, 'sanitize_map_position_custom_fields']
 		]);
 
 		// Location Dates/times offered
@@ -290,6 +278,21 @@ class Nutrition_Navigator_Programs {
 			'single' => true,
 			'show_in_rest' => true
 		]);
+	}
+
+	/**
+	 * A sanitizer function for the latitude field.
+	 *
+	 * @param mixed  $meta_value     Metadata value to sanitize.
+	 * @param string $meta_key       Metadata key.
+	 * @param string $object_type    Type of object metadata is for. Accepts 'post', 'comment', 'term', 'user',
+	 *                               or any other object type with an associated meta table.
+	 * @param string $object_subtype Object subtype.
+	 *
+	 * @return float
+	 */
+	public function sanitize_map_position_custom_fields($meta_value, $meta_key, $object_type, $object_subtype) {
+		return floatval($meta_value);
 	}
 
 	/**
