@@ -1,20 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
-import { fetchApi } from '../api/fetch.ts';
-import { z } from 'zod';
-
-// eslint-disable-next-line react-refresh/only-export-components
-const ProgramTypeSchema = z.object({
-  id: z.number(),
-  count: z.number(),
-  name: z.string(),
-  slug: z.string(),
-  meta: z.object({
-    icon: z.string()
-  }),
-  link: z.string()
-});
-
-type ProgramType = z.infer<typeof ProgramTypeSchema>;
+import { fetchApi } from '../../api/fetch.ts';
+import { ProgramType, ProgramTypeSchema } from './schema.ts';
 
 const fetchAllProgramTypes = () => {
   return fetchApi('/wp-json/wp/v2/program-type?per_page=100').then((res) =>

@@ -1,17 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
-import { fetchApi } from '../api/fetch.ts';
-import { z } from 'zod';
-
-// eslint-disable-next-line react-refresh/only-export-components
-const AudienceSchema = z.object({
-  id: z.number(),
-  name: z.string(),
-  slug: z.string(),
-  taxonomy: z.string(),
-  link: z.string()
-});
-
-type Audience = z.infer<typeof AudienceSchema>;
+import { fetchApi } from '../../api/fetch.ts';
+import { Audience, AudienceSchema } from './schema.ts';
 
 const fetchAllAudiences = () => {
   return fetchApi('/wp-json/wp/v2/audience?per_page=100').then((res) =>

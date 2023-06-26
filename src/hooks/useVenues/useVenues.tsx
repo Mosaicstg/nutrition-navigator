@@ -1,17 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
-import { fetchApi } from '../api/fetch.ts';
-import { z } from 'zod';
-
-// eslint-disable-next-line react-refresh/only-export-components
-const VenueSchema = z.object({
-  id: z.number(),
-  name: z.string(),
-  slug: z.string(),
-  taxonomy: z.string(),
-  link: z.string()
-});
-
-type Venue = z.infer<typeof VenueSchema>;
+import { fetchApi } from '../../api/fetch.ts';
+import { Venue, VenueSchema } from './schema.ts';
 
 const fetchAllVenues = () => {
   // There's probably NEVER going to be more than 5 or 6 so for now querying the first 100

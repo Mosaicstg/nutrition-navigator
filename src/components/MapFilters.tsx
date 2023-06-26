@@ -1,9 +1,9 @@
 import React from 'react';
 
 // Hooks
-import useVenues from '../hooks/useVenues.tsx';
-import useAudiences from '../hooks/useAudiences.tsx';
-import useProgramTypes from '../hooks/useProgramTypes.tsx';
+import useProgramTypes from '../hooks/useProgramTypes/useProgramTypes.tsx';
+import useVenues from '../hooks/useVenues/useVenues.tsx';
+import useAudiences from '../hooks/useAudiences/useAudiences.tsx';
 
 // Components
 import LabelCheckBox from './LabelCheckBox.tsx';
