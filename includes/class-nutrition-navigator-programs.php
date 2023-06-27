@@ -278,6 +278,14 @@ class Nutrition_Navigator_Programs {
 			'single' => true,
 			'show_in_rest' => true
 		]);
+
+		// Download File ID
+		register_post_meta(self::POST_SLUG, 'program-download-file-id', [
+			'type' => 'integer',
+			'single' => true,
+			'show_in_rest' => true,
+			'sanitized_callback' => [$this, 'sanitize_download_file_id_custom_field']
+		]);
 	}
 
 	/**
@@ -293,6 +301,21 @@ class Nutrition_Navigator_Programs {
 	 */
 	public function sanitize_map_position_custom_fields($meta_value, $meta_key, $object_type, $object_subtype) {
 		return floatval($meta_value);
+	}
+
+	/**
+	 * A sanitizer function for the latitude field.
+	 *
+	 * @param mixed  $meta_value     Metadata value to sanitize.
+	 * @param string $meta_key       Metadata key.
+	 * @param string $object_type    Type of object metadata is for. Accepts 'post', 'comment', 'term', 'user',
+	 *                               or any other object type with an associated meta table.
+	 * @param string $object_subtype Object subtype.
+	 *
+	 * @return integer
+	 */
+	public function sanitize_download_file_id_custom_field($meta_value, $meta_key, $object_type, $object_subtype) {
+		return intval($meta_value);
 	}
 
 	/**
@@ -320,6 +343,16 @@ class Nutrition_Navigator_Programs {
 			'location-information',
 			'Location',
 			[$this, 'location_meta_box'],
+			self::POST_SLUG,
+			'normal',
+			'high'
+		);
+
+		// File Upload meta box
+		add_meta_box(
+			'download-file-information',
+			'Files',
+			[$this, 'download_file_meta_box'],
 			self::POST_SLUG,
 			'normal',
 			'high'
@@ -429,6 +462,50 @@ class Nutrition_Navigator_Programs {
 	}
 
 	/**
+	 * Render 'Down' meta box fields
+	 *
+	 * @param WP_Post $post Post object.
+	 *
+	 * @return void
+	 */
+	public function download_file_meta_box($post) {
+		wp_nonce_field(plugin_basename(__FILE__), 'program_download_file_nonce');
+
+		$download_file_id = get_post_meta($post->ID, 'program-download-file-id', true);
+		$file_path = get_attached_file($download_file_id);
+		$file_name = !empty($file_path) ? basename($file_path) : '';
+
+		echo '<p>Download File:</p>';
+		echo '<div class="file-actions-container" style="display: flex; flex-flow: row nowrap; grid-gap: 10px; align-items: center">';
+
+		// File Name container
+		echo '<span style="color: #2271b1;" class="file-name-container ' .
+			(empty($download_file_id) ? 'hidden' : '') .
+			'">' .
+			esc_html($file_name) .
+			'</span>';
+
+		// Select File Button
+		echo '<button type="button" aria-label="Select File" style="margin-right: 10px;" class="button ' .
+			(!empty($download_file_id) ? 'hidden' : '') .
+			' upload-program-file">';
+		echo '<span style="display: inline-block; margin-right: 5px; vertical-align: middle">Select File</span><span style="vertical-align: middle" class="dashicons dashicons-cloud-upload"></span>';
+		echo '</button>';
+
+		// Remove File button
+		echo '<button type="button" aria-label="Remove File" class="button ' .
+			(empty($download_file_id) ? 'hidden' : '') .
+			' delete-program-file"><span style="vertical-align: middle" class="dashicons dashicons-trash"></span></button>';
+
+		// Hidden field that with hold ID of attachment post of file.
+		echo '<input type="hidden" class="file-attachment-id" name="program-download-file-id" value="' .
+			esc_attr($download_file_id) .
+			'"/>';
+
+		echo '</div>';
+	}
+
+	/**
 	 * Render 'Contact' meta box fields
 	 *
 	 * @param WP_Post $post Post object.
@@ -471,10 +548,15 @@ class Nutrition_Navigator_Programs {
 		if (
 			isset($_POST['program_nonce']) &&
 			isset($_POST['program_location_nonce']) &&
+			isset($_POST['program_download_file_none']) &&
 			isset($_POST['program_contact_nonce']) &&
 			!wp_verify_nonce(sanitize_text_field(wp_unslash($_POST['program_nonce'])), plugin_basename(__FILE__)) &&
 			!wp_verify_nonce(
 				sanitize_text_field(wp_unslash($_POST['program_location_nonce'])),
+				plugin_basename(__FILE__)
+			) &&
+			!wp_verify_nonce(
+				sanitize_text_field(wp_unslash($_POST['program_download_file_none'])),
 				plugin_basename(__FILE__)
 			) &&
 			!wp_verify_nonce(
@@ -579,6 +661,14 @@ class Nutrition_Navigator_Programs {
 				sanitize_textarea_field(wp_unslash($_POST['program-contact-email']))
 			);
 		}
+
+		if (array_key_exists('program-download-file-id', $_POST)) {
+			update_post_meta(
+				$post_id,
+				'program-download-file-id',
+				intval(sanitize_text_field(wp_unslash($_POST['program-download-file-id'])))
+			);
+		}
 	}
 
 	/**
@@ -587,6 +677,36 @@ class Nutrition_Navigator_Programs {
 	 * @return void
 	 */
 	public function admin_enqueue_scripts() {
+		$this->admin_enqueue_program_scripts();
+		$this->admin_enqueue_program_type_scripts();
+	}
+
+	/**
+	 * Handles rendering scripts for the backend of a single Program post.
+	 *
+	 * @return void
+	 */
+	public function admin_enqueue_program_scripts() {
+		if (!is_admin()) {
+			return;
+		}
+
+		$current_screen = get_current_screen();
+
+		if (self::POST_SLUG !== $current_screen->post_type) {
+			return;
+		}
+
+		wp_enqueue_media();
+		wp_enqueue_script('program', plugin_dir_url(__DIR__) . 'admin/program.js', ['jquery'], '1.0.0', true);
+	}
+
+	/**
+	 * Handles rendering scripts for the backend of a single Program Type (taxonomy) term.
+	 *
+	 * @return void
+	 */
+	public function admin_enqueue_program_type_scripts() {
 		if (!is_admin()) {
 			return;
 		}
