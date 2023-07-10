@@ -5,6 +5,4 @@ const config =
   // Use local config when in development mode
   import.meta.env.MODE === 'development' ? LocalConfig : ProdConfig;
 
-console.log(import.meta.env);
-
 export default config;
