@@ -1,0 +1,20 @@
+.nutrition-navigator__loading-spinner-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 630px;
+  background: var(--nutrition-navigator-orange);
+}
+
+.nutrition-navigator__loading-spinner {
+  width: 75px;
+
+  svg {
+    width: 100%;
+    height: auto;
+  }
+
+  path {
+    fill: var(--nutrition-navigator-white);
+  }
+}

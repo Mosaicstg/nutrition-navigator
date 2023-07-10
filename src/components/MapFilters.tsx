@@ -27,7 +27,7 @@ const MapFilters = (props: MapFiltersProps) => {
   const { data: audiences, status: audiencesStatus } = useAudiences();
 
   const [isFiltersOpen, setIsFiltersIsFiltersOpen] = React.useState(false);
-  const { filters } = state;
+  const { filters, programs } = state;
 
   const onAddressChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { filters: prevFilters } = state;
@@ -120,6 +120,7 @@ const MapFilters = (props: MapFiltersProps) => {
             value={filters.address}
             onChange={onAddressChange}
             autoComplete="true"
+            readOnly={programs.length === 0}
           />
         </div>
         <button
@@ -140,6 +141,7 @@ const MapFilters = (props: MapFiltersProps) => {
             }`}
             onClick={() => dispatch({ type: 'UPDATE_PROGRAMS' })}
             type="button"
+            disabled={programs.length === 0}
           >
             Search
           </button>
@@ -149,6 +151,7 @@ const MapFilters = (props: MapFiltersProps) => {
             }`}
             onClick={() => dispatch({ type: 'RESET' })}
             type="button"
+            disabled={programs.length === 0}
           >
             Reset
           </button>
