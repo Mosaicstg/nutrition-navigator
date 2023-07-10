@@ -16,6 +16,7 @@ const useVenues = () => {
     queryFn: fetchAllVenues,
     // Only run query on page load or component mount
     retry: false,
+    refetchOnWindowFocus: false,
     select: (data) =>
       data.filter((venue) => {
         const validatedVenue = VenueSchema.safeParse(venue);

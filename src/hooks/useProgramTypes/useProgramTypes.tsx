@@ -14,6 +14,7 @@ const useProgramTypes = () => {
     queryFn: fetchAllProgramTypes,
     // Only run query on page load or component mount
     retry: false,
+    refetchOnWindowFocus: false,
     select: (data) =>
       data.filter((programType) => {
         const validation = ProgramTypeSchema.safeParse(programType);

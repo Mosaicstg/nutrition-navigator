@@ -14,6 +14,7 @@ const useAudiences = () => {
     queryFn: fetchAllAudiences,
     // Only run query on page load or component mount
     retry: false,
+    refetchOnWindowFocus: false,
     select: (data) =>
       data.filter((audience) => {
         const validation = AudienceSchema.safeParse(audience);
