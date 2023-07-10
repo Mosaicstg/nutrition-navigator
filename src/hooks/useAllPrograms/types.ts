@@ -1,3 +1,4 @@
+import React from 'react';
 import { FiltersSchema, ProgramSchema } from './schema.ts';
 import { z } from 'zod';
 
@@ -17,3 +18,5 @@ export type AllProgramsAction =
   | { type: 'RESET' };
 
 export type MatchAction<T> = Extract<AllProgramsAction, { type: T }>;
+
+export type AllProgramsDispatch = React.Dispatch<AllProgramsAction>;

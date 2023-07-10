@@ -1,7 +1,7 @@
 import React from 'react';
 import { fetchApi } from '../../api/fetch.ts';
 import { defaultState, reducer } from './reducer.ts';
-import { Program } from './types.ts';
+import { AllProgramsDispatch, AllProgramsState, Program } from './types.ts';
 
 const fetchAllPrograms = () => {
   return fetchApi('/wp-json/nutrition-navigator/v1/programs').then((res) =>
@@ -9,7 +9,7 @@ const fetchAllPrograms = () => {
   );
 };
 
-const useAllPrograms = () => {
+const useAllPrograms = (): [AllProgramsState, AllProgramsDispatch] => {
   const [state, dispatch] = React.useReducer(reducer, defaultState);
 
   React.useEffect(() => {
@@ -26,7 +26,7 @@ const useAllPrograms = () => {
       });
   }, [dispatch]);
 
-  return { state, dispatch };
+  return [state, dispatch];
 };
 
 export default useAllPrograms;

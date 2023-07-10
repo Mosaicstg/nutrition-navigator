@@ -43,7 +43,7 @@ const mapContainerProps: MapContainerProps = {
 };
 
 const App = () => {
-  const { state, dispatch } = useAllPrograms();
+  const [state, dispatch] = useAllPrograms();
   const { filteredPrograms } = state;
 
   return (

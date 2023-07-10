@@ -10,14 +10,14 @@ import LabelCheckBox from './LabelCheckBox.tsx';
 
 // Types
 import {
-  AllProgramsAction,
+  AllProgramsDispatch,
   AllProgramsState,
   Filters
 } from '../hooks/useAllPrograms/types.ts';
 
 type MapFiltersProps = {
   state: AllProgramsState;
-  dispatch: React.Dispatch<AllProgramsAction>;
+  dispatch: AllProgramsDispatch;
 };
 
 const MapFilters = (props: MapFiltersProps) => {
@@ -119,6 +119,7 @@ const MapFilters = (props: MapFiltersProps) => {
             }`}
             value={filters.address}
             onChange={onAddressChange}
+            autoComplete="true"
           />
         </div>
         <button
@@ -282,6 +283,7 @@ const MapFilters = (props: MapFiltersProps) => {
                 <input
                   type="text"
                   placeholder="Search Name"
+                  id="organization-name"
                   name="organization-name"
                   className="nutrition-navigator__text-field"
                   onChange={onOrgNameChange}
