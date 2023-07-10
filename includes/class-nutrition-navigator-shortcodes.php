@@ -9,6 +9,7 @@
  * Create shortcodes for plugin
  */
 class Nutrition_Navigator_Shortcodes {
+	const SHORTCODE_VERSION = '1.0.0';
 	/**
 	 * A bool value that tracks if shortcode is rendered.
 	 *
@@ -41,20 +42,26 @@ class Nutrition_Navigator_Shortcodes {
 	 * @return void
 	 */
 	public function wp_enqueue_scripts() {
+		$js_file_path = plugin_dir_path(__DIR__) . 'dist/nutrition-navigator/index.js';
+		$js_file_version = file_exists($js_file_path) ? filemtime($js_file_path) : self::SHORTCODE_VERSION;
+
 		wp_register_script(
 			'nutrition-navigator',
 			plugin_dir_url(__DIR__) . 'dist/nutrition-navigator/index.js',
 			[],
-			1.0,
+			$js_file_version,
 			true
 		);
+
+		$css_file_path = plugin_dir_path(__DIR__) . 'dist/nutrition-navigator/index.css';
+		$css_file_version = file_exists($css_file_path) ? filemtime($css_file_path) : self::SHORTCODE_VERSION;
 
 		// Load React app build styles.
 		wp_register_style(
 			'nutrition-navigator',
 			plugin_dir_url(__DIR__) . 'dist/nutrition-navigator/index.css',
 			[],
-			1.0
+			$css_file_version
 		);
 	}
 
