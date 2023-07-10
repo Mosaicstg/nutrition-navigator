@@ -437,19 +437,19 @@ class Nutrition_Navigator_Programs {
 		$latitude = $this->get_program_location_latitude($post);
 
 		echo '<p>';
-		echo '<label for="program-location-latitude">Latitude <span style="color:red; font-weight: bold">*</span></label>';
+		echo '<label for="program-location-latitude">Latitude</label>';
 		echo '<input type="text" id="program-location-latitude" value="' .
 			esc_attr($latitude) .
-			'" name="program-location-latitude" class="widefat" placeholder="-99.222" required/>';
+			'" name="program-location-latitude" class="widefat" placeholder="-99.222"/>';
 		echo '</p>';
 
 		$longitude = $this->get_program_location_longitude($post);
 
 		echo '<p>';
-		echo '<label for="program-location-longitude">Longitude <span style="color:red; font-weight: bold">*</span></label>';
+		echo '<label for="program-location-longitude">Longitude</label>';
 		echo '<input type="text" id="program-location-longitude" value="' .
 			esc_attr($longitude) .
-			'" name="program-location-longitude" class="widefat" placeholder="-99.22" required/>';
+			'" name="program-location-longitude" class="widefat" placeholder="-99.22"/>';
 		echo '</p>';
 
 		$dates_times_offered = $this->get_program_dates_times_offered($post);
