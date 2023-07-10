@@ -251,6 +251,13 @@ class Nutrition_Navigator_Programs {
 			'sanitize_callback' => [$this, 'sanitize_map_position_custom_fields']
 		]);
 
+		// Location Zip Code
+		register_post_meta(self::POST_SLUG, 'program-location-zip-code', [
+			'type' => 'integer',
+			'single' => true,
+			'show_in_rest' => true
+		]);
+
 		// Location Dates/times offered
 		register_post_meta(self::POST_SLUG, 'program-location-dates-times-offered', [
 			'type' => 'string',
@@ -452,6 +459,15 @@ class Nutrition_Navigator_Programs {
 			'" name="program-location-longitude" class="widefat" placeholder="-99.22"/>';
 		echo '</p>';
 
+		$zip_code = $this->get_program_location_zip_code($post);
+
+		echo '<p>';
+		echo '<label for="program-location-zip-code">Zip Code</label><br/>';
+		echo '<input type="number" id="program-location-zip-code" value="' .
+			esc_attr($zip_code) .
+			'" name="program-location-zip-code" class="" placeholder="20001"/>';
+		echo '</p>';
+
 		$dates_times_offered = $this->get_program_dates_times_offered($post);
 
 		echo '<p><label>Dates/times offered</label></p>';
@@ -627,12 +643,21 @@ class Nutrition_Navigator_Programs {
 			);
 		}
 
-		// Save/update Program Location Latitude
+		// Save/update Program Location Longitude
 		if (array_key_exists('program-location-longitude', $_POST)) {
 			update_post_meta(
 				$post_id,
 				'program-location-longitude',
 				floatval(sanitize_text_field(wp_unslash($_POST['program-location-longitude'])))
+			);
+		}
+
+		// Save/update Program Location Zip Code
+		if (array_key_exists('program-location-zip-code', $_POST)) {
+			update_post_meta(
+				$post_id,
+				'program-location-zip-code',
+				sanitize_text_field(wp_unslash($_POST['program-location-zip-code']))
 			);
 		}
 
@@ -929,6 +954,23 @@ class Nutrition_Navigator_Programs {
 		}
 
 		return $longitude;
+	}
+
+	/**
+	 * A getter for a Program's location zip code
+	 *
+	 * @param WP_Post $post Post object.
+	 *
+	 * @return integer|string
+	 */
+	public function get_program_location_zip_code($post) {
+		$zip_code = get_post_meta($post->ID, 'program-location-zip-code', true);
+
+		if (empty($zip_code)) {
+			return '';
+		}
+
+		return intval($zip_code);
 	}
 
 	/**
