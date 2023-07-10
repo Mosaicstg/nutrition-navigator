@@ -1,6 +1,11 @@
 .nutrition-navigator__filters-wrap {
   position: relative;
   z-index: 9999;
+  margin-bottom: 15px;
+
+  @include media-breakpoint-up(md) {
+    margin-bottom: 25px;
+  }
 }
 
 .nutrition-navigator__filters-header-wrap {
