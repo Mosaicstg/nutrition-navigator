@@ -19,6 +19,9 @@ const useAllPrograms = () => {
         dispatch({ type: 'SET', data: res });
       })
       .catch((err) => {
+        console.error(
+          'Something went wrong when trying to retrieve Programs data:'
+        );
         console.error(err);
       });
   }, [dispatch]);
