@@ -79,6 +79,11 @@ export const ProgramSchema = z.object({
       invalid_type_error:
         'Program Date And Times offered field should be a string.'
     })
+    .optional(),
+  'zip-code': z
+    .string({
+      invalid_type_error: 'Program Zip Code field should be a string'
+    })
     .optional()
 });
 

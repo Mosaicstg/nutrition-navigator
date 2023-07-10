@@ -29,6 +29,18 @@ const MapFilters = (props: MapFiltersProps) => {
   const [isFiltersOpen, setIsFiltersIsFiltersOpen] = React.useState(false);
   const { filters } = state;
 
+  const onAddressChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { filters: prevFilters } = state;
+    const zipCode = event.target.value;
+
+    const newFilters: Filters = {
+      ...prevFilters,
+      address: zipCode
+    };
+
+    dispatch({ type: 'UPDATE_FILTERS', data: newFilters });
+  };
+
   const onProgramTypeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { filters: prevFilters } = state;
     const { 'program-types': programTypes } = prevFilters;
@@ -99,12 +111,14 @@ const MapFilters = (props: MapFiltersProps) => {
             type="text"
             id="address"
             name="address"
-            placeholder="Address"
+            placeholder="Enter a Zip Code"
             className={`nutrition-navigator__text-field ${
               isFiltersOpen
                 ? 'nutrition-navigator__text-field--filters-open'
                 : ''
             }`}
+            value={filters.address}
+            onChange={onAddressChange}
           />
         </div>
         <button

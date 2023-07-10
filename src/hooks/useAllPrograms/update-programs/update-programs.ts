@@ -55,6 +55,13 @@ export const updatePrograms = ([state]: [
         filtersOrgName.length === 0 ||
         programOrgName.toLowerCase().includes(filtersOrgName.toLowerCase())
       );
+    })
+    // Filters Programs by Zip Code/Address
+    .filter((program) => {
+      const { 'zip-code': zipCode } = program;
+      const { address } = filters;
+
+      return zipCode === address;
     });
 
   return {
