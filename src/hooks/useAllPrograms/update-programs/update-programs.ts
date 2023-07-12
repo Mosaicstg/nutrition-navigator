@@ -61,7 +61,7 @@ export const updatePrograms = ([state]: [
       const { 'zip-code': zipCode } = program;
       const { address } = filters;
 
-      return zipCode === address;
+      return address.length === 0 || zipCode === address;
     });
 
   return {

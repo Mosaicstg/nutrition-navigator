@@ -96,6 +96,17 @@ const MapFilters = (props: MapFiltersProps) => {
     dispatch({ type: 'UPDATE_FILTERS', data: newFilters });
   };
 
+  const onSearchButtonClick = () => {
+    dispatch({ type: 'UPDATE_PROGRAMS' });
+
+    // Close Filters window
+    setIsFiltersIsFiltersOpen(false);
+  };
+
+  const onResetButtonClick = () => {
+    dispatch({ type: 'RESET' });
+  };
+
   return (
     <div
       className={`nutrition-navigator__filters-wrap ${
@@ -139,7 +150,7 @@ const MapFilters = (props: MapFiltersProps) => {
             className={`nutrition-navigator__button ${
               isFiltersOpen ? 'nutrition-navigator__button--white' : ''
             }`}
-            onClick={() => dispatch({ type: 'UPDATE_PROGRAMS' })}
+            onClick={onSearchButtonClick}
             type="button"
             disabled={programs.length === 0}
           >
@@ -149,7 +160,7 @@ const MapFilters = (props: MapFiltersProps) => {
             className={`nutrition-navigator__button nutrition-navigator__button--outline ${
               isFiltersOpen ? 'nutrition-navigator__button--green' : ''
             }`}
-            onClick={() => dispatch({ type: 'RESET' })}
+            onClick={onResetButtonClick}
             type="button"
             disabled={programs.length === 0}
           >

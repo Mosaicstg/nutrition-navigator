@@ -1,6 +1,9 @@
 import React from 'react';
 import { fetchApi } from '../../api/fetch.ts';
+import { useQuery } from '@tanstack/react-query';
 import { defaultState, reducer } from './reducer.ts';
+
+// Types
 import { AllProgramsDispatch, AllProgramsState, Program } from './types.ts';
 
 const fetchAllPrograms = () => {
@@ -10,21 +13,24 @@ const fetchAllPrograms = () => {
 };
 
 const useAllPrograms = (): [AllProgramsState, AllProgramsDispatch] => {
+  const { data, status, error, isInitialLoading } = useQuery<Program[]>({
+    queryKey: ['allPrograms'],
+    queryFn: fetchAllPrograms,
+    retry: false,
+    refetchOnWindowFocus: false
+  });
+
   const [state, dispatch] = React.useReducer(reducer, defaultState);
 
   React.useEffect(() => {
-    fetchAllPrograms()
-      .then((res: Program[]) => {
-        // Set start state of programs
-        dispatch({ type: 'SET', data: res });
-      })
-      .catch((err) => {
-        console.error(
-          'Something went wrong when trying to retrieve Programs data:'
-        );
-        console.error(err);
-      });
-  }, [dispatch]);
+    if (!isInitialLoading && 'success' === status) {
+      dispatch({ type: 'SET', data });
+    }
+
+    if ('error' === status) {
+      console.error(error);
+    }
+  }, [status, error, isInitialLoading, data]);
 
   return [state, dispatch];
 };
