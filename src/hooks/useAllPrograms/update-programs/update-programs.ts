@@ -1,10 +1,23 @@
 import { AllProgramsState, MatchAction } from '../types.ts';
+import { FiltersSchema } from '../../useMapFilters/schema.ts';
 
-export const updatePrograms = ([state]: [
+export const updatePrograms = ([state, action]: [
   AllProgramsState,
   MatchAction<'UPDATE_PROGRAMS'>
 ]): AllProgramsState => {
-  const { filters, programs } = state;
+  const { programs } = state;
+  const { filters } = action;
+
+  const parseData = FiltersSchema.safeParse(filters);
+
+  if (!parseData.success) {
+    console.error(
+      'Filters sent to update map locations are corrupted',
+      parseData.error
+    );
+
+    return state;
+  }
 
   const filteredPrograms = programs
     // Filter Programs by Program Type
@@ -17,7 +30,7 @@ export const updatePrograms = ([state]: [
         filtersProgramTypes.length === 0 ||
         programTypes.filter((programType) =>
           filtersProgramTypes.includes(programType)
-        )
+        ).length
       );
     })
     // Filter Programs by Venues

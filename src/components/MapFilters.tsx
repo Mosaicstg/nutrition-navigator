@@ -4,6 +4,11 @@ import React from 'react';
 import useProgramTypes from '../hooks/useProgramTypes/useProgramTypes.tsx';
 import useVenues from '../hooks/useVenues/useVenues.tsx';
 import useAudiences from '../hooks/useAudiences/useAudiences.tsx';
+import {
+  defaultFilters,
+  Filters,
+  useMapFilters
+} from '../hooks/useMapFilters/useMapFilters.tsx';
 
 // Components
 import LabelCheckBox from './LabelCheckBox.tsx';
@@ -11,8 +16,7 @@ import LabelCheckBox from './LabelCheckBox.tsx';
 // Types
 import {
   AllProgramsDispatch,
-  AllProgramsState,
-  Filters
+  AllProgramsState
 } from '../hooks/useAllPrograms/types.ts';
 
 type MapFiltersProps = {
@@ -22,15 +26,15 @@ type MapFiltersProps = {
 
 const MapFilters = (props: MapFiltersProps) => {
   const { state, dispatch } = props;
+  const [filters, setLocalFilters] = useMapFilters();
   const { data: programTypes, status: programsTypesStatus } = useProgramTypes();
   const { data: venues, status: venuesStatus } = useVenues();
   const { data: audiences, status: audiencesStatus } = useAudiences();
-
   const [isFiltersOpen, setIsFiltersIsFiltersOpen] = React.useState(false);
-  const { filters, programs } = state;
+  const { programs } = state;
 
   const onAddressChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { filters: prevFilters } = state;
+    const prevFilters = filters;
     const zipCode = event.target.value;
 
     const newFilters: Filters = {
@@ -38,11 +42,11 @@ const MapFilters = (props: MapFiltersProps) => {
       address: zipCode
     };
 
-    dispatch({ type: 'UPDATE_FILTERS', data: newFilters });
+    setLocalFilters(() => newFilters);
   };
 
   const onProgramTypeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { filters: prevFilters } = state;
+    const prevFilters = filters;
     const { 'program-types': programTypes } = prevFilters;
 
     const newFilters = {
@@ -54,11 +58,11 @@ const MapFilters = (props: MapFiltersProps) => {
         : [...programTypes, event.target.value]
     };
 
-    dispatch({ type: 'UPDATE_FILTERS', data: newFilters });
+    setLocalFilters(() => newFilters);
   };
 
   const onVenueChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { filters: prevFilters } = state;
+    const prevFilters = filters;
     const { venues } = prevFilters;
 
     const newFilters = {
@@ -68,11 +72,11 @@ const MapFilters = (props: MapFiltersProps) => {
         : [...venues, event.target.value]
     };
 
-    dispatch({ type: 'UPDATE_FILTERS', data: newFilters });
+    setLocalFilters(() => newFilters);
   };
 
   const onAudienceChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { filters: prevFilters } = state;
+    const prevFilters = filters;
     const { audiences } = prevFilters;
 
     const newFilters = {
@@ -82,28 +86,30 @@ const MapFilters = (props: MapFiltersProps) => {
         : [...audiences, event.target.value]
     };
 
-    dispatch({ type: 'UPDATE_FILTERS', data: newFilters });
+    setLocalFilters(() => newFilters);
   };
 
   const onOrgNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { filters: prevFilters } = state;
+    const prevFilters = filters;
 
     const newFilters: Filters = {
       ...prevFilters,
       'organization-name': event.target.value
     };
 
-    dispatch({ type: 'UPDATE_FILTERS', data: newFilters });
+    setLocalFilters(() => newFilters);
   };
 
   const onSearchButtonClick = () => {
-    dispatch({ type: 'UPDATE_PROGRAMS' });
+    dispatch({ type: 'UPDATE_PROGRAMS', filters });
 
     // Close Filters window
     setIsFiltersIsFiltersOpen(false);
   };
 
   const onResetButtonClick = () => {
+    setLocalFilters(() => defaultFilters);
+
     dispatch({ type: 'RESET' });
   };
 
@@ -300,6 +306,7 @@ const MapFilters = (props: MapFiltersProps) => {
                   id="organization-name"
                   name="organization-name"
                   className="nutrition-navigator__text-field"
+                  value={filters['organization-name']}
                   onChange={onOrgNameChange}
                 />
               </div>

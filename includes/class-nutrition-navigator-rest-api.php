@@ -26,6 +26,7 @@ class Nutrition_Navigator_REST_API {
 	public function rest_api_init() {
 		register_rest_route(self::REST_API_BASE, 'programs', [
 			'methods' => 'GET',
+			'permission_callback' => '__return_true',
 			'callback' => [$this, 'get_all_programs']
 		]);
 	}
