@@ -1,5 +1,3 @@
-import { defaultState } from '../reducer.ts';
-
 // Types
 import { AllProgramsState, MatchAction } from '../types.ts';
 
@@ -11,7 +9,6 @@ export const reset = ([state]: [
 
   return {
     ...state,
-    filteredPrograms: programs,
-    filters: defaultState.filters
+    filteredPrograms: programs
   };
 };
