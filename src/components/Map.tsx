@@ -67,8 +67,6 @@ const Map = (props: MapProps) => {
   const mapBounds = mapGeoJSON.getBounds();
 
   if (mapBounds.isValid()) {
-    console.log(mapBounds);
-
     mapContainerProps.bounds = mapBounds;
     mapContainerProps.center = mapBounds.getCenter();
   }
