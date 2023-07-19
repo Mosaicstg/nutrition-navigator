@@ -10,7 +10,7 @@
 
 .nutrition-navigator__filters-header-wrap {
   display: flex;
-  grid-gap: 15px;
+  grid-gap: 25px;
   flex-flow: column;
   padding: 30px 40px;
   background: var(--nutrition-navigator-pale-green);
@@ -78,6 +78,12 @@
     background: none;
     color: var(--nutrition-navigator-dark-gray);
     font-weight: bold;
+
+    @include media-breakpoint-down(md) {
+      max-width: 200px;
+      margin-right: auto;
+      margin-left: auto;
+    }
 
     &::before {
       content: "";

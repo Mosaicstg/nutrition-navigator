@@ -1,4 +1,5 @@
 import React from 'react';
+import { decode } from 'html-entities';
 
 // Hooks
 import useProgramTypes from '../hooks/useProgramTypes/useProgramTypes.tsx';
@@ -205,12 +206,12 @@ const MapFilters = (props: MapFiltersProps) => {
                           className={
                             'nutrition-navigator__checkbox-label-icon nutrition-navigator__program-type-icon'
                           }
-                          alt={`Icon for ${name}`}
+                          alt={`Icon for ${decode(name)}`}
                         />
                       ) : (
                         ''
                       )}
-                      {name}
+                      {decode(name)}
                     </label>
                     <input
                       type="checkbox"

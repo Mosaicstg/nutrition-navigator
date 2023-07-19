@@ -57,7 +57,7 @@ const Map = (props: MapProps) => {
 
   const mapContainerProps: MapContainerProps = {
     scrollWheelZoom: false,
-    style: { height: 630 },
+    style: { height: 650 },
     attributionControl: false,
     maxZoom: 15
   };

@@ -1,0 +1,13 @@
+.nutrition-navigator__map-results {
+  @include app-scope-css-properties() {
+    padding: 20px;
+    background: var(--nutrition-navigator-green);
+    color: var(--nutrition-navigator-dark-gray);
+    text-align: center;
+
+    > * {
+      margin: 0;
+      text-transform: uppercase;
+    }
+  }
+}

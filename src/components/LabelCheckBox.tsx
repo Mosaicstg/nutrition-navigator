@@ -11,9 +11,12 @@ const LabelCheckBox = (props: {
 
   return (
     <>
-      <label className="nutrition-navigator__checkbox-label" htmlFor={value}>
-        {label}
-      </label>
+      <label
+        className="nutrition-navigator__checkbox-label"
+        htmlFor={value}
+        // Text is retrieved from WP REST API and comes with HTML entities
+        dangerouslySetInnerHTML={{ __html: label }}
+      />
       <input
         type="checkbox"
         name={name}
