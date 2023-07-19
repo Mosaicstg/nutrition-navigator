@@ -14,96 +14,104 @@
 }
 
 .nutrition-navigator__button {
-  display: inline-block;
-  min-width: 120px;
-  padding: 11px 30px;
-  transition: all .25s ease-in-out;
-  border: 1px solid var(--nutrition-navigator-dark-gray);
-  border-radius: 15px;
-  background: var(--nutrition-navigator-dark-gray);
-  color: var(--nutrition-navigator-white);
-  letter-spacing: .03em;
-  line-height: 1;
-  text-align: center;
-  text-decoration: none;
-  text-transform: uppercase;
-  cursor: pointer;
-
-  // Override for React leaflet
-  .leaflet-container & {
+  @include app-scope-css-properties() {
+    display: inline-block;
+    min-width: 120px;
+    padding: 11px 30px;
+    transition: all .25s ease-in-out;
+    border: 1px solid var(--nutrition-navigator-dark-gray);
+    border-radius: 15px;
+    background: var(--nutrition-navigator-dark-gray);
     color: var(--nutrition-navigator-white);
-  }
+    letter-spacing: .03em;
+    line-height: 1;
+    text-align: center;
+    text-decoration: none;
+    text-transform: uppercase;
+    cursor: pointer;
 
-  &:focus {
-    border-color: var(--nutrition-navigator-dark-gray);
-    background: transparent;
-    color: var(--nutrition-navigator-dark-gray);
-  }
-
-  @media (hover: hover) {
-    &:hover {
-      border-color: var(--nutrition-navigator-dark-gray);
-      background: transparent;
-      color: var(--nutrition-navigator-dark-gray);
+    // Override for React leaflet
+    .leaflet-container & {
+      color: var(--nutrition-navigator-white);
     }
-  }
-
-  &--outline {
-    border-color: var(--nutrition-navigator-dark-gray);
-    background: none;
-    color: var(--nutrition-navigator-dark-gray);
 
     &:focus {
       border-color: var(--nutrition-navigator-dark-gray);
-      background: var(--nutrition-navigator-dark-gray);
-      color: var(--nutrition-navigator-white);
+      background: transparent;
+      color: var(--nutrition-navigator-dark-gray);
     }
 
     @media (hover: hover) {
       &:hover {
         border-color: var(--nutrition-navigator-dark-gray);
+        background: transparent;
+        color: var(--nutrition-navigator-dark-gray);
+      }
+    }
+  }
+
+  &--outline {
+    @include app-scope-css-properties() {
+      border-color: var(--nutrition-navigator-dark-gray);
+      background: none;
+      color: var(--nutrition-navigator-dark-gray);
+
+      &:focus {
+        border-color: var(--nutrition-navigator-dark-gray);
         background: var(--nutrition-navigator-dark-gray);
         color: var(--nutrition-navigator-white);
+      }
+
+      @media (hover: hover) {
+        &:hover {
+          border-color: var(--nutrition-navigator-dark-gray);
+          background: var(--nutrition-navigator-dark-gray);
+          color: var(--nutrition-navigator-white);
+        }
       }
     }
   }
 
   &--green {
-    border-color: var(--nutrition-navigator-dark-gray);
-    background: var(--nutrition-navigator-green);
-    color: var(--nutrition-navigator-dark-gray);
-
-    &:focus {
+    @include app-scope-css-properties() {
       border-color: var(--nutrition-navigator-dark-gray);
-      background: var(--nutrition-navigator-white);
+      background: var(--nutrition-navigator-green);
       color: var(--nutrition-navigator-dark-gray);
-    }
 
-    @media (hover: hover) {
-      &:hover {
+      &:focus {
         border-color: var(--nutrition-navigator-dark-gray);
         background: var(--nutrition-navigator-white);
         color: var(--nutrition-navigator-dark-gray);
+      }
+
+      @media (hover: hover) {
+        &:hover {
+          border-color: var(--nutrition-navigator-dark-gray);
+          background: var(--nutrition-navigator-white);
+          color: var(--nutrition-navigator-dark-gray);
+        }
       }
     }
   }
 
   &--white {
-    border-color: var(--nutrition-navigator-dark-gray);
-    background: var(--nutrition-navigator-white);
-    color: var(--nutrition-navigator-dark-gray);
-
-    &:focus {
+    @include app-scope-css-properties() {
       border-color: var(--nutrition-navigator-dark-gray);
-      background: var(--nutrition-navigator-green);
+      background: var(--nutrition-navigator-white);
       color: var(--nutrition-navigator-dark-gray);
-    }
 
-    @media (hover: hover) {
-      &:hover {
+      &:focus {
         border-color: var(--nutrition-navigator-dark-gray);
         background: var(--nutrition-navigator-green);
         color: var(--nutrition-navigator-dark-gray);
+      }
+
+      @media (hover: hover) {
+        &:hover {
+          border-color: var(--nutrition-navigator-dark-gray);
+          background: var(--nutrition-navigator-green);
+          color: var(--nutrition-navigator-dark-gray);
+        }
       }
     }
   }

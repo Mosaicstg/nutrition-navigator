@@ -169,3 +169,9 @@
     line-height: strip-unit($line-height / $font-size) + em;
   }
 }
+
+@mixin app-scope-css-properties() {
+  #nutrition-navigator & {
+    @content;
+  }
+}

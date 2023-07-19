@@ -16,6 +16,10 @@
   grid-gap: 10px;
   align-items: center;
   justify-content: space-between;
+
+  @include app-scope-css-properties() {
+    margin-bottom: 0;
+  }
 }
 
 .nutrition-navigator__checkbox-label {
@@ -30,8 +34,7 @@
 }
 
 .nutrition-navigator__checkbox {
-  &,
-  #nutrition-navigator & {
+  @include app-scope-css-properties() {
     padding: 7px;
     border: 0;
     border-radius: 0;
