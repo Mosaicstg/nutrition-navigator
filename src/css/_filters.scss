@@ -188,6 +188,7 @@
   font-weight: 700;
 
   @include media-breakpoint-up(md) {
+    grid-column-gap: 25px;
     grid-template-columns: 1fr 1fr;
   }
 }
