@@ -2,7 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import { fetchApi } from '../../api/fetch.ts';
 import { MetroArea, MetroAreaSchema } from './schema.ts';
 
-const fetchAllMetroAreas = () => {
+const fetchAllMetroAreas = (): Promise<MetroArea[]> => {
   // There's probably NEVER going to be more than 5 or 6 so for now querying the first 100
   // suits our use case.
   return fetchApi('/wp-json/wp/v2/metro-area?per_page=100').then((res) =>
@@ -11,7 +11,7 @@ const fetchAllMetroAreas = () => {
 };
 
 const useMetroAreas = () => {
-  return useQuery<MetroArea[]>({
+  return useQuery({
     queryKey: ['allMetroAreas'],
     queryFn: fetchAllMetroAreas,
     // Only run query on page load or component mount

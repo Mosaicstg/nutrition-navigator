@@ -164,6 +164,39 @@
   }
 }
 
+.nutrition-navigator__metro-areas-body-wrap {
+  margin-bottom: 20px;
+  border-bottom: .2px solid var(--nutrition-navigator-dark-gray);
+
+  @include media-breakpoint-up(md) {
+    display: grid;
+    grid-gap: 30px;
+    grid-template-columns: 1fr 1fr 1fr;
+    padding-bottom: 20px;
+
+    > :last-child {
+      grid-column: span 2;
+    }
+  }
+}
+
+.nutrition-navigator__metro-areas {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  max-width: 100%;
+  font-weight: 700;
+
+  @include media-breakpoint-up(md) {
+    grid-column-gap: 45px;
+    grid-template-columns: 1fr 1fr;
+
+    > li {
+      grid-gap: 30px;
+      justify-content: normal;
+    }
+  }
+}
+
 .nutrition-navigator__program-types-body-wrap {
   h2 {
     margin: 0;

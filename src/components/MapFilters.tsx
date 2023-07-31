@@ -200,7 +200,7 @@ const MapFilters = (props: MapFiltersProps) => {
         aria-hidden={!isFiltersOpen}
         hidden={!isFiltersOpen}
       >
-        <div className="nutrition-navigator__program-types-body-wrap">
+        <div className="nutrition-navigator__metro-areas-body-wrap">
           <h2 className="nutrition-navigator__heading--h2">
             Search by metro area:
           </h2>
