@@ -5,6 +5,7 @@ import { decode } from 'html-entities';
 import useProgramTypes from '../hooks/useProgramTypes/useProgramTypes.tsx';
 import useVenues from '../hooks/useVenues/useVenues.tsx';
 import useAudiences from '../hooks/useAudiences/useAudiences.tsx';
+import useMetroAreas from '../hooks/useMetroAreas/useMetroAreas.tsx';
 import {
   defaultFilters,
   Filters,
@@ -27,10 +28,13 @@ type MapFiltersProps = {
 
 const MapFilters = (props: MapFiltersProps) => {
   const { state, dispatch } = props;
+
   const [filters, setLocalFilters] = useMapFilters();
   const { data: programTypes, status: programsTypesStatus } = useProgramTypes();
   const { data: venues, status: venuesStatus } = useVenues();
   const { data: audiences, status: audiencesStatus } = useAudiences();
+  const { data: metroAreas, status: metroAreaStatus } = useMetroAreas();
+
   const [isFiltersOpen, setIsFiltersIsFiltersOpen] = React.useState(false);
   const { programs } = state;
 
@@ -41,6 +45,20 @@ const MapFilters = (props: MapFiltersProps) => {
     const newFilters: Filters = {
       ...prevFilters,
       address: zipCode
+    };
+
+    setLocalFilters(() => newFilters);
+  };
+
+  const onMetroAreaChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const prevFilters = filters;
+    const { 'metro-areas': metroAreas } = prevFilters;
+
+    const newFilters = {
+      ...prevFilters,
+      'metro-areas': metroAreas.includes(event.target.value)
+        ? metroAreas.filter((metroArea) => event.target.value !== metroArea)
+        : [...metroAreas, event.target.value]
     };
 
     setLocalFilters(() => newFilters);
@@ -182,13 +200,32 @@ const MapFilters = (props: MapFiltersProps) => {
         aria-hidden={!isFiltersOpen}
         hidden={!isFiltersOpen}
       >
-        <div className={'nutrition-navigator__program-types-body-wrap'}>
+        <div className="nutrition-navigator__program-types-body-wrap">
+          <h2 className="nutrition-navigator__heading--h2">
+            Search by metro area:
+          </h2>
+          <ul className="nutrition-navigator__checkbox-items-wrap nutrition-navigator__metro-areas">
+            {'success' === metroAreaStatus &&
+              metroAreas.map(({ id, name, slug }) => {
+                return (
+                  <li className="nutrition-navigator__checkbox-wrap" key={id}>
+                    <LabelCheckBox
+                      {...{
+                        label: name,
+                        name: 'metro-area[]',
+                        value: slug,
+                        onChange: onMetroAreaChange,
+                        isChecked: filters['metro-areas'].includes(slug)
+                      }}
+                    />
+                  </li>
+                );
+              })}
+          </ul>
+        </div>
+        <div className="nutrition-navigator__program-types-body-wrap">
           <h2 className="nutrition-navigator__heading--h2">I want to...</h2>
-          <ul
-            className={
-              'nutrition-navigator__checkbox-items-wrap nutrition-navigator__program-types'
-            }
-          >
+          <ul className="nutrition-navigator__checkbox-items-wrap nutrition-navigator__program-types">
             {programsTypesStatus === 'success' &&
               programTypes.map(({ name, slug, meta: { icon } }, index) => {
                 return (
@@ -249,7 +286,7 @@ const MapFilters = (props: MapFiltersProps) => {
                         <LabelCheckBox
                           {...{
                             label: venue.name,
-                            name: 'audience[]',
+                            name: 'venue[]',
                             value: venue.slug,
                             onChange: onVenueChange,
                             isChecked: filters.venues.includes(venue.slug)
