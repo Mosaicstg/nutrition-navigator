@@ -11,7 +11,8 @@ describe('AllProgramsState reset function', () => {
         venues: [],
         audiences: [],
         'organization-name': '',
-        address: ''
+        address: '',
+        'metro-areas': []
       }
     };
 

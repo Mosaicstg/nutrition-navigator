@@ -52,7 +52,8 @@ describe('Set function for AllPrograms State', () => {
         venues: [],
         audiences: [],
         'organization-name': '',
-        address: ''
+        address: '',
+        'metro-areas': []
       }
     };
 
@@ -76,7 +77,8 @@ describe('Set function for AllPrograms State', () => {
       longitude: 40.00323,
       'program-types': [],
       audiences: [],
-      venues: []
+      venues: [],
+      'metro-areas': []
     };
 
     const programs = [testProgramObject, {}, testProgramObject];
