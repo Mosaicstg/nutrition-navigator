@@ -6,14 +6,14 @@ import { defaultState, reducer } from './reducer.ts';
 // Types
 import { AllProgramsDispatch, AllProgramsState, Program } from './types.ts';
 
-const fetchAllPrograms = () => {
+const fetchAllPrograms = (): Promise<Program[]> => {
   return fetchApi('/wp-json/nutrition-navigator/v1/programs').then((res) =>
     res.json()
   );
 };
 
 const useAllPrograms = (): [AllProgramsState, AllProgramsDispatch] => {
-  const { data, status, error, isInitialLoading } = useQuery<Program[]>({
+  const { data, status, error, isInitialLoading } = useQuery({
     queryKey: ['allPrograms'],
     queryFn: fetchAllPrograms,
     retry: false,

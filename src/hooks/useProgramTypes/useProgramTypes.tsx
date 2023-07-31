@@ -2,14 +2,14 @@ import { useQuery } from '@tanstack/react-query';
 import { fetchApi } from '../../api/fetch.ts';
 import { ProgramType, ProgramTypeSchema } from './schema.ts';
 
-const fetchAllProgramTypes = () => {
+const fetchAllProgramTypes = (): Promise<ProgramType[]> => {
   return fetchApi('/wp-json/wp/v2/program-type?per_page=100').then((res) =>
     res.json()
   );
 };
 
 const useProgramTypes = () => {
-  return useQuery<ProgramType[]>({
+  return useQuery({
     queryKey: ['allProgramTypes'],
     queryFn: fetchAllProgramTypes,
     // Only run query on page load or component mount

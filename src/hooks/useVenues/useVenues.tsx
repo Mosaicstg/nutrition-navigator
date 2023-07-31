@@ -2,7 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import { fetchApi } from '../../api/fetch.ts';
 import { Venue, VenueSchema } from './schema.ts';
 
-const fetchAllVenues = () => {
+const fetchAllVenues = (): Promise<Venue[]> => {
   // There's probably NEVER going to be more than 5 or 6 so for now querying the first 100
   // suits our use case.
   return fetchApi('/wp-json/wp/v2/venue?per_page=100').then((res) =>
@@ -11,7 +11,7 @@ const fetchAllVenues = () => {
 };
 
 const useVenues = () => {
-  return useQuery<Venue[]>({
+  return useQuery({
     queryKey: ['allVenues'],
     queryFn: fetchAllVenues,
     // Only run query on page load or component mount

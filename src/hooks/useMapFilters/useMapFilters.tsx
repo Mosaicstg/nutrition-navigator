@@ -14,5 +14,5 @@ export const defaultFilters: Filters = {
 };
 
 export const useMapFilters = () => {
-  return React.useState<Filters>(() => defaultFilters);
+  return React.useState(() => defaultFilters);
 };
