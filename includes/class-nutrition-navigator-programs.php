@@ -208,10 +208,9 @@ class Nutrition_Navigator_Programs {
 			'show_in_rest' => true,
 			'capability_type' => 'post',
 			'rewrite' => [
-				'slug' => self::POST_REWRITE_SLUG,
 				'with_front' => false
 			],
-			'supports' => ['title', 'revisions', 'thumbnail', 'custom-fields', 'author']
+			'supports' => ['title', 'thumbnail', 'custom-fields', 'author']
 		]);
 	}
 

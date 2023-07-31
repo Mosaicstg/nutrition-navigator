@@ -58,7 +58,7 @@ class Nutrition_Navigator_Organizations {
 			'rewrite' => [
 				'with_front' => false
 			],
-			'supports' => ['title', 'revisions', 'thumbnail', 'custom-fields']
+			'supports' => ['title', 'thumbnail', 'custom-fields']
 		]);
 	}
 
