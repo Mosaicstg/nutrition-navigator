@@ -107,6 +107,7 @@ class Nutrition_Navigator_REST_API {
 			$program_data['program-types'] = $this->get_program_program_types($post);
 			$program_data['audiences'] = $this->get_program_audiences($post);
 			$program_data['venues'] = $this->get_program_venues($post);
+			$program_data['metro-areas'] = $this->get_metro_areas($post);
 
 			if (isset($program_data['description'])) {
 				$program_data['description'] = htmlentities2($program_data['description']);
@@ -176,6 +177,26 @@ class Nutrition_Navigator_REST_API {
 		}
 
 		return $venues;
+	}
+
+	/**
+	 * Get a Program's metro area
+	 *
+	 * @param WP_Post $post A Programs post object.
+	 *
+	 * @return array
+	 */
+	public function get_metro_areas($post) {
+		$metro_area_taxonomy_terms = get_the_terms($post, Nutrition_Navigator_Programs::METRO_AREA_TAXONOMY_SLUG);
+		$metro_areas = [];
+
+		if (is_array($metro_area_taxonomy_terms)) {
+			foreach ($metro_area_taxonomy_terms as $metro_area_taxonomy_term) {
+				$metro_areas[] = $metro_area_taxonomy_term->slug;
+			}
+		}
+
+		return $metro_areas;
 	}
 
 	/**
