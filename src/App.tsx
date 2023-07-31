@@ -1,6 +1,7 @@
 // Components
 import MapFilters from './components/MapFilters.tsx';
 import Loading from './components/Loading.tsx';
+import LocationsResults from './components/LocationsResults.tsx';
 import Map from './components/Map.tsx';
 
 // Hooks
@@ -8,8 +9,6 @@ import useAllPrograms from './hooks/useAllPrograms/useAllPrograms.tsx';
 
 // CSS
 import 'leaflet/dist/leaflet.css';
-import './App.scss';
-import LocationsResults from './components/LocationsResults.tsx';
 
 const App = () => {
   const [state, dispatch] = useAllPrograms();
