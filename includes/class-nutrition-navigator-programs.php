@@ -19,6 +19,8 @@ class Nutrition_Navigator_Programs {
 
 	const AUDIENCE_TAXONOMY_SLUG = 'audience';
 
+	const METRO_AREA_TAXONOMY_SLUG = 'metro-area';
+
 	/**
 	 * Class constructor
 	 */
@@ -156,6 +158,27 @@ class Nutrition_Navigator_Programs {
 				'update_item' => __('Update Audience', 'nutrition-navigator'),
 				'add_new_item' => __('Add Audience', 'nutrition-navigator'),
 				'not_found' => __('No Audiences found', 'nutrition-navigator')
+			],
+			'public' => false,
+			'show_ui' => true,
+			'has_archive' => false,
+			'hierarchical' => true,
+			'show_in_rest' => true,
+			'show_in_nav_menus' => false,
+			'show_admin_column' => true
+		]);
+
+		register_taxonomy(self::METRO_AREA_TAXONOMY_SLUG, self::POST_SLUG, [
+			'labels' => [
+				'name' => __('Metro Areas', 'nutrition-navigator'),
+				'singular_name' => __('Metro Area', 'nutrition-navigator'),
+				'all_items' => __('All Metro Areas', 'nutrition-navigator'),
+				'add_item' => __('Add Metro Area', 'nutrition-navigator'),
+				'edit_item' => __('Edit Metro Area', 'nutrition-navigator'),
+				'view_item' => __('View Metro Area', 'nutrition-navigator'),
+				'update_item' => __('Update Metro Area', 'nutrition-navigator'),
+				'add_new_item' => __('Add Metro Area', 'nutrition-navigator'),
+				'not_found' => __('No Metro Areas found', 'nutrition-navigator')
 			],
 			'public' => false,
 			'show_ui' => true,
