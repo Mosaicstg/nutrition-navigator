@@ -172,16 +172,6 @@ const MapFilters = (props: MapFiltersProps) => {
         </button>
         <div className="nutrition-navigator__filters-reset-submit-button-group">
           <button
-            className={`nutrition-navigator__button ${
-              isFiltersOpen ? 'nutrition-navigator__button--white' : ''
-            }`}
-            onClick={onSearchButtonClick}
-            type="button"
-            disabled={programs.length === 0}
-          >
-            Search
-          </button>
-          <button
             className={`nutrition-navigator__button nutrition-navigator__button--outline ${
               isFiltersOpen ? 'nutrition-navigator__button--green' : ''
             }`}
@@ -190,6 +180,16 @@ const MapFilters = (props: MapFiltersProps) => {
             disabled={programs.length === 0}
           >
             Reset
+          </button>
+          <button
+            className={`nutrition-navigator__button ${
+              isFiltersOpen ? 'nutrition-navigator__button--white' : ''
+            }`}
+            onClick={onSearchButtonClick}
+            type="button"
+            disabled={programs.length === 0}
+          >
+            Search
           </button>
         </div>
       </div>
