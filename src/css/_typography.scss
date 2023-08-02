@@ -1,7 +1,15 @@
 #nutrition-navigator {
   font-family: var(--nutrition-navigator-body-font);
+  font-size: var(--nutrition-navigator-body-font-size);
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
+  letter-spacing: 0;
+  line-height: var(--nutrition-navigator-body-line-height);
+
+  @include media-breakpoint-up(lg) {
+    --nutrition-navigator-body-font-size: var(--nutrition-navigator-body-font-size-desktop);
+    --nutrition-navigator-body-line-height: var(--nutrition-navigator-body-line-height-desktop);
+  }
 }
 
 .nutrition-navigator__heading--h1 {
@@ -44,6 +52,10 @@
   letter-spacing: var(--nutrition-navigator-heading-h5-letter-spacing);
   line-height: var(--nutrition-navigator-heading-h5-line-height);
   text-transform: uppercase;
+
+  @include media-breakpoint-up(lg) {
+    --nutrition-navigator-heading-h5-font-size: 15px;
+  }
 }
 
 .nutrition-navigator__heading--h6 {

@@ -10,6 +10,10 @@
     max-width: max-content;
   }
 
+  @include media-breakpoint-up(lg) {
+    grid-gap: 5px;
+  }
+
   @include app-scope-css-properties() {
     padding: 0;
   }
@@ -23,6 +27,7 @@
 
   @include app-scope-css-properties() {
     margin-bottom: 0;
+    padding: 0;
   }
 
   @include media-breakpoint-up(md) {
@@ -38,7 +43,11 @@
 }
 
 .nutrition-navigator__checkbox-label-icon {
-  width: 30px;
+  width: 21px;
+
+  @include media-breakpoint-up(lg) {
+    width: 30px;
+  }
 }
 
 .nutrition-navigator__checkbox {
@@ -67,6 +76,8 @@
     border: .5px solid;
     border-radius: 15px;
     background: transparent;
+    font-family: var(--nutrition-navigator-body-font);
+    font-size: var(--nutrition-navigator-body-font-size);
 
     &::placeholder {
       opacity: 1;

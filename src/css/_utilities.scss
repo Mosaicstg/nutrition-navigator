@@ -23,11 +23,13 @@
     border-radius: 15px;
     background: var(--nutrition-navigator-dark-gray);
     color: var(--nutrition-navigator-white);
-    letter-spacing: .03em;
+    font-family: var(--nutrition-navigator-heading-font);
+    font-weight: $font-weight-bold;
+    letter-spacing: .51px;
     line-height: 1;
     text-align: center;
     text-decoration: none;
-    text-transform: uppercase;
+    text-transform: none;
     cursor: pointer;
 
     // Override for React leaflet
@@ -47,6 +49,10 @@
         background: transparent;
         color: var(--nutrition-navigator-dark-gray);
       }
+    }
+
+    @include media-breakpoint-up(lg) {
+      font-size: 17px;
     }
   }
 

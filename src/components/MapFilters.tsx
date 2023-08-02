@@ -159,17 +159,189 @@ const MapFilters = (props: MapFiltersProps) => {
             readOnly={programs.length === 0}
           />
         </div>
-        <button
-          className="nutrition-navigator__button nutrition-navigator__filters-toggle-button"
-          onClick={() => setIsFiltersIsFiltersOpen(!isFiltersOpen)}
-          type="button"
-          aria-label="Toggle Filters Window Open and Closed"
-          aria-expanded={isFiltersOpen}
-          aria-controls="nutrition-navigator-filters"
-          id="toggle-filters"
+        <div
+          className={`nutrition-navigator__filters-button-grid-body-wrap ${
+            isFiltersOpen
+              ? 'nutrition-navigator__filters-button-grid-body-wrap--open'
+              : ''
+          }`}
         >
-          Filters
-        </button>
+          <button
+            className="nutrition-navigator__button nutrition-navigator__filters-toggle-button"
+            onClick={() => setIsFiltersIsFiltersOpen(!isFiltersOpen)}
+            type="button"
+            aria-label="Toggle Filters Window Open and Closed"
+            aria-expanded={isFiltersOpen}
+            aria-controls="nutrition-navigator-filters"
+            id="toggle-filters"
+          >
+            Filters
+          </button>
+          <div
+            id="nutrition-navigator-filters"
+            className="nutrition-navigator__filters-body-wrap"
+            aria-labelledby="toggle-filters"
+            aria-hidden={!isFiltersOpen}
+            hidden={!isFiltersOpen}
+          >
+            <div className="nutrition-navigator__metro-areas-body-wrap">
+              <h2 className="nutrition-navigator__heading--h2">
+                Search by metro area:
+              </h2>
+              <ul className="nutrition-navigator__checkbox-items-wrap nutrition-navigator__metro-areas">
+                {'success' === metroAreaStatus &&
+                  metroAreas.map(({ id, name, slug }) => {
+                    return (
+                      <li
+                        className="nutrition-navigator__checkbox-wrap"
+                        key={id}
+                      >
+                        <LabelCheckBox
+                          {...{
+                            label: name,
+                            name: 'metro-area[]',
+                            value: slug,
+                            onChange: onMetroAreaChange,
+                            isChecked: filters['metro-areas'].includes(slug)
+                          }}
+                        />
+                      </li>
+                    );
+                  })}
+              </ul>
+            </div>
+            <div className="nutrition-navigator__program-types-body-wrap">
+              <h2 className="nutrition-navigator__heading--h2">I want to...</h2>
+              <ul className="nutrition-navigator__checkbox-items-wrap nutrition-navigator__program-types">
+                {programsTypesStatus === 'success' &&
+                  programTypes.map(({ name, slug, meta: { icon } }, index) => {
+                    return (
+                      <li
+                        className="nutrition-navigator__checkbox-wrap"
+                        key={index}
+                      >
+                        <label
+                          className="nutrition-navigator__checkbox-label"
+                          htmlFor={slug}
+                        >
+                          {icon ? (
+                            <img
+                              src={icon}
+                              className={
+                                'nutrition-navigator__checkbox-label-icon nutrition-navigator__program-type-icon'
+                              }
+                              alt={`Icon for ${decode(name)}`}
+                            />
+                          ) : (
+                            ''
+                          )}
+                          {decode(name)}
+                        </label>
+                        <input
+                          type="checkbox"
+                          name="program-type[]"
+                          value={slug}
+                          id={slug}
+                          className="nutrition-navigator__checkbox"
+                          onChange={onProgramTypeChange}
+                          checked={filters['program-types'].includes(slug)}
+                        />
+                      </li>
+                    );
+                  })}
+              </ul>
+            </div>
+            <div className="nutrition-navigator__sub-filters">
+              <h2 className="nutrition-navigator__heading--h3">
+                More Ways To Search:
+              </h2>
+              <div className="nutrition-navigator__filters-grid">
+                <details className="nutrition-navigator__filter-details" open>
+                  <summary>
+                    <h5 className="nutrition-navigator__heading--h5">
+                      By Venues (Select All That Apply)
+                    </h5>
+                  </summary>
+                  <ul className="nutrition-navigator__checkbox-items-wrap">
+                    {venuesStatus === 'success' &&
+                      venues.map((venue) => {
+                        return (
+                          <li
+                            className="nutrition-navigator__checkbox-wrap"
+                            key={venue.id}
+                          >
+                            <LabelCheckBox
+                              {...{
+                                label: venue.name,
+                                name: 'venue[]',
+                                value: venue.slug,
+                                onChange: onVenueChange,
+                                isChecked: filters.venues.includes(venue.slug)
+                              }}
+                            />
+                          </li>
+                        );
+                      })}
+                  </ul>
+                </details>
+                <details className="nutrition-navigator__filter-details" open>
+                  <summary>
+                    <h5 className="nutrition-navigator__heading--h5">
+                      By Audience (Select All That Apply)
+                    </h5>
+                  </summary>
+                  <ul className="nutrition-navigator__checkbox-items-wrap">
+                    {audiencesStatus === 'success' &&
+                      audiences.map((audience) => {
+                        return (
+                          <li
+                            className="nutrition-navigator__checkbox-wrap"
+                            key={audience.id}
+                          >
+                            <LabelCheckBox
+                              {...{
+                                label: audience.name,
+                                name: 'audience[]',
+                                value: audience.slug,
+                                onChange: onAudienceChange,
+                                isChecked: filters.audiences.includes(
+                                  audience.slug
+                                )
+                              }}
+                            />
+                          </li>
+                        );
+                      })}
+                  </ul>
+                </details>
+                <details className="nutrition-navigator__filter-details" open>
+                  <summary>
+                    <h5 className="nutrition-navigator__heading--h5">
+                      By Organization
+                    </h5>
+                  </summary>
+                  <div className="nutrition-navigator__organization-name-search-field-wrap">
+                    <label
+                      htmlFor="organization-name"
+                      className="nutrition-navigator__helper-text"
+                    >
+                      Search Organization Name
+                    </label>
+                    <input
+                      type="text"
+                      placeholder="Search Name"
+                      id="organization-name"
+                      name="organization-name"
+                      className="nutrition-navigator__text-field"
+                      value={filters['organization-name']}
+                      onChange={onOrgNameChange}
+                    />
+                  </div>
+                </details>
+              </div>
+            </div>
+          </div>
+        </div>
         <div className="nutrition-navigator__filters-reset-submit-button-group">
           <button
             className={`nutrition-navigator__button nutrition-navigator__button--outline ${
@@ -191,165 +363,6 @@ const MapFilters = (props: MapFiltersProps) => {
           >
             Search
           </button>
-        </div>
-      </div>
-      <div
-        id="nutrition-navigator-filters"
-        className="nutrition-navigator__filters-body-wrap"
-        aria-labelledby="toggle-filters"
-        aria-hidden={!isFiltersOpen}
-        hidden={!isFiltersOpen}
-      >
-        <div className="nutrition-navigator__metro-areas-body-wrap">
-          <h2 className="nutrition-navigator__heading--h2">
-            Search by metro area:
-          </h2>
-          <ul className="nutrition-navigator__checkbox-items-wrap nutrition-navigator__metro-areas">
-            {'success' === metroAreaStatus &&
-              metroAreas.map(({ id, name, slug }) => {
-                return (
-                  <li className="nutrition-navigator__checkbox-wrap" key={id}>
-                    <LabelCheckBox
-                      {...{
-                        label: name,
-                        name: 'metro-area[]',
-                        value: slug,
-                        onChange: onMetroAreaChange,
-                        isChecked: filters['metro-areas'].includes(slug)
-                      }}
-                    />
-                  </li>
-                );
-              })}
-          </ul>
-        </div>
-        <div className="nutrition-navigator__program-types-body-wrap">
-          <h2 className="nutrition-navigator__heading--h2">I want to...</h2>
-          <ul className="nutrition-navigator__checkbox-items-wrap nutrition-navigator__program-types">
-            {programsTypesStatus === 'success' &&
-              programTypes.map(({ name, slug, meta: { icon } }, index) => {
-                return (
-                  <li
-                    className="nutrition-navigator__checkbox-wrap"
-                    key={index}
-                  >
-                    <label
-                      className="nutrition-navigator__checkbox-label"
-                      htmlFor={slug}
-                    >
-                      {icon ? (
-                        <img
-                          src={icon}
-                          className={
-                            'nutrition-navigator__checkbox-label-icon nutrition-navigator__program-type-icon'
-                          }
-                          alt={`Icon for ${decode(name)}`}
-                        />
-                      ) : (
-                        ''
-                      )}
-                      {decode(name)}
-                    </label>
-                    <input
-                      type="checkbox"
-                      name="program-type[]"
-                      value={slug}
-                      id={slug}
-                      className="nutrition-navigator__checkbox"
-                      onChange={onProgramTypeChange}
-                      checked={filters['program-types'].includes(slug)}
-                    />
-                  </li>
-                );
-              })}
-          </ul>
-        </div>
-        <div className="nutrition-navigator__sub-filters">
-          <h2 className="nutrition-navigator__heading--h3">
-            More Ways To Search:
-          </h2>
-          <div className="nutrition-navigator__filters-grid">
-            <details className="nutrition-navigator__filter-details" open>
-              <summary>
-                <h5 className="nutrition-navigator__heading--h5">
-                  By Venues (Select All That Apply)
-                </h5>
-              </summary>
-              <ul className="nutrition-navigator__checkbox-items-wrap">
-                {venuesStatus === 'success' &&
-                  venues.map((venue) => {
-                    return (
-                      <li
-                        className="nutrition-navigator__checkbox-wrap"
-                        key={venue.id}
-                      >
-                        <LabelCheckBox
-                          {...{
-                            label: venue.name,
-                            name: 'venue[]',
-                            value: venue.slug,
-                            onChange: onVenueChange,
-                            isChecked: filters.venues.includes(venue.slug)
-                          }}
-                        />
-                      </li>
-                    );
-                  })}
-              </ul>
-            </details>
-            <details className="nutrition-navigator__filter-details" open>
-              <summary>
-                <h5 className="nutrition-navigator__heading--h5">
-                  By Audience (Select All That Apply)
-                </h5>
-              </summary>
-              <ul className="nutrition-navigator__checkbox-items-wrap">
-                {audiencesStatus === 'success' &&
-                  audiences.map((audience) => {
-                    return (
-                      <li
-                        className="nutrition-navigator__checkbox-wrap"
-                        key={audience.id}
-                      >
-                        <LabelCheckBox
-                          {...{
-                            label: audience.name,
-                            name: 'audience[]',
-                            value: audience.slug,
-                            onChange: onAudienceChange,
-                            isChecked: filters.audiences.includes(audience.slug)
-                          }}
-                        />
-                      </li>
-                    );
-                  })}
-              </ul>
-            </details>
-            <details className="nutrition-navigator__filter-details" open>
-              <summary>
-                <h5 className="nutrition-navigator__heading--h5">
-                  By Organization
-                </h5>
-              </summary>
-              <div className="nutrition-navigator__organization-name-search-field-wrap">
-                <label
-                  htmlFor="organization-name"
-                  className="nutrition-navigator__helper-text"
-                >
-                  Search Organization Name
-                </label>
-                <input
-                  type="text"
-                  placeholder="Search Name"
-                  id="organization-name"
-                  name="organization-name"
-                  className="nutrition-navigator__text-field"
-                  value={filters['organization-name']}
-                  onChange={onOrgNameChange}
-                />
-              </div>
-            </details>
-          </div>
         </div>
       </div>
     </div>
