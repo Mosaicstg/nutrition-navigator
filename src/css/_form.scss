@@ -82,6 +82,7 @@
     &::placeholder {
       opacity: 1;
       color: var(--nutrition-navigator-dark-gray);
+      font-family: var(--nutrition-navigator-body-font);
       font-weight: bold;
       letter-spacing: .03em;
       text-transform: uppercase;
