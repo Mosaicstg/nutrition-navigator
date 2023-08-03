@@ -13,7 +13,11 @@
   display: flex;
   grid-gap: 15px;
   flex-flow: column;
-  padding: 20px 20px 10px;
+  padding: 12px 0;
+
+  @include media-breakpoint-up(lg) {
+    padding: 20px 20px 10px;
+  }
 
   h4,
   p {
@@ -34,11 +38,19 @@
   grid-gap: 10px;
   flex-flow: row nowrap;
   flex-shrink: 0;
+
+  @include media-breakpoint-up(lg) {
+    grid-gap: 5px;
+  }
 }
 
 .nutrition-navigator__marker-program-icon {
   flex-shrink: 0;
-  max-width: 34px;
+  max-width: 28px;
+
+  @include media-breakpoint-up(lg) {
+    max-width: 34px;
+  }
 
   img {
     width: 100%;
@@ -47,4 +59,8 @@
 
 .nutrition-navigator__marker-link-wrap {
   flex-shrink: 0;
+}
+
+.leaflet-popup-content {
+  min-width: max-content;
 }
