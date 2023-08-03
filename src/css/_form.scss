@@ -53,9 +53,10 @@
 .nutrition-navigator__checkbox {
   @include app-scope-css-properties() {
     padding: 7px;
-    border: 0;
+    transition: background-color .15s ease-in-out;
+    border: 1.1px solid var(--nutrition-navigator-dark-gray);
     border-radius: 0;
-    background-color: var(--nutrition-navigator-dark-gray);
+    background-color: transparent;
     appearance: none;
 
     &:checked {
