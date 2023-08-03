@@ -6,6 +6,8 @@
  */
 
 /**
+ * TODO: Expose "archive" feed for Program Type taxonomy
+ *
  * Create custom post type 'Programs', taxonomies and meta fields
  */
 class Nutrition_Navigator_Programs {
@@ -115,9 +117,9 @@ class Nutrition_Navigator_Programs {
 				'add_new_item' => __('Add Program Type', 'nutrition-navigator'),
 				'not_found' => __('No Program Type found', 'nutrition-navigator')
 			],
-			'public' => false,
+			'public' => true,
 			'show_ui' => true,
-			'has_archive' => false,
+			'has_archive' => true,
 			'hierarchical' => true,
 			'show_in_rest' => true,
 			'show_in_nav_menus' => false,
@@ -826,6 +828,11 @@ class Nutrition_Navigator_Programs {
 	 * @see wp_update_term()
 	 */
 	public function edited_program_type($term_id, $tt_id, $args) {
+		// Avoid `Quick Edit` removing Icon image
+		if (defined('DOING_AJAX') && DOING_AJAX) {
+			return;
+		}
+
 		if (
 			isset($_POST['program_type_nonce']) &&
 			!wp_verify_nonce(sanitize_text_field(wp_unslash($_POST['program_type_nonce'])), plugin_basename(__FILE__))
