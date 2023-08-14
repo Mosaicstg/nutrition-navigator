@@ -385,3 +385,26 @@
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='21' height='11' viewBox='0 0 21 11' fill='none'%3E%3Cpath d='M14.5152 3.26706H1.03571C0.739866 3.26706 0.5 3.51105 0.5 3.81198V6.35497C0.5 6.6559 0.739866 6.89989 1.03571 6.89989H14.5152V8.99145C14.5152 9.96241 15.6693 10.4487 16.3443 9.76211L20.1862 5.85413C20.6046 5.4285 20.6046 4.73845 20.1862 4.31286L16.3443 0.404885C15.6693 -0.281675 14.5152 0.20458 14.5152 1.17555V3.26706Z' fill='%23403C3B'/%3E%3C/svg%3E");
   }
 }
+
+.nutrition-navigator__filters-footer {
+  margin-top: 25px;
+
+  button {
+    width: 100%;
+
+    @include media-breakpoint-up(lg) {
+      width: auto;
+    }
+  }
+
+  @include media-breakpoint-up(md) {
+    display: none;
+    margin: 0;
+  }
+
+
+  @include media-breakpoint-up(lg) {
+    display: block;
+    text-align: right;
+  }
+}

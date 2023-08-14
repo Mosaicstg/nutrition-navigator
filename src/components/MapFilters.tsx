@@ -340,6 +340,16 @@ const MapFilters = (props: MapFiltersProps) => {
                 </details>
               </div>
             </div>
+            <div className="nutrition-navigator__filters-footer">
+              <button
+                className="nutrition-navigator__button"
+                onClick={onSearchButtonClick}
+                type="button"
+                disabled={programs.length === 0}
+              >
+                Search
+              </button>
+            </div>
           </div>
         </div>
         <div className="nutrition-navigator__filters-reset-submit-button-group">
