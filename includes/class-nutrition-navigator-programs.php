@@ -317,6 +317,48 @@ class Nutrition_Navigator_Programs {
 			'show_in_rest' => true,
 			'sanitized_callback' => [$this, 'sanitize_download_file_id_custom_field']
 		]);
+
+		// Website url
+		register_term_meta(self::POST_SLUG, 'program-website-url', [
+			'type' => 'string',
+			'single' => true,
+			'show_in_rest' => true
+		]);
+
+		// Twitter url
+		register_term_meta(self::POST_SLUG, 'program-twitter-url', [
+			'type' => 'string',
+			'single' => true,
+			'show_in_rest' => true
+		]);
+
+		// Facebook url
+		register_term_meta(self::POST_SLUG, 'program-facebook-url', [
+			'type' => 'string',
+			'single' => true,
+			'show_in_rest' => true
+		]);
+
+		// Instagram url
+		register_term_meta(self::POST_SLUG, 'program-instagram-url', [
+			'type' => 'string',
+			'single' => true,
+			'show_in_rest' => true
+		]);
+
+		// LinkedIn url
+		register_term_meta(self::POST_SLUG, 'program-linkedin-url', [
+			'type' => 'string',
+			'single' => true,
+			'show_in_rest' => true
+		]);
+
+		// Tiktok url
+		register_term_meta(self::POST_SLUG, 'program-tiktok-url', [
+			'type' => 'string',
+			'single' => true,
+			'show_in_rest' => true
+		]);
 	}
 
 	/**
@@ -435,6 +477,66 @@ class Nutrition_Navigator_Programs {
 			'textarea_name' => 'program-description',
 			'textarea_rows' => 5
 		]);
+
+		$website_url = $this->get_program_website_url($post);
+
+		// Website URL
+		echo '<p>';
+		echo '<label for="program-website-url">Website URL</label>';
+		echo '<input type="text" id="program-website-url" value="' .
+			esc_attr($website_url) .
+			'" name="program-website-url" class="widefat" placeholder="https://"/>';
+		echo '</p>';
+
+		$twitter_url = $this->get_program_twitter_url($post);
+
+		// Twitter URL
+		echo '<p>';
+		echo '<label for="program-twitter-url">Twitter URL</label>';
+		echo '<input type="text" id="program-twitter-url" value="' .
+			esc_attr($twitter_url) .
+			'" name="program-twitter-url" class="widefat" placeholder="https://"/>';
+		echo '</p>';
+
+		$facebook_url = $this->get_program_facebook_url($post);
+
+		// Facebook URL
+		echo '<p>';
+		echo '<label for="program-facebook-url">Facebook URL</label>';
+		echo '<input type="text" id="program-facebook-url" value="' .
+			esc_attr($facebook_url) .
+			'" name="program-facebook-url" class="widefat" placeholder="https://"/>';
+		echo '</p>';
+
+		$instagram_url = $this->get_program_instagram_url($post);
+
+		// Instagram URL
+		echo '<p>';
+		echo '<label for="program-instagram-url">Instagram URL</label>';
+		echo '<input type="text" id="program-instagram-url" value="' .
+			esc_attr($instagram_url) .
+			'" name="program-instagram-url" class="widefat" placeholder="https://"/>';
+		echo '</p>';
+
+		$linkedin_url = $this->get_program_linkedin_url($post);
+
+		// LinkedIn URL
+		echo '<p>';
+		echo '<label for="program-linkedin-url">LinkedIn URL</label>';
+		echo '<input type="text" id="program-linkedin-url" value="' .
+			esc_attr($linkedin_url) .
+			'" name="program-linkedin-url" class="widefat" placeholder="https://"/>';
+		echo '</p>';
+
+		$tiktok_url = $this->get_program_tiktok_url($post);
+
+		// TikTok URL
+		echo '<p>';
+		echo '<label for="program-tiktok-url">TikTok URL</label>';
+		echo '<input type="text" id="program-tiktok-url" value="' .
+			esc_attr($tiktok_url) .
+			'" name="program-tiktok-url" class="widefat" placeholder="https://"/>';
+		echo '</p>';
 	}
 
 	/**
@@ -584,7 +686,7 @@ class Nutrition_Navigator_Programs {
 	 * @return void
 	 */
 	public function save_post($post_id, $post, $update) {
-		// Verify meta box nonce
+		// Verify meta box nonces
 		if (
 			isset($_POST['program_nonce']) &&
 			isset($_POST['program_location_nonce']) &&
@@ -607,7 +709,7 @@ class Nutrition_Navigator_Programs {
 			return;
 		}
 
-		// Check permissions
+		// Check user's permissions
 		if (
 			(array_key_exists('post_type', $_POST) && self::POST_SLUG !== $_POST['post_type']) ||
 			!current_user_can('edit_post', $post_id)
@@ -615,7 +717,7 @@ class Nutrition_Navigator_Programs {
 			return;
 		}
 
-		// verify if this is an auto save routine. If it is our form has not been submitted, so we don't want
+		// Verify if this is an auto save routine. If it is our form has not been submitted, so we don't want
 		// to do anything
 		if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) {
 			return;
@@ -716,6 +818,60 @@ class Nutrition_Navigator_Programs {
 				$post_id,
 				'program-download-file-id',
 				intval(sanitize_text_field(wp_unslash($_POST['program-download-file-id'])))
+			);
+		}
+
+		// Save/update Program Website URL
+		if (array_key_exists('program-website-url', $_POST)) {
+			update_post_meta(
+				$post_id,
+				'program-website-url',
+				sanitize_textarea_field(wp_unslash($_POST['program-website-url']))
+			);
+		}
+
+		// Save/update Program Twitter URL
+		if (array_key_exists('program-twitter-url', $_POST)) {
+			update_post_meta(
+				$post_id,
+				'program-twitter-url',
+				sanitize_textarea_field(wp_unslash($_POST['program-twitter-url']))
+			);
+		}
+
+		// Save/update Program Facebook URL
+		if (array_key_exists('program-facebook-url', $_POST)) {
+			update_post_meta(
+				$post_id,
+				'program-facebook-url',
+				sanitize_textarea_field(wp_unslash($_POST['program-facebook-url']))
+			);
+		}
+
+		// Save/update Program Instagram URL
+		if (array_key_exists('program-instagram-url', $_POST)) {
+			update_post_meta(
+				$post_id,
+				'program-instagram-url',
+				sanitize_textarea_field(wp_unslash($_POST['program-instagram-url']))
+			);
+		}
+
+		// Save/update Program Linkedin URL
+		if (array_key_exists('program-linkedin-url', $_POST)) {
+			update_post_meta(
+				$post_id,
+				'program-linkedin-url',
+				sanitize_textarea_field(wp_unslash($_POST['program-linkedin-url']))
+			);
+		}
+
+		// Save/update Program TikTok URL
+		if (array_key_exists('program-tiktok-url', $_POST)) {
+			update_post_meta(
+				$post_id,
+				'program-tiktok-url',
+				sanitize_textarea_field(wp_unslash($_POST['program-tiktok-url']))
 			);
 		}
 	}
@@ -1051,6 +1207,108 @@ class Nutrition_Navigator_Programs {
 		}
 
 		return $email;
+	}
+
+	/**
+	 * A getter for a Program's twitter url
+	 *
+	 * @param WP_Post $post Post object.
+	 *
+	 * @return string
+	 */
+	public function get_program_twitter_url($post) {
+		$twitter_url = get_post_meta($post->ID, 'program-twitter-url', true);
+
+		if (empty($twitter_url)) {
+			$twitter_url = '';
+		}
+
+		return $twitter_url;
+	}
+
+	/**
+	 * A getter for a Program's facebook url
+	 *
+	 * @param WP_Post $post Post object.
+	 *
+	 * @return string
+	 */
+	public function get_program_facebook_url($post) {
+		$facebook_url = get_post_meta($post->ID, 'program-facebook-url', true);
+
+		if (empty($facebook_url)) {
+			$facebook_url = '';
+		}
+
+		return $facebook_url;
+	}
+
+	/**
+	 * A getter for a Program's instagram url
+	 *
+	 * @param WP_Post $post Post object.
+	 *
+	 * @return string
+	 */
+	public function get_program_instagram_url($post) {
+		$instagram_url = get_post_meta($post->ID, 'program-instagram-url', true);
+
+		if (empty($instagram_url)) {
+			$instagram_url = '';
+		}
+
+		return $instagram_url;
+	}
+
+	/**
+	 * A getter for a Program's linkedin url
+	 *
+	 * @param WP_Post $post Post object.
+	 *
+	 * @return string
+	 */
+	public function get_program_linkedin_url($post) {
+		$linkedin_url = get_post_meta($post->ID, 'program-linkedin-url', true);
+
+		if (empty($linkedin_url)) {
+			$linkedin_url = '';
+		}
+
+		return $linkedin_url;
+	}
+
+	/**
+	 * A getter for a Program's tiktok url
+	 *
+	 * @param WP_Post $post Post object.
+	 *
+	 * @return string
+	 */
+	public function get_program_tiktok_url($post) {
+		$tiktok_url = get_post_meta($post->ID, 'program-tiktok-url', true);
+
+		if (empty($tiktok_url)) {
+			$tiktok_url = '';
+		}
+
+		return $tiktok_url;
+	}
+
+	/**
+	 * A getter for a Program's website url
+	 *
+	 * @param WP_Post $post Post object.
+	 *
+	 * @return string
+	 */
+	public function get_program_website_url($post) {
+		$website_url = get_post_meta($post->ID, 'program-website-url', true);
+
+		if (empty($website_url)) {
+			$website_url = '';
+		}
+
+		return $website_url;
 	}
 
 	/**
