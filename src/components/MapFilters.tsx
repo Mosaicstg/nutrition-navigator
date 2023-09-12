@@ -259,7 +259,7 @@ const MapFilters = (props: MapFiltersProps) => {
                 <details className="nutrition-navigator__filter-details" open>
                   <summary>
                     <h5 className="nutrition-navigator__heading--h5">
-                      By Venues (Select All That Apply)
+                      By Venue
                     </h5>
                   </summary>
                   <ul className="nutrition-navigator__checkbox-items-wrap">
@@ -287,7 +287,7 @@ const MapFilters = (props: MapFiltersProps) => {
                 <details className="nutrition-navigator__filter-details" open>
                   <summary>
                     <h5 className="nutrition-navigator__heading--h5">
-                      By Audience (Select All That Apply)
+                      By Audience
                     </h5>
                   </summary>
                   <ul className="nutrition-navigator__checkbox-items-wrap">
@@ -355,7 +355,7 @@ const MapFilters = (props: MapFiltersProps) => {
         <div className="nutrition-navigator__filters-reset-submit-button-group">
           <button
             className={`nutrition-navigator__button nutrition-navigator__button--outline ${
-              isFiltersOpen ? 'nutrition-navigator__button--green' : ''
+              isFiltersOpen ? 'nutrition-navigator__button--white' : ''
             }`}
             onClick={onResetButtonClick}
             type="button"
@@ -365,7 +365,7 @@ const MapFilters = (props: MapFiltersProps) => {
           </button>
           <button
             className={`nutrition-navigator__button ${
-              isFiltersOpen ? 'nutrition-navigator__button--white' : ''
+              isFiltersOpen ? 'nutrition-navigator__button--green' : ''
             }`}
             onClick={onSearchButtonClick}
             type="button"
