@@ -5,14 +5,14 @@ import { Filters } from '../useMapFilters/useMapFilters.tsx';
 
 export type Program = z.infer<typeof ProgramSchema>;
 
-export type AllProgramsState = {
+export type AllProgramsState = Readonly<{
   programs: Program[];
   filteredPrograms: Program[];
-};
+}>;
 
 export type AllProgramsAction =
-  | { type: 'SET'; data: Program[] }
-  | { type: 'UPDATE_PROGRAMS'; filters: Filters }
+  | { type: 'SET'; data: ReadonlyArray<Program> }
+  | { type: 'UPDATE_PROGRAMS'; filters: Readonly<Filters> }
   | { type: 'RESET' };
 
 export type MatchAction<T> = Extract<AllProgramsAction, { type: T }>;

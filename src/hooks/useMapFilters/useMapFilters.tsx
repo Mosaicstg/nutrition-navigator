@@ -13,6 +13,9 @@ export const defaultFilters: Filters = {
   'metro-areas': []
 };
 
-export const useMapFilters = () => {
+export const useMapFilters = (): [
+  Readonly<Filters>,
+  React.Dispatch<React.SetStateAction<Readonly<Filters>>>
+] => {
   return React.useState(() => defaultFilters);
 };
