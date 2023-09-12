@@ -8,4 +8,4 @@ export const VenueSchema = z.object({
   link: z.string()
 });
 
-export type Venue = z.infer<typeof VenueSchema>;
+export type Venue = Readonly<z.infer<typeof VenueSchema>>;

@@ -12,4 +12,4 @@ export const ProgramTypeSchema = z.object({
   link: z.string()
 });
 
-export type ProgramType = z.infer<typeof ProgramTypeSchema>;
+export type ProgramType = Readonly<z.infer<typeof ProgramTypeSchema>>;

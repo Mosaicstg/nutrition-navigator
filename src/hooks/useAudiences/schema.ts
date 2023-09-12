@@ -8,4 +8,4 @@ export const AudienceSchema = z.object({
   link: z.string()
 });
 
-export type Audience = z.infer<typeof AudienceSchema>;
+export type Audience = Readonly<z.infer<typeof AudienceSchema>>;

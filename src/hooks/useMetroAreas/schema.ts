@@ -8,4 +8,4 @@ export const MetroAreaSchema = z.object({
   link: z.string()
 });
 
-export type MetroArea = z.infer<typeof MetroAreaSchema>;
+export type MetroArea = Readonly<z.infer<typeof MetroAreaSchema>>;
