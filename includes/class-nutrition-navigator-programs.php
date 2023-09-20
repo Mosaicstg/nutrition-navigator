@@ -6,8 +6,6 @@
  */
 
 /**
- * TODO: Expose "archive" feed for Program Type taxonomy
- *
  * Create custom post type 'Programs', taxonomies and meta fields
  */
 class Nutrition_Navigator_Programs {
@@ -22,6 +20,8 @@ class Nutrition_Navigator_Programs {
 	const AUDIENCE_TAXONOMY_SLUG = 'audience';
 
 	const METRO_AREA_TAXONOMY_SLUG = 'metro-area';
+
+	const LANGUAGE_TAXONOMY_SLUG = 'language';
 
 	/**
 	 * Class constructor
@@ -170,6 +170,7 @@ class Nutrition_Navigator_Programs {
 			'show_admin_column' => true
 		]);
 
+		// Metro Areas
 		register_taxonomy(self::METRO_AREA_TAXONOMY_SLUG, self::POST_SLUG, [
 			'labels' => [
 				'name' => __('Metro Areas', 'nutrition-navigator'),
@@ -188,6 +189,28 @@ class Nutrition_Navigator_Programs {
 			'hierarchical' => true,
 			'show_in_rest' => true,
 			'show_in_nav_menus' => false,
+			'show_admin_column' => true
+		]);
+
+		// Languages
+		register_taxonomy(self::LANGUAGE_TAXONOMY_SLUG, self::POST_SLUG, [
+			'labels' => [
+				'name' => __('Languages', 'nutrition-navigator'),
+				'singular_name' => __('Language', 'nutrition-navigator'),
+				'all_items' => __('All languages', 'nutrition-navigator'),
+				'add_item' => __('Add Language', 'nutrition-navigator'),
+				'edit_item' => __('Edit Language', 'nutrition-navigator'),
+				'view_item' => __('View Language', 'nutrition-navigator'),
+				'update_item' => __('Update Language', 'nutrition-navigator'),
+				'add_new_item' => __('Add Language', 'nutrition-navigator'),
+				'not_found' => __('No Languages found', 'nutrition-navigator')
+			],
+			'public' => false,
+			'show_ui' => true,
+			'has_archive' => false,
+			'hierarchical' => true,
+			'show_in_rest' => true,
+			'show_in_nav_menus' => true,
 			'show_admin_column' => true
 		]);
 	}
