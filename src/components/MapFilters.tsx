@@ -185,9 +185,7 @@ const MapFilters = (props: MapFiltersProps) => {
             hidden={!isFiltersOpen}
           >
             <div className="nutrition-navigator__metro-areas-body-wrap">
-              <h2 className="nutrition-navigator__heading--h2">
-                Search by metro area:
-              </h2>
+              <h2 className="nutrition-navigator__heading--h2">Search by:</h2>
               <ul className="nutrition-navigator__checkbox-items-wrap nutrition-navigator__metro-areas">
                 {'success' === metroAreaStatus &&
                   metroAreas.map(({ id, name, slug }) => {
