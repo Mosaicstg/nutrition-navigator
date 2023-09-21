@@ -3,6 +3,7 @@ node_modules
 .husky
 images
 vendor
+dist
 
 # File patterns
 *.md
