@@ -950,7 +950,13 @@ class Nutrition_Navigator_Programs {
 		}
 
 		wp_enqueue_media();
-		wp_enqueue_script('program-type', plugin_dir_url(__DIR__) . 'admin/program-type.js', ['jquery'], '1.0.0', true);
+		wp_enqueue_script(
+			'nutrition-navigator-program-type',
+			plugin_dir_url(__DIR__) . 'admin/program-type.js',
+			['jquery'],
+			'1.0.0',
+			true
+		);
 	}
 
 	/**
