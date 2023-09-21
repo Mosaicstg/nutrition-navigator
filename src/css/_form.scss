@@ -62,7 +62,7 @@
     transition: background-color .15s ease-in-out;
     border: 1.1px solid var(--nutrition-navigator-dark-gray);
     border-radius: 0;
-    background-color: transparent;
+    background-color: var(--nutrition-navigator-dark-gray);
     appearance: none;
 
     &:checked {
