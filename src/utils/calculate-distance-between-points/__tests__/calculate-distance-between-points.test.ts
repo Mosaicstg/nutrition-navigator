@@ -1,10 +1,12 @@
 import { expect, describe, it } from 'vitest';
 import { calculateDistanceBetweenPoints } from '../calculate-distance-between-points.ts';
+import { createFakeLatAndLongObject } from '../../../mocks/helpers.ts';
 
 describe('Calculate Distance Between Points', () => {
   it('returns zero', () => {
-    const Point1 = { lat: 0, lng: 0 };
-    const Point2 = { lat: 0, lng: 0 };
+    const testPoint = createFakeLatAndLongObject();
+    const Point1 = { ...testPoint };
+    const Point2 = { ...testPoint };
 
     expect(calculateDistanceBetweenPoints(Point1, Point2)).toBe(0);
   });
