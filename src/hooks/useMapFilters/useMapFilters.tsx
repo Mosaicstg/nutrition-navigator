@@ -10,7 +10,8 @@ export const defaultFilters: Filters = {
   audiences: [],
   'organization-name': '',
   address: '',
-  'metro-areas': []
+  'metro-areas': [],
+  languages: []
 };
 
 export const useMapFilters = (): [
