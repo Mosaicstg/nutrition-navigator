@@ -78,7 +78,8 @@ describe('Set function for AllPrograms State', () => {
       'program-types': [],
       audiences: [],
       venues: [],
-      'metro-areas': []
+      'metro-areas': [],
+      languages: []
     };
 
     const programs = [testProgramObject, {}, testProgramObject];

@@ -1,19 +1,12 @@
 import { describe, it, expect } from 'vitest';
 import { reset } from '../reset.ts';
+import { AllProgramsState } from '../../types.ts';
 
 describe('AllProgramsState reset function', () => {
   it('returns a reset state', () => {
-    const testState = {
+    const testState: AllProgramsState = {
       programs: [],
-      filteredPrograms: [],
-      filters: {
-        'program-types': [],
-        venues: [],
-        audiences: [],
-        'organization-name': '',
-        address: '',
-        'metro-areas': []
-      }
+      filteredPrograms: []
     };
 
     const state = reset([testState, { type: 'RESET' }]);
