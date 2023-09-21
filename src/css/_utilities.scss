@@ -121,5 +121,12 @@
       }
     }
   }
+}
 
+.nutrition-navigator__text-lowercase {
+  text-transform: lowercase;
+}
+
+.nutrition-navigator__text-capital-case {
+  text-transform: capitalize;
 }

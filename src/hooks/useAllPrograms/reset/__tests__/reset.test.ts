@@ -1,19 +1,16 @@
 import { describe, it, expect } from 'vitest';
 import { reset } from '../reset.ts';
+import { AllProgramsState } from '../../types.ts';
+import {
+  createFakeProgram,
+  createFakePrograms
+} from '../../../../mocks/program.ts';
 
 describe('AllProgramsState reset function', () => {
-  it('returns a reset state', () => {
-    const testState = {
+  it('returns a state with zero programs and filteredPrograms', () => {
+    const testState: AllProgramsState = {
       programs: [],
-      filteredPrograms: [],
-      filters: {
-        'program-types': [],
-        venues: [],
-        audiences: [],
-        'organization-name': '',
-        address: '',
-        'metro-areas': []
-      }
+      filteredPrograms: []
     };
 
     const state = reset([testState, { type: 'RESET' }]);
@@ -22,10 +19,10 @@ describe('AllProgramsState reset function', () => {
   });
 
   it('returns state with the same programs and filteredPrograms', () => {
-    const defaultPrograms = ['hello world', 'hello again'];
-    const filteredPrograms = ['hello world'];
+    const defaultPrograms = createFakePrograms();
+    const filteredPrograms = [createFakeProgram(), createFakeProgram()];
 
-    const testState = {
+    const testState: AllProgramsState = {
       programs: defaultPrograms,
       filteredPrograms: filteredPrograms
     };

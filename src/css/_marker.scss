@@ -10,13 +10,16 @@
 }
 
 .nutrition-navigator__marker-content-wrap {
-  display: flex;
-  grid-gap: 15px;
-  flex-flow: column;
+  display: grid;
+  grid-gap: 20px;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   padding: 12px 0;
+  font-weight: 800;
 
   @include media-breakpoint-up(lg) {
+    grid-gap: 32px;
     padding: 20px 20px 10px;
+    font-size: 14px;
   }
 
   h4,
@@ -25,26 +28,44 @@
   }
 }
 
-.nutrition-navigator__marker-content-footer-wrap {
+.nutrition-navigator__marker-content-column {
   display: flex;
-  grid-gap: 10px;
-  flex-flow: row wrap;
-  align-items: center;
+  grid-gap: 15px;
+  flex-flow: column;
   justify-content: space-between;
 
   @include media-breakpoint-up(lg) {
-    flex-wrap: nowrap;
+    grid-gap: 25px;
   }
+}
+
+.nutrition-navigator__marker-headline-wrap{
+  display: flex;
+  grid-gap: 10px;
+  flex-flow: column;
 }
 
 .nutrition-navigator__marker-program-types {
   display: flex;
   grid-gap: 10px;
-  flex-flow: row nowrap;
+  flex-flow: column;
   flex-shrink: 0;
 
   @include media-breakpoint-up(lg) {
-    grid-gap: 5px;
+    grid-gap: 15px;
+  }
+}
+
+.nutrition-navigator__marker-program-type {
+  display: flex;
+  grid-gap: 10px;
+  flex-flow: row nowrap;
+  align-items: center;
+  font-weight: 400;
+
+  @include media-breakpoint-up(lg) {
+    grid-gap: 16px;
+    font-size: 16px;
   }
 }
 
@@ -53,7 +74,7 @@
   max-width: 28px;
 
   @include media-breakpoint-up(lg) {
-    max-width: 34px;
+    max-width: 35px;
   }
 
   img {
@@ -67,4 +88,8 @@
 
 .leaflet-popup-content {
   min-width: max-content;
+
+  @include media-breakpoint-up(lg) {
+    min-width: 480px;
+  }
 }

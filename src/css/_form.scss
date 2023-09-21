@@ -19,6 +19,12 @@
   }
 }
 
+.nutrition-navigator__checkbox-items-wrap--languages {
+  @include media-breakpoint-up(md) {
+    min-width: 80%;
+  }
+}
+
 .nutrition-navigator__checkbox-wrap {
   display: flex;
   grid-gap: 10px;
@@ -56,7 +62,7 @@
     transition: background-color .15s ease-in-out;
     border: 1.1px solid var(--nutrition-navigator-dark-gray);
     border-radius: 0;
-    background-color: transparent;
+    background-color: var(--nutrition-navigator-dark-gray);
     appearance: none;
 
     &:checked {

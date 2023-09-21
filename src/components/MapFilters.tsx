@@ -20,6 +20,7 @@ import {
   AllProgramsDispatch,
   AllProgramsState
 } from '../hooks/useAllPrograms/types.ts';
+import useLanguages from '../hooks/useLanguages/useLanguages.tsx';
 
 type MapFiltersProps = {
   state: AllProgramsState;
@@ -31,6 +32,7 @@ const MapFilters = (props: MapFiltersProps) => {
 
   const [filters, setLocalFilters] = useMapFilters();
   const { data: programTypes, status: programsTypesStatus } = useProgramTypes();
+  const { data: languages, status: languagesStatus } = useLanguages();
   const { data: venues, status: venuesStatus } = useVenues();
   const { data: audiences, status: audiencesStatus } = useAudiences();
   const { data: metroAreas, status: metroAreaStatus } = useMetroAreas();
@@ -75,6 +77,20 @@ const MapFilters = (props: MapFiltersProps) => {
             (programType) => event.target.value !== programType
           )
         : [...programTypes, event.target.value]
+    };
+
+    setLocalFilters(() => newFilters);
+  };
+
+  const onLanguageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const prevFilters = filters;
+    const { languages } = prevFilters;
+
+    const newFilters = {
+      ...prevFilters,
+      languages: languages.includes(event.target.value)
+        ? languages.filter((language) => event.target.value !== language)
+        : [...languages, event.target.value]
     };
 
     setLocalFilters(() => newFilters);
@@ -185,9 +201,7 @@ const MapFilters = (props: MapFiltersProps) => {
             hidden={!isFiltersOpen}
           >
             <div className="nutrition-navigator__metro-areas-body-wrap">
-              <h2 className="nutrition-navigator__heading--h2">
-                Search by metro area:
-              </h2>
+              <h2 className="nutrition-navigator__heading--h2">Search by:</h2>
               <ul className="nutrition-navigator__checkbox-items-wrap nutrition-navigator__metro-areas">
                 {'success' === metroAreaStatus &&
                   metroAreas.map(({ id, name, slug }) => {
@@ -253,91 +267,127 @@ const MapFilters = (props: MapFiltersProps) => {
             </div>
             <div className="nutrition-navigator__sub-filters">
               <h2 className="nutrition-navigator__heading--h3">
-                More Ways To Search:
+                More ways to search:
               </h2>
               <div className="nutrition-navigator__filters-grid">
-                <details className="nutrition-navigator__filter-details" open>
-                  <summary>
-                    <h5 className="nutrition-navigator__heading--h5">
-                      By Venue
-                    </h5>
-                  </summary>
-                  <ul className="nutrition-navigator__checkbox-items-wrap">
-                    {venuesStatus === 'success' &&
-                      venues.map((venue) => {
-                        return (
-                          <li
-                            className="nutrition-navigator__checkbox-wrap"
-                            key={venue.id}
-                          >
-                            <LabelCheckBox
-                              {...{
-                                label: venue.name,
-                                name: 'venue[]',
-                                value: venue.slug,
-                                onChange: onVenueChange,
-                                isChecked: filters.venues.includes(venue.slug)
-                              }}
-                            />
-                          </li>
-                        );
-                      })}
-                  </ul>
-                </details>
-                <details className="nutrition-navigator__filter-details" open>
-                  <summary>
-                    <h5 className="nutrition-navigator__heading--h5">
-                      By Audience
-                    </h5>
-                  </summary>
-                  <ul className="nutrition-navigator__checkbox-items-wrap">
-                    {audiencesStatus === 'success' &&
-                      audiences.map((audience) => {
-                        return (
-                          <li
-                            className="nutrition-navigator__checkbox-wrap"
-                            key={audience.id}
-                          >
-                            <LabelCheckBox
-                              {...{
-                                label: audience.name,
-                                name: 'audience[]',
-                                value: audience.slug,
-                                onChange: onAudienceChange,
-                                isChecked: filters.audiences.includes(
-                                  audience.slug
-                                )
-                              }}
-                            />
-                          </li>
-                        );
-                      })}
-                  </ul>
-                </details>
-                <details className="nutrition-navigator__filter-details" open>
-                  <summary>
-                    <h5 className="nutrition-navigator__heading--h5">
-                      By Organization
-                    </h5>
-                  </summary>
-                  <div className="nutrition-navigator__organization-name-search-field-wrap">
-                    <label
-                      htmlFor="organization-name"
-                      className="nutrition-navigator__helper-text"
-                    >
-                      Search Organization Name
-                    </label>
-                    <input
-                      type="text"
-                      placeholder="Search Name"
-                      id="organization-name"
-                      name="organization-name"
-                      className="nutrition-navigator__text-field"
-                      value={filters['organization-name']}
-                      onChange={onOrgNameChange}
-                    />
-                  </div>
-                </details>
+                <div className="nutrition-navigator__filter-column">
+                  <details className="nutrition-navigator__filter-details" open>
+                    <summary>
+                      <h5 className="nutrition-navigator__heading--h5">
+                        By Language Offered
+                      </h5>
+                    </summary>
+                    <ul className="nutrition-navigator__checkbox-items-wrap nutrition-navigator__checkbox-items-wrap--languages">
+                      {languagesStatus === 'success' &&
+                        languages.map((language) => {
+                          return (
+                            <li
+                              className="nutrition-navigator__checkbox-wrap"
+                              key={language.id}
+                            >
+                              <LabelCheckBox
+                                {...{
+                                  label: language.name,
+                                  name: 'languages[]',
+                                  value: language.slug,
+                                  onChange: onLanguageChange,
+                                  isChecked: filters.languages.includes(
+                                    language.slug
+                                  )
+                                }}
+                              />
+                            </li>
+                          );
+                        })}
+                    </ul>
+                  </details>
+                </div>
+                <div className="nutrition-navigator__filter-column">
+                  <details className="nutrition-navigator__filter-details" open>
+                    <summary>
+                      <h5 className="nutrition-navigator__heading--h5">
+                        By Venue
+                      </h5>
+                    </summary>
+                    <ul className="nutrition-navigator__checkbox-items-wrap">
+                      {venuesStatus === 'success' &&
+                        venues.map((venue) => {
+                          return (
+                            <li
+                              className="nutrition-navigator__checkbox-wrap"
+                              key={venue.id}
+                            >
+                              <LabelCheckBox
+                                {...{
+                                  label: venue.name,
+                                  name: 'venue[]',
+                                  value: venue.slug,
+                                  onChange: onVenueChange,
+                                  isChecked: filters.venues.includes(venue.slug)
+                                }}
+                              />
+                            </li>
+                          );
+                        })}
+                    </ul>
+                  </details>
+                </div>
+                <div className="nutrition-navigator__filter-column">
+                  <details className="nutrition-navigator__filter-details" open>
+                    <summary>
+                      <h5 className="nutrition-navigator__heading--h5">
+                        By Audience
+                      </h5>
+                    </summary>
+                    <ul className="nutrition-navigator__checkbox-items-wrap">
+                      {audiencesStatus === 'success' &&
+                        audiences.map((audience) => {
+                          return (
+                            <li
+                              className="nutrition-navigator__checkbox-wrap"
+                              key={audience.id}
+                            >
+                              <LabelCheckBox
+                                {...{
+                                  label: audience.name,
+                                  name: 'audience[]',
+                                  value: audience.slug,
+                                  onChange: onAudienceChange,
+                                  isChecked: filters.audiences.includes(
+                                    audience.slug
+                                  )
+                                }}
+                              />
+                            </li>
+                          );
+                        })}
+                    </ul>
+                  </details>
+                  <details className="nutrition-navigator__filter-details" open>
+                    <summary>
+                      <h5 className="nutrition-navigator__heading--h5">
+                        By Organization
+                      </h5>
+                    </summary>
+                    <div className="nutrition-navigator__organization-name-search-field-wrap">
+                      <label
+                        htmlFor="organization-name"
+                        className="nutrition-navigator__helper-text"
+                      >
+                        Search Organization Name
+                      </label>
+                      <input
+                        type="text"
+                        placeholder="Search Name"
+                        id="organization-name"
+                        name="organization-name"
+                        className="nutrition-navigator__text-field"
+                        value={filters['organization-name']}
+                        onChange={onOrgNameChange}
+                      />
+                    </div>
+                  </details>
+                </div>
               </div>
             </div>
             <div className="nutrition-navigator__filters-footer">

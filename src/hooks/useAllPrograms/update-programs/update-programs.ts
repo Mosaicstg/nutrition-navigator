@@ -58,6 +58,18 @@ export const updatePrograms = ([state, action]: [
         ).length
       );
     })
+    // Filter Programs by Languages
+    .filter((program) => {
+      const { languages: programLanguages } = program;
+      const { languages: filtersLanguages } = filters;
+
+      return (
+        filtersLanguages.length === 0 ||
+        programLanguages.filter((programLanguage) =>
+          filtersLanguages.includes(programLanguage)
+        ).length
+      );
+    })
     // Filter Programs by Audiences
     .filter((program) => {
       const { audiences: programAudiences } = program;

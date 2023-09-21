@@ -8,18 +8,19 @@
 // Brand Colors (https://chir.ag/projects/name-that-color/)
 $masala: #403c3b;
 $concrete: #f3f3f3;
-$tango: #f27024;
+$tango: #f15d22;
 $atomic-tangerine: #fb9e72;
-$fresh-eggplant: #980062;
+$fresh-eggplant: #812062;
 $forget-me-not: #fff1eb;
-$sushi: #8cc540;
+$sushi: #8dc63f;
 $frost: #f3faee;
 
 $white: #fff;
+$light-gray: #f3f3f3;
 $pale-green: #f3faee;
-$green: #8cc540;
-$orange: #f27024;
-$purple: #980062;
+$green: #8dc63f;
+$orange: #f15d22;
+$purple: #812062;
 $blue: #101d3d;
 $dark-gray: #403c3b;
 
@@ -153,6 +154,7 @@ $breakpoints: (
 
   // Colors
   --nutrition-navigator-white: #{$white};
+  --nutrition-navigator-light-gray: #{$light-gray};
   --nutrition-navigator-pale-green: #{$pale-green};
   --nutrition-navigator-green: #{$green};
   --nutrition-navigator-orange: #{$orange};

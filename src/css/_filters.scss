@@ -13,7 +13,7 @@
   grid-gap: 25px;
   flex-flow: column;
   padding: 30px;
-  background: var(--nutrition-navigator-pale-green);
+  background: var(--nutrition-navigator-light-gray);
   box-shadow: 0 0 6px rgba(0, 0, 0, .16);
   color: var(--nutrition-navigator-dark-gray);
 
@@ -405,6 +405,17 @@
 
   @include media-breakpoint-up(lg) {
     display: block;
+    margin-top: 57px;
     text-align: right;
+  }
+}
+
+.nutrition-navigator__filter-column {
+  display: flex;
+  grid-gap: 20px;
+  flex-flow: column;
+
+  @include media-breakpoint-up(lg) {
+    grid-gap: 40px;
   }
 }
