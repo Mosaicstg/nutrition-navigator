@@ -405,6 +405,17 @@
 
   @include media-breakpoint-up(lg) {
     display: block;
+    margin-top: 57px;
     text-align: right;
+  }
+}
+
+.nutrition-navigator__filter-column {
+  display: flex;
+  grid-gap: 20px;
+  flex-flow: column;
+
+  @include media-breakpoint-up(lg) {
+    grid-gap: 40px;
   }
 }

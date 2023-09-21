@@ -19,6 +19,12 @@
   }
 }
 
+.nutrition-navigator__checkbox-items-wrap--languages {
+  @include media-breakpoint-up(md) {
+    min-width: 80%;
+  }
+}
+
 .nutrition-navigator__checkbox-wrap {
   display: flex;
   grid-gap: 10px;
