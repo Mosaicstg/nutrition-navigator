@@ -108,6 +108,7 @@ class Nutrition_Navigator_REST_API {
 			$program_data['audiences'] = $this->get_program_audiences($post);
 			$program_data['venues'] = $this->get_program_venues($post);
 			$program_data['metro-areas'] = $this->get_metro_areas($post);
+			$program_data['languages'] = $this->get_languages($post);
 
 			if (isset($program_data['description'])) {
 				$program_data['description'] = htmlentities2($program_data['description']);
@@ -197,6 +198,26 @@ class Nutrition_Navigator_REST_API {
 		}
 
 		return $metro_areas;
+	}
+
+	/**
+	 * Get a Program's languages
+	 *
+	 * @param WP_Post $post A Programs post object.
+	 *
+	 * @return string[]
+	 */
+	public function get_languages($post) {
+		$languages_taxonomy_terms = get_the_terms($post, Nutrition_Navigator_Programs::LANGUAGE_TAXONOMY_SLUG);
+		$languages = [];
+
+		if (is_array($languages_taxonomy_terms)) {
+			foreach ($languages_taxonomy_terms as $languages_taxonomy_term) {
+				$languages[] = $languages_taxonomy_term->slug;
+			}
+		}
+
+		return $languages;
 	}
 
 	/**
