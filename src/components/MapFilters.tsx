@@ -201,7 +201,9 @@ const MapFilters = (props: MapFiltersProps) => {
             hidden={!isFiltersOpen}
           >
             <div className="nutrition-navigator__metro-areas-body-wrap">
-              <h2 className="nutrition-navigator__heading--h2">Search by:</h2>
+              <h2 className="nutrition-navigator__heading--h2">
+                Search by region:
+              </h2>
               <ul className="nutrition-navigator__checkbox-items-wrap nutrition-navigator__metro-areas">
                 {'success' === metroAreaStatus &&
                   metroAreas.map(({ id, name, slug }) => {
@@ -225,7 +227,9 @@ const MapFilters = (props: MapFiltersProps) => {
               </ul>
             </div>
             <div className="nutrition-navigator__program-types-body-wrap">
-              <h2 className="nutrition-navigator__heading--h2">I want to...</h2>
+              <h2 className="nutrition-navigator__heading--h2">
+                I want to ...
+              </h2>
               <ul className="nutrition-navigator__checkbox-items-wrap nutrition-navigator__program-types">
                 {programsTypesStatus === 'success' &&
                   programTypes.map(({ name, slug, meta: { icon } }, index) => {
