@@ -1,6 +1,5 @@
 import { z } from 'zod';
 
-// eslint-disable-next-line react-refresh/only-export-components
 export const ProgramTypeSchema = z.object({
   id: z.number(),
   count: z.number(),
