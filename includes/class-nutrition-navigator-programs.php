@@ -489,16 +489,17 @@ class Nutrition_Navigator_Programs {
 			}
 
 			echo '</select>';
-			echo '<small>This field will be available as long as there are published Organization posts.</small>';
+			echo '<small>Organization profile must be complete before Programs can be added.</small>';
 			echo '</p>';
 		}
 
 		$description = $this->get_program_description($post);
 
-		echo '<p><label>Description</label></p>';
+		echo '<p style="margin-bottom: 0"><label>Description</label></p>';
 		wp_editor($description, self::POST_SLUG . '-program-description', [
 			'textarea_name' => 'program-description',
-			'textarea_rows' => 5
+			'textarea_rows' => 5,
+			'media_buttons' => false
 		]);
 
 		$website_url = $this->get_program_website_url($post);
@@ -619,10 +620,11 @@ class Nutrition_Navigator_Programs {
 
 		$dates_times_offered = $this->get_program_dates_times_offered($post);
 
-		echo '<p><label>Dates/times offered</label></p>';
+		echo '<p style="margin-bottom: 0"><label>Dates/times offered</label></p>';
 		wp_editor($dates_times_offered, self::POST_SLUG . '-program-location-dates-times-offered', [
 			'textarea_name' => 'program-location-dates-times-offered',
-			'textarea_rows' => 5
+			'textarea_rows' => 5,
+			'media_buttons' => false
 		]);
 	}
 
