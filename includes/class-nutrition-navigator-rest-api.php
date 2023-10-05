@@ -192,8 +192,8 @@ class Nutrition_Navigator_REST_API {
 		$regions = [];
 
 		if (is_array($regions_taxonomy_terms)) {
-			foreach ($regions_taxonomy_terms as $metro_area_taxonomy_term) {
-				$regions[] = $metro_area_taxonomy_term->slug;
+			foreach ($regions_taxonomy_terms as $region_taxonomy_term) {
+				$regions[] = $region_taxonomy_term->slug;
 			}
 		}
 
