@@ -107,7 +107,7 @@ class Nutrition_Navigator_REST_API {
 			$program_data['program-types'] = $this->get_program_program_types($post);
 			$program_data['audiences'] = $this->get_program_audiences($post);
 			$program_data['venues'] = $this->get_program_venues($post);
-			$program_data['metro-areas'] = $this->get_metro_areas($post);
+			$program_data['regions'] = $this->get_regions($post);
 			$program_data['languages'] = $this->get_languages($post);
 
 			if (isset($program_data['description'])) {
@@ -181,23 +181,23 @@ class Nutrition_Navigator_REST_API {
 	}
 
 	/**
-	 * Get a Program's metro area
+	 * Get a Program's region
 	 *
 	 * @param WP_Post $post A Programs post object.
 	 *
 	 * @return array
 	 */
-	public function get_metro_areas($post) {
-		$metro_area_taxonomy_terms = get_the_terms($post, Nutrition_Navigator_Programs::METRO_AREA_TAXONOMY_SLUG);
-		$metro_areas = [];
+	public function get_regions($post) {
+		$regions_taxonomy_terms = get_the_terms($post, Nutrition_Navigator_Programs::REGION_TAXONOMY_SLUG);
+		$regions = [];
 
-		if (is_array($metro_area_taxonomy_terms)) {
-			foreach ($metro_area_taxonomy_terms as $metro_area_taxonomy_term) {
-				$metro_areas[] = $metro_area_taxonomy_term->slug;
+		if (is_array($regions_taxonomy_terms)) {
+			foreach ($regions_taxonomy_terms as $metro_area_taxonomy_term) {
+				$regions[] = $metro_area_taxonomy_term->slug;
 			}
 		}
 
-		return $metro_areas;
+		return $regions;
 	}
 
 	/**
