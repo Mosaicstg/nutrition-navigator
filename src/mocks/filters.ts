@@ -5,7 +5,7 @@ import { faker } from '@faker-js/faker';
 export function createFakeMapFilters(): Filters {
   return {
     'program-types': createFakeSlugs(),
-    'metro-areas': createFakeSlugs(),
+    regions: createFakeSlugs(),
     venues: createFakeSlugs(),
     audiences: createFakeSlugs(),
     languages: createFakeSlugs(),

@@ -5,7 +5,7 @@ import { decode } from 'html-entities';
 import useProgramTypes from '../hooks/useProgramTypes/useProgramTypes.tsx';
 import useVenues from '../hooks/useVenues/useVenues.tsx';
 import useAudiences from '../hooks/useAudiences/useAudiences.tsx';
-import useMetroAreas from '../hooks/useMetroAreas/useMetroAreas.tsx';
+import useRegions from '../hooks/useRegions/useRegions.tsx';
 import {
   defaultFilters,
   Filters,
@@ -35,7 +35,7 @@ const MapFilters = (props: MapFiltersProps) => {
   const { data: languages, status: languagesStatus } = useLanguages();
   const { data: venues, status: venuesStatus } = useVenues();
   const { data: audiences, status: audiencesStatus } = useAudiences();
-  const { data: metroAreas, status: metroAreaStatus } = useMetroAreas();
+  const { data: regions, status: regionsStatus } = useRegions();
 
   const [isFiltersOpen, setIsFiltersIsFiltersOpen] = React.useState(false);
   const { programs } = state;
@@ -52,15 +52,15 @@ const MapFilters = (props: MapFiltersProps) => {
     setLocalFilters(() => newFilters);
   };
 
-  const onMetroAreaChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const onRegionChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const prevFilters = filters;
-    const { 'metro-areas': metroAreas } = prevFilters;
+    const { regions } = prevFilters;
 
     const newFilters = {
       ...prevFilters,
-      'metro-areas': metroAreas.includes(event.target.value)
-        ? metroAreas.filter((metroArea) => event.target.value !== metroArea)
-        : [...metroAreas, event.target.value]
+      regions: regions.includes(event.target.value)
+        ? regions.filter((region) => event.target.value !== region)
+        : [...regions, event.target.value]
     };
 
     setLocalFilters(() => newFilters);
@@ -200,13 +200,13 @@ const MapFilters = (props: MapFiltersProps) => {
             aria-hidden={!isFiltersOpen}
             hidden={!isFiltersOpen}
           >
-            <div className="nutrition-navigator__metro-areas-body-wrap">
+            <div className="nutrition-navigator__regions-body-wrap">
               <h2 className="nutrition-navigator__heading--h2">
                 Search by region:
               </h2>
-              <ul className="nutrition-navigator__checkbox-items-wrap nutrition-navigator__metro-areas">
-                {'success' === metroAreaStatus &&
-                  metroAreas.map(({ id, name, slug }) => {
+              <ul className="nutrition-navigator__checkbox-items-wrap nutrition-navigator__regions">
+                {'success' === regionsStatus &&
+                  regions.map(({ id, name, slug }) => {
                     return (
                       <li
                         className="nutrition-navigator__checkbox-wrap"
@@ -215,10 +215,10 @@ const MapFilters = (props: MapFiltersProps) => {
                         <LabelCheckBox
                           {...{
                             label: name,
-                            name: 'metro-area[]',
+                            name: 'region[]',
                             value: slug,
-                            onChange: onMetroAreaChange,
-                            isChecked: filters['metro-areas'].includes(slug)
+                            onChange: onRegionChange,
+                            isChecked: filters['regions'].includes(slug)
                           }}
                         />
                       </li>

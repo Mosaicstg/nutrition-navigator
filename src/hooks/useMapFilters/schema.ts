@@ -6,6 +6,6 @@ export const FiltersSchema = z.object({
   audiences: z.string().array(),
   'organization-name': z.string(),
   address: z.string(),
-  'metro-areas': z.string().array(),
+  regions: z.string().array(),
   languages: z.string().array()
 });
