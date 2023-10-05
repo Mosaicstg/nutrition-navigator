@@ -49,10 +49,10 @@ export const ProgramSchema = z.object({
         'Every Venue should be a string of the slug of the Venue taxonomy.'
     })
   ),
-  'metro-areas': z.array(
+  regions: z.array(
     z.string({
       invalid_type_error:
-        'Every Metro Area should be a string of the slug of the Metro Area taxonomy term.'
+        'Every Region should be a string of the slug of the Regions taxonomy term.'
     })
   ),
   languages: z.array(

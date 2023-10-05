@@ -14,7 +14,7 @@ export function createFakeProgram(): Program {
     'program-types': createFakeSlugs(),
     venues: createFakeSlugs(),
     audiences: createFakeSlugs(),
-    'metro-areas': createFakeSlugs(),
+    regions: createFakeSlugs(),
     languages: createFakeSlugs()
   };
 }

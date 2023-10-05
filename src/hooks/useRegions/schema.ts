@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-export const MetroAreaSchema = z.object({
+export const RegionSchema = z.object({
   id: z.number(),
   name: z.string(),
   slug: z.string(),
@@ -8,4 +8,4 @@ export const MetroAreaSchema = z.object({
   link: z.string()
 });
 
-export type MetroArea = Readonly<z.infer<typeof MetroAreaSchema>>;
+export type Region = Readonly<z.infer<typeof RegionSchema>>;

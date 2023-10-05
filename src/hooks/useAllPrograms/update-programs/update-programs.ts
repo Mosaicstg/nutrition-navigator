@@ -20,16 +20,15 @@ export const updatePrograms = ([state, action]: [
   }
 
   const filteredPrograms = programs
-    // Filter Programs by Metro Area
+    // Filter Programs by Regions
     .filter((program) => {
-      const { 'metro-areas': programsMetroAreas } = program;
-      const { 'metro-areas': filtersMetroAreas } = filters;
+      const { regions: programRegions } = program;
+      const { regions: filtersRegions } = filters;
 
       return (
-        filtersMetroAreas.length === 0 ||
-        programsMetroAreas.filter((programMetroArea) =>
-          filtersMetroAreas.includes(programMetroArea)
-        ).length
+        filtersRegions.length === 0 ||
+        programRegions.filter((region) => filtersRegions.includes(region))
+          .length
       );
     })
     // Filter Programs by Program Type
