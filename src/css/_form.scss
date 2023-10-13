@@ -16,6 +16,14 @@
 
   @include app-scope-css-properties() {
     padding: 0;
+
+    @include media-breakpoint-up(md) {
+      padding-left: 15px;
+    }
+
+    @include media-breakpoint-up(lg) {
+      padding-left: 16px;
+    }
   }
 }
 
@@ -60,13 +68,12 @@
   @include app-scope-css-properties() {
     padding: 7px;
     transition: background-color .15s ease-in-out;
-    border: 1.1px solid var(--nutrition-navigator-dark-gray);
-    border-radius: 0;
+    border: 1px solid var(--nutrition-navigator-dark-gray);
+    border-radius: 5px;
     appearance: none;
 
     &:checked {
       background-color: var(--nutrition-navigator-dark-gray);
-      background-image: url("data:image/svg+xml,%3Csvg width='10' height='8' viewBox='0 0 10 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M3.5568 7.19602L0.631797 4.14524C0.456068 3.96195 0.456068 3.66478 0.631797 3.48148L1.26818 2.81771C1.44391 2.63441 1.72885 2.63441 1.90458 2.81771L3.875 4.87284L8.09542 0.47096C8.27115 0.287675 8.55609 0.287675 8.73182 0.47096L9.3682 1.13472C9.54393 1.31801 9.54393 1.61518 9.3682 1.79849L4.1932 7.19603C4.01745 7.37932 3.73253 7.37932 3.5568 7.19602Z' fill='white'/%3E%3C/svg%3E%0A");
       background-repeat: no-repeat;
       background-position: center;
     }
@@ -77,10 +84,10 @@
   &,
   #nutrition-navigator & {
     position: relative;
-    padding: 11px 30px;
+    padding: 10px 30px;
     transition: all .25s ease-in-out;
     border: .5px solid;
-    border-radius: 15px;
+    border-radius: 5px;
     background: transparent;
     font-family: var(--nutrition-navigator-body-font);
     font-size: var(--nutrition-navigator-body-font-size);

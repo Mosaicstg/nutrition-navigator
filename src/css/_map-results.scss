@@ -1,7 +1,7 @@
 .nutrition-navigator__map-results {
   @include app-scope-css-properties() {
     padding: 20px;
-    background: var(--nutrition-navigator-green);
+    background: var(--nutrition-navigator-yellow);
     color: var(--nutrition-navigator-dark-gray);
     text-align: center;
 
