@@ -6,6 +6,8 @@ export default defineConfig({
   plugins: [react()],
   build: {
     target: 'es2015',
+    // This ensures that assets import no larger than 5KB are turned into "data:image" urls
+    assetsInlineLimit: 5120,
     rollupOptions: {
       output: {
         entryFileNames: 'nutrition-navigator/[name].js',
