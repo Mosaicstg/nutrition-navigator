@@ -12,26 +12,19 @@ const MarkerPopUp = (props: { program: Program }) => {
       <div className={'nutrition-navigator__marker-content-wrap'}>
         <div className="nutrition-navigator__marker-content-column">
           <div className="nutrition-navigator__marker-headline-wrap">
-            <h4
+            <h3
               className={
-                'nutrition-navigator__heading--h5 nutrition-navigator__text-capital-case'
+                'nutrition-navigator__heading--h4 nutrition-navigator__text-capital-case'
               }
             >
               {program.name}
-            </h4>
+            </h3>
             {program.address ? (
               <p className="nutrition-navigator__marker-address">
                 {program.address}
               </p>
             ) : null}
           </div>
-          <div className={'nutrition-navigator__marker-link-wrap'}>
-            <a href={program.url} className={'nutrition-navigator__button'}>
-              Learn More
-            </a>
-          </div>
-        </div>
-        <div className="nutrition-navigator__marker-content-column">
           <div className="nutrition-navigator__marker-program-types">
             {status === 'success' &&
               data
@@ -60,6 +53,16 @@ const MarkerPopUp = (props: { program: Program }) => {
                   );
                 })}
           </div>
+        </div>
+        <div className="nutrition-navigator__marker-link-wrap">
+          <a
+            href={program.url}
+            className={
+              'nutrition-navigator__button nutrition-navigator__button--purple'
+            }
+          >
+            Learn More
+          </a>
         </div>
       </div>
     </Popup>

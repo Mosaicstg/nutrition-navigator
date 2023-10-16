@@ -121,6 +121,28 @@
       }
     }
   }
+
+  &--purple {
+    @include app-scope-css-properties() {
+      border-color: var(--nutrition-navigator-purple);
+      background: var(--nutrition-navigator-purple);
+      color: var(--nutrition-navigator-white);
+
+      &:focus {
+        border-color: color-mix(in srgb, var(--nutrition-navigator-purple) 95%, #000);
+        background: color-mix(in srgb, var(--nutrition-navigator-purple) 95%, #000);
+        color: var(--nutrition-navigator-white);
+      }
+
+      @media (hover: hover) {
+        &:hover {
+          border-color: color-mix(in srgb, var(--nutrition-navigator-purple) 95%, #000);
+          background: color-mix(in srgb, var(--nutrition-navigator-purple) 95%, #000);
+          color: var(--nutrition-navigator-white);
+        }
+      }
+    }
+  }
 }
 
 .nutrition-navigator__text-lowercase {
