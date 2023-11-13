@@ -38,7 +38,7 @@
   },
   "devDependencies": {
     "@faker-js/faker": "^8.1.0",
-    "@prettier/plugin-php": "^0.20.1",
+    "@prettier/plugin-php": "^0.21.0",
     "@testing-library/jest-dom": "^6.1.4",
     "@testing-library/react": "^14.0.0",
     "@testing-library/user-event": "^14.4.3",
@@ -55,7 +55,7 @@
     "eslint-plugin-react-refresh": "^0.4.3",
     "husky": "^8.0.3",
     "lint-staged": "^14.0.1",
-    "prettier": "^3.0.3",
+    "prettier": "^3.1.0",
     "sass": "^1.62.1",
     "stylelint": "^15.6.2",
     "stylelint-config-property-sort-order-smacss": "^9.1.0",

@@ -763,7 +763,7 @@ class Nutrition_Navigator_Programs {
 				$post_id,
 				'program-description',
 				// This fields is a WYSIWYG
-				sanitize_textarea_field(wp_unslash($_POST['program-description']))
+				wp_kses_post(wp_unslash($_POST['program-description']))
 			);
 		}
 
@@ -816,7 +816,8 @@ class Nutrition_Navigator_Programs {
 			update_post_meta(
 				$post_id,
 				'program-location-dates-times-offered',
-				sanitize_textarea_field(wp_unslash($_POST['program-location-dates-times-offered']))
+				// This fields is a WYSIWYG
+				wp_kses_post(wp_unslash($_POST['program-location-dates-times-offered']))
 			);
 		}
 

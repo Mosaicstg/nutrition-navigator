@@ -13,6 +13,7 @@ module.exports = {
     {
       files: '*.php',
       options: {
+        plugins: ['@prettier/plugin-php'],
         tabWidth: 4,
         useTabs: true,
         trailingCommaPHP: false,
