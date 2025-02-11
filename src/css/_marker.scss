@@ -46,6 +46,16 @@
   flex-flow: column;
 }
 
+.nutrition-navigator__marker-not-open-to-public {
+  display:flex;
+  grid-gap: 8px;
+  align-items: center;
+  color: var(--nutrition-navigator-red);
+  font-family: var(--nutrition-navigator-body-font);
+  font-style: italic;
+  font-weight: 800;
+}
+
 .nutrition-navigator__marker-description {
   font-size: 14px;
   font-weight: 400;

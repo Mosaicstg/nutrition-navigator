@@ -341,6 +341,13 @@ class Nutrition_Navigator_Programs {
 			'sanitized_callback' => [$this, 'sanitize_download_file_id_custom_field']
 		]);
 
+		// "Not Open to Public" checkbox
+		register_term_meta(self::POST_SLUG, 'program-not-open-to-public', [
+			'type' => 'string',
+			'single' => true,
+			'show_in_rest' => true
+		]);
+
 		// Website url
 		register_term_meta(self::POST_SLUG, 'program-website-url', [
 			'type' => 'string',
@@ -501,6 +508,15 @@ class Nutrition_Navigator_Programs {
 			'textarea_rows' => 5,
 			'media_buttons' => false
 		]);
+
+		$not_open_to_public = $this->get_program_not_open_to_public($post);
+
+		echo '<p>';
+		echo '<label for="program-not-open-to-public" style="display">Not Open To Public</label><br/>';
+		echo '<input type="checkbox" id="program-not-open-to-public" name="program-not-open-to-public" class="widefat" ' .
+			($not_open_to_public ? 'checked' : '') .
+			'/>';
+		echo '</p>';
 
 		$website_url = $this->get_program_website_url($post);
 
@@ -845,6 +861,18 @@ class Nutrition_Navigator_Programs {
 				'program-download-file-id',
 				intval(sanitize_text_field(wp_unslash($_POST['program-download-file-id'])))
 			);
+		}
+
+		if (array_key_exists('program-not-open-to-public', $_POST)) {
+			update_post_meta(
+				$post_id,
+				'program-not-open-to-public',
+				sanitize_textarea_field(wp_unslash($_POST['program-not-open-to-public']))
+			);
+		} else {
+			// NOTE: Checkbox values are not sent in the $_POST array if they are unchecked.
+			// So we need to manually update the value to an empty string if the checkbox is unchecked.
+			update_post_meta($post_id, 'program-not-open-to-public', '');
 		}
 
 		// Save/update Program Website URL
@@ -1358,6 +1386,19 @@ class Nutrition_Navigator_Programs {
 		}
 
 		return $icon;
+	}
+
+	/**
+	 * A getter for a Program's website url
+	 *
+	 * @param WP_Post $post Post object.
+	 *
+	 * @return boolean
+	 */
+	public function get_program_not_open_to_public(WP_Post $post): bool {
+		$not_open_to_public = get_post_meta($post->ID, 'program-not-open-to-public', true);
+
+		return !empty($not_open_to_public);
 	}
 }
 

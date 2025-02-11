@@ -24,6 +24,7 @@ $orange: #f15d22;
 $purple: #AA1A72;
 $blue: #101d3d;
 $dark-gray: #403c3b;
+$red: #FF3232;
 
 $body-font: "Montserrat", sans-serif;
 $heading-font: "Bitter", sans-serif;
@@ -163,4 +164,5 @@ $breakpoints: (
   --nutrition-navigator-purple: #{$purple};
   --nutrition-navigator-blue: #{$blue};
   --nutrition-navigator-dark-gray: #{$dark-gray};
+  --nutrition-navigator-red: #{$red};
 }
