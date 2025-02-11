@@ -17,7 +17,9 @@ const MarkerPopUp = (props: { program: Program }) => {
                 'nutrition-navigator__heading--h4 nutrition-navigator__text-capital-case'
               }
             >
-              {program.name}
+              {program['quick-view-headline']
+                ? program['quick-view-headline']
+                : program.name}
             </h3>
             {program.address ? (
               <p className="nutrition-navigator__marker-address">

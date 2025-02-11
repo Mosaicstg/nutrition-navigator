@@ -102,5 +102,10 @@ export const ProgramSchema = z.object({
       invalid_type_error:
         'Program `Not Open To Public` field should be a string'
     })
+    .optional(),
+  'quick-view-headline': z
+    .string({
+      invalid_type_error: 'Program Quick View Headline field should be a string'
+    })
     .optional()
 });

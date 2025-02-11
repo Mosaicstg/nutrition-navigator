@@ -319,6 +319,12 @@ class Nutrition_Navigator_Programs {
 			'show_in_rest' => true
 		]);
 
+		register_post_meta(self::POST_SLUG, 'program-quick-view-headline', [
+			'type' => 'string',
+			'single' => true,
+			'show_in_rest' => true
+		]);
+
 		// Contact Phone
 		register_post_meta(self::POST_SLUG, 'program-contact-phone', [
 			'type' => 'string',
@@ -511,11 +517,22 @@ class Nutrition_Navigator_Programs {
 
 		$not_open_to_public = $this->get_program_not_open_to_public($post);
 
+		// Not open to public
 		echo '<p>';
 		echo '<label for="program-not-open-to-public" style="display">Not Open To Public</label><br/>';
 		echo '<input type="checkbox" id="program-not-open-to-public" name="program-not-open-to-public" class="widefat" ' .
 			($not_open_to_public ? 'checked' : '') .
 			'/>';
+		echo '</p>';
+
+		$quick_view_headline = $this->get_program_quick_view_headline($post);
+
+		// Quick View Headline
+		echo '<p>';
+		echo '<label for="program-quick-view-headline">Quick View Headline</label>';
+		echo '<input type="text" id="program-quick-view-headline" value="' .
+			esc_attr($quick_view_headline) .
+			'" name="program-quick-view-headline" class="widefat" placeholder="Headline for map marker popup"/>';
 		echo '</p>';
 
 		$website_url = $this->get_program_website_url($post);
@@ -873,6 +890,15 @@ class Nutrition_Navigator_Programs {
 			// NOTE: Checkbox values are not sent in the $_POST array if they are unchecked.
 			// So we need to manually update the value to an empty string if the checkbox is unchecked.
 			update_post_meta($post_id, 'program-not-open-to-public', '');
+		}
+
+		// Save/update Program Quick View Headline
+		if (array_key_exists('program-quick-view-headline', $_POST)) {
+			update_post_meta(
+				$post_id,
+				'program-quick-view-headline',
+				sanitize_textarea_field(wp_unslash($_POST['program-quick-view-headline']))
+			);
 		}
 
 		// Save/update Program Website URL
@@ -1389,7 +1415,7 @@ class Nutrition_Navigator_Programs {
 	}
 
 	/**
-	 * A getter for a Program's website url
+	 * A getter for a Program's 'Not open to the public'
 	 *
 	 * @param WP_Post $post Post object.
 	 *
@@ -1399,6 +1425,23 @@ class Nutrition_Navigator_Programs {
 		$not_open_to_public = get_post_meta($post->ID, 'program-not-open-to-public', true);
 
 		return !empty($not_open_to_public);
+	}
+
+	/**
+	 * A getter for a Program's website url
+	 *
+	 * @param WP_Post $post Post object.
+	 *
+	 * @return string
+	 */
+	public function get_program_quick_view_headline(WP_Post $post): string {
+		$quick_view_headline = get_post_meta($post->ID, 'program-quick-view-headline', true);
+
+		if (empty($quick_view_headline)) {
+			$quick_view_headline = '';
+		}
+
+		return $quick_view_headline;
 	}
 }
 
