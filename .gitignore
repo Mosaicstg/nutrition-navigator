@@ -147,6 +147,4 @@ dist-ssr
 *.sln
 *.sw?
 
-.husky
-
 /vendor/
