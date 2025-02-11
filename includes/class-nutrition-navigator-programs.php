@@ -319,7 +319,15 @@ class Nutrition_Navigator_Programs {
 			'show_in_rest' => true
 		]);
 
+		// Quick View Headline
 		register_post_meta(self::POST_SLUG, 'program-quick-view-headline', [
+			'type' => 'string',
+			'single' => true,
+			'show_in_rest' => true
+		]);
+
+		// Quick View Description
+		register_post_meta(self::POST_SLUG, 'program-quick-view-description', [
 			'type' => 'string',
 			'single' => true,
 			'show_in_rest' => true
@@ -533,6 +541,16 @@ class Nutrition_Navigator_Programs {
 		echo '<input type="text" id="program-quick-view-headline" value="' .
 			esc_attr($quick_view_headline) .
 			'" name="program-quick-view-headline" class="widefat" placeholder="Headline for map marker popup"/>';
+		echo '</p>';
+
+		$quick_view_description = $this->get_program_quick_view_description($post);
+
+		// Quick View description
+		echo '<p>';
+		echo '<label for="program-quick-view-description">Quick View Description</label>';
+		echo '<input type="text" id="program-quick-view-description" value="' .
+			esc_attr($quick_view_description) .
+			'" name="program-quick-view-description" class="widefat" placeholder="Description for map marker popup"/>';
 		echo '</p>';
 
 		$website_url = $this->get_program_website_url($post);
@@ -898,6 +916,15 @@ class Nutrition_Navigator_Programs {
 				$post_id,
 				'program-quick-view-headline',
 				sanitize_textarea_field(wp_unslash($_POST['program-quick-view-headline']))
+			);
+		}
+
+		// Save/update Program Quick View Headline
+		if (array_key_exists('program-quick-view-description', $_POST)) {
+			update_post_meta(
+				$post_id,
+				'program-quick-view-description',
+				sanitize_textarea_field(wp_unslash($_POST['program-quick-view-description']))
 			);
 		}
 
@@ -1428,7 +1455,7 @@ class Nutrition_Navigator_Programs {
 	}
 
 	/**
-	 * A getter for a Program's website url
+	 * A getter for a Program's Quick View Headline
 	 *
 	 * @param WP_Post $post Post object.
 	 *
@@ -1442,6 +1469,23 @@ class Nutrition_Navigator_Programs {
 		}
 
 		return $quick_view_headline;
+	}
+
+	/**
+	 * A getter for a Program's Quick View Description
+	 *
+	 * @param WP_Post $post Post object.
+	 *
+	 * @return string
+	 */
+	public function get_program_quick_view_description(WP_Post $post): string {
+		$quick_view_description = get_post_meta($post->ID, 'program-quick-view-description', true);
+
+		if (empty($quick_view_description)) {
+			$quick_view_description = '';
+		}
+
+		return $quick_view_description;
 	}
 }
 

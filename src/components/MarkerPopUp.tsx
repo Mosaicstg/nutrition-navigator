@@ -46,10 +46,12 @@ const MarkerPopUp = (props: { program: Program }) => {
               Not Open to the Public
             </div>
           ) : null}
-          {program.description ? (
+          {program['quick-view-description'] ? (
             <div
               className="nutrition-navigator__marker-description"
-              dangerouslySetInnerHTML={{ __html: decode(program.description) }}
+              dangerouslySetInnerHTML={{
+                __html: decode(program['quick-view-description'])
+              }}
             ></div>
           ) : null}
           <div className="nutrition-navigator__marker-program-types">

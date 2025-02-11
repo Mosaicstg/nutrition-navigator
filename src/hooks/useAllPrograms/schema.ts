@@ -107,5 +107,11 @@ export const ProgramSchema = z.object({
     .string({
       invalid_type_error: 'Program Quick View Headline field should be a string'
     })
+    .optional(),
+  'quick-view-description': z
+    .string({
+      invalid_type_error:
+        'Program Quick View Description field should be a string'
+    })
     .optional()
 });
