@@ -25,6 +25,12 @@ const MarkerPopUp = (props: { program: Program }) => {
               </p>
             ) : null}
           </div>
+          {program.description ? (
+            <div
+              className="nutrition-navigator__marker-description"
+              dangerouslySetInnerHTML={{ __html: program.description }}
+            ></div>
+          ) : null}
           <div className="nutrition-navigator__marker-program-types">
             {status === 'success' &&
               data

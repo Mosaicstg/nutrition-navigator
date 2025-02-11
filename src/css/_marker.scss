@@ -46,6 +46,13 @@
   flex-flow: column;
 }
 
+.nutrition-navigator__marker-description {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 18px;
+}
+
+
 .nutrition-navigator__marker-program-types {
   display: flex;
   grid-gap: 10px;
