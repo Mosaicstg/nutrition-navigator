@@ -13,7 +13,7 @@ const fetchAllPrograms = (): Promise<Program[]> => {
 };
 
 const useAllPrograms = (): [AllProgramsState, AllProgramsDispatch] => {
-  const { data, status, error, isInitialLoading } = useQuery({
+  const { data, status, error, isLoading } = useQuery({
     queryKey: ['allPrograms'],
     queryFn: fetchAllPrograms,
     retry: false,
@@ -23,14 +23,14 @@ const useAllPrograms = (): [AllProgramsState, AllProgramsDispatch] => {
   const [state, dispatch] = React.useReducer(reducer, defaultState);
 
   React.useEffect(() => {
-    if (!isInitialLoading && 'success' === status) {
+    if (!isLoading && 'success' === status) {
       dispatch({ type: 'SET', data });
     }
 
     if ('error' === status) {
       console.error(error);
     }
-  }, [status, error, isInitialLoading, data]);
+  }, [status, error, isLoading, data]);
 
   return [state, dispatch];
 };
