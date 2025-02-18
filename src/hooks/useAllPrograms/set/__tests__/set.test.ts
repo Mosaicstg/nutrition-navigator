@@ -5,14 +5,14 @@ import {
   expect,
   vi,
   beforeEach,
-  SpyInstance
+  MockInstance
 } from 'vitest';
 import { set } from '../set.ts';
 import { defaultState } from '../../reducer.ts';
 import { createFakeProgram } from '../../../../mocks/program.ts';
 import { ProgramSchema } from '../../schema.ts';
 
-let consoleSpy: SpyInstance;
+let consoleSpy: MockInstance;
 
 describe('Set function for AllPrograms State', () => {
   beforeEach(() => {
