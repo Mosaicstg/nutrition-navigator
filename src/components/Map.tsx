@@ -15,6 +15,7 @@ import mapPinImage from '../assets/map-pin.png';
 
 type MapProps = {
   filteredLocations: Program[];
+  programs?: Program[];
 };
 
 const createClusterCustomIcon = function (cluster: MarkerCluster) {
@@ -53,7 +54,7 @@ const HandleMapUpdates = (props: MapProps) => {
 };
 
 const Map = (props: MapProps) => {
-  const { filteredLocations } = props;
+  const { filteredLocations, programs } = props;
 
   const mapContainerProps: MapContainerProps = {
     scrollWheelZoom: false,
@@ -62,7 +63,9 @@ const Map = (props: MapProps) => {
     maxZoom: 15
   };
 
-  const mapGeoJSON = L.geoJson(getGeoJSONFromPrograms(filteredLocations));
+  const mapGeoJSON = L.geoJson(
+    getGeoJSONFromPrograms(programs?.length ? programs : filteredLocations)
+  );
 
   const mapBounds = mapGeoJSON.getBounds();
 
