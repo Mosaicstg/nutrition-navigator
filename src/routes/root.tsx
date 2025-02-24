@@ -175,7 +175,7 @@ const useFilteredPrograms = (
 export type RootLoader = typeof loader;
 
 export default function Root() {
-  const data = useLoaderData() as LoaderData<ReturnType<RootLoader>>;
+  const data = useLoaderData<LoaderData<ReturnType<RootLoader>>>();
   const {
     data: filteredProgramsData,
     status,
