@@ -1,45 +1,20 @@
 import React from 'react';
 import { decode } from 'html-entities';
-import {
-  Form,
-  LoaderFunction,
-  // useLoaderData,
-  useLocation,
-  // useSearchParams,
-  useSubmit
-} from 'react-router';
+import { Form, LoaderFunction, useLocation, useSubmit } from 'react-router';
 
 // Hooks
 import useProgramTypes from '../hooks/useProgramTypes/useProgramTypes.tsx';
 import useVenues from '../hooks/useVenues/useVenues.tsx';
 import useAudiences from '../hooks/useAudiences/useAudiences.tsx';
 import useRegions from '../hooks/useRegions/useRegions.tsx';
-// import {
-//   defaultFilters,
-//   Filters,
-//   useMapFilters
-// } from '../hooks/useMapFilters/useMapFilters.tsx';
+import { useLanguages } from '../hooks/useLanguages/useLanguages.tsx';
 
 // Components
 import LabelCheckBox from './LabelCheckBox.tsx';
 
-// Types
-// import {
-//   AllProgramsDispatch,
-//   AllProgramsState,
-//   Program
-// } from '~/hooks/useAllPrograms/types.ts';
-import { useLanguages } from '../hooks/useLanguages/useLanguages.tsx';
-// import { loader } from '~/routes/root.tsx';
-
 export type LoaderData<TLoaderFn extends LoaderFunction> =
   Awaited<ReturnType<TLoaderFn>> extends Response | infer D ? D : never;
 
-// type MapFiltersProps = {
-//   state: AllProgramsState;
-//   dispatch: AllProgramsDispatch;
-//   programs: Array<Program>;
-// };
 type MapFiltersProps = {
   address: string;
   regions: Array<string>;
@@ -60,11 +35,9 @@ const MapFilters = (props: MapFiltersProps) => {
     audiences: defaultAudiences,
     organizationName: defaultOrganizationName
   } = props;
-  // const { programs } = props;
   const location = useLocation();
   const submit = useSubmit();
 
-  // const [filters, setLocalFilters] = useMapFilters();
   const { data: programTypes, status: programsTypesStatus } = useProgramTypes();
   const { data: languages, status: languagesStatus } = useLanguages();
   const { data: venues, status: venuesStatus } = useVenues();
@@ -72,97 +45,10 @@ const MapFilters = (props: MapFiltersProps) => {
   const { data: regions, status: regionsStatus } = useRegions();
 
   const [isFiltersOpen, setIsFiltersIsFiltersOpen] = React.useState(false);
-  // const { programs } = state;
-
-  // const onAddressChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-  //   const prevFilters = filters;
-  //   const zipCode = event.target.value;
-
-  //   const newFilters: Filters = {
-  //     ...prevFilters,
-  //     address: zipCode
-  //   };
-
-  //   setLocalFilters(() => newFilters);
-  // };
-
-  // const onRegionChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-  //   const prevFilters = filters;
-  //   const { regions } = prevFilters;
-
-  //   const newFilters = {
-  //     ...prevFilters,
-  //     regions: regions.includes(event.target.value)
-  //       ? regions.filter((region) => event.target.value !== region)
-  //       : [...regions, event.target.value]
-  //   };
-
-  //   setLocalFilters(() => newFilters);
-  // };
-
-  // const onLanguageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-  //   const prevFilters = filters;
-  //   const { languages } = prevFilters;
-
-  //   const newFilters = {
-  //     ...prevFilters,
-  //     languages: languages.includes(event.target.value)
-  //       ? languages.filter((language) => event.target.value !== language)
-  //       : [...languages, event.target.value]
-  //   };
-
-  //   setLocalFilters(() => newFilters);
-  // };
-
-  // const onVenueChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-  //   const prevFilters = filters;
-  //   const { venues } = prevFilters;
-
-  //   const newFilters = {
-  //     ...prevFilters,
-  //     venues: venues.includes(event.target.value)
-  //       ? venues.filter((venue) => event.target.value !== venue)
-  //       : [...venues, event.target.value]
-  //   };
-
-  //   setLocalFilters(() => newFilters);
-  // };
-
-  // const onAudienceChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-  //   const prevFilters = filters;
-  //   const { audiences } = prevFilters;
-
-  //   const newFilters = {
-  //     ...prevFilters,
-  //     audiences: audiences.includes(event.target.value)
-  //       ? audiences.filter((audience) => event.target.value !== audience)
-  //       : [...audiences, event.target.value]
-  //   };
-
-  //   setLocalFilters(() => newFilters);
-  // };
-
-  // const onOrgNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-  //   const prevFilters = filters;
-
-  //   const newFilters: Filters = {
-  //     ...prevFilters,
-  //     'organization-name': event.target.value
-  //   };
-
-  //   setLocalFilters(() => newFilters);
-  // };
 
   const onSearchButtonClick = () => {
-    // dispatch({ type: 'UPDATE_PROGRAMS', filters });
-
     // Close Filters window
     setIsFiltersIsFiltersOpen(false);
-  };
-
-  const onResetButtonClick = () => {
-    // setLocalFilters(() => defaultFilters);
-    // dispatch({ type: 'RESET' });
   };
 
   function onFormSubmit(event: React.FormEvent<HTMLFormElement>) {
@@ -197,7 +83,6 @@ const MapFilters = (props: MapFiltersProps) => {
       return;
     }
 
-    onResetButtonClick();
     submit(null, {
       action: location.pathname,
       method: 'get',
@@ -233,11 +118,8 @@ const MapFilters = (props: MapFiltersProps) => {
                   ? 'nutrition-navigator__text-field--filters-open'
                   : ''
               }`}
-              // value={filters.address}
               defaultValue={defaultAddress}
-              // onChange={onAddressChange}
               autoComplete="true"
-              // readOnly={programs.length === 0}
             />
           </div>
           <div
@@ -283,8 +165,6 @@ const MapFilters = (props: MapFiltersProps) => {
                               name: 'region[]',
                               value: slug,
                               id: slug,
-                              // onChange: onRegionChange,
-                              // isChecked: filters['regions'].includes(slug),
                               defaultChecked: defaultRegions.includes(slug)
                             }}
                           />
@@ -329,7 +209,6 @@ const MapFilters = (props: MapFiltersProps) => {
                               value={slug}
                               id={slug}
                               className="nutrition-navigator__checkbox"
-                              // onChange={onProgramTypeChange}
                               defaultChecked={defaultProgramTypes.includes(
                                 slug
                               )}
@@ -369,10 +248,6 @@ const MapFilters = (props: MapFiltersProps) => {
                                     name: 'languages[]',
                                     value: language.slug,
                                     id: language.slug,
-                                    // onChange: onLanguageChange,
-                                    // isChecked: filters.languages.includes(
-                                    // language.slug
-                                    // ),
                                     defaultChecked: defaultLanguages.includes(
                                       language.slug
                                     )
@@ -408,10 +283,6 @@ const MapFilters = (props: MapFiltersProps) => {
                                     name: 'venue[]',
                                     value: venue.slug,
                                     id: venue.slug,
-                                    // onChange: onVenueChange,
-                                    // isChecked: filters.venues.includes(
-                                    //   venue.slug
-                                    // )
                                     defaultChecked: defaultVenues.includes(
                                       venue.slug
                                     )
@@ -447,10 +318,6 @@ const MapFilters = (props: MapFiltersProps) => {
                                     name: 'audience[]',
                                     value: audience.slug,
                                     id: audience.slug,
-                                    // onChange: onAudienceChange,
-                                    // isChecked: filters.audiences.includes(
-                                    //   audience.slug
-                                    // )
                                     defaultChecked: defaultAudiences.includes(
                                       audience.slug
                                     )
@@ -483,9 +350,7 @@ const MapFilters = (props: MapFiltersProps) => {
                           id="organization-name"
                           name="organization-name"
                           className="nutrition-navigator__text-field"
-                          // value={filters['organization-name']}
                           defaultValue={defaultOrganizationName}
-                          // onChange={onOrgNameChange}
                         />
                       </div>
                     </details>
@@ -502,7 +367,6 @@ const MapFilters = (props: MapFiltersProps) => {
             }`}
             onClick={onFormReset}
             type="reset"
-            // disabled={programs.length === 0}
           >
             Reset
           </button>
@@ -512,7 +376,6 @@ const MapFilters = (props: MapFiltersProps) => {
             }`}
             onClick={onSearchButtonClick}
             type="submit"
-            // disabled={programs.length === 0}
           >
             Search
           </button>
