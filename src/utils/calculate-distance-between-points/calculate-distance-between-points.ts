@@ -1,11 +1,11 @@
-import { z } from 'zod';
+import * as v from 'valibot';
 
-const PointSchema = z.object({
-  lat: z.number(),
-  lng: z.number()
+const PointSchema = v.object({
+  lat: v.number(),
+  lng: v.number()
 });
 
-type Point = z.infer<typeof PointSchema>;
+type Point = v.InferOutput<typeof PointSchema>;
 
 /**
  * Calculates distance in miles between point A and point B
