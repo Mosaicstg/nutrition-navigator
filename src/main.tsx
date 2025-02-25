@@ -2,11 +2,13 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
-import Root from '~/routes/root.tsx';
-import './index.scss';
 import { createBrowserRouter, RouterProvider } from 'react-router';
-import { loader } from '~/routes/root.tsx';
+
 import RootErrorBoundary from './routes/error-boundary';
+import { Root } from '~/routes/root.tsx';
+
+import './index.scss';
+import { loader } from './routes/loader';
 
 const queryClient = new QueryClient();
 
