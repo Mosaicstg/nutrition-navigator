@@ -1,14 +1,14 @@
-import { z } from 'zod';
+import * as v from 'valibot';
 
-export const ProgramTypeSchema = z.object({
-  id: z.number(),
-  count: z.number(),
-  name: z.string(),
-  slug: z.string(),
-  meta: z.object({
-    icon: z.string()
+export const ProgramTypeSchema = v.object({
+  id: v.number(),
+  count: v.number(),
+  name: v.string(),
+  slug: v.string(),
+  meta: v.object({
+    icon: v.string()
   }),
-  link: z.string()
+  link: v.string()
 });
 
-export type ProgramType = Readonly<z.infer<typeof ProgramTypeSchema>>;
+export type ProgramType = Readonly<v.InferOutput<typeof ProgramTypeSchema>>;

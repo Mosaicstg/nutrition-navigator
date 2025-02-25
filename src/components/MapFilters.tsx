@@ -3,7 +3,7 @@ import { decode } from 'html-entities';
 import { Form, LoaderFunction, useLocation, useSubmit } from 'react-router';
 
 // Hooks
-import useProgramTypes from '~/hooks/useProgramTypes/useProgramTypes.tsx';
+import { useProgramTypes } from '~/hooks/useProgramTypes/useProgramTypes.tsx';
 import { useVenues } from '~/hooks/useVenues/useVenues.tsx';
 import { useAudiences } from '~/hooks/useAudiences/useAudiences.tsx';
 import { useRegions } from '~/hooks/useRegions/useRegions.tsx';
