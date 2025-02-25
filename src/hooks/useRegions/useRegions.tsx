@@ -1,6 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
-import { fetchApi } from '../../api/fetch.ts';
+import { fetchApi } from '~/api/fetch.ts';
 import { Region, RegionSchema } from './schema.ts';
+import * as v from 'valibot';
 
 const fetchAllRegions = (): Promise<Region[]> => {
   // There's probably NEVER going to be more than 5 or 6 so for now querying the first 100
@@ -19,12 +20,12 @@ const useRegions = () => {
     refetchOnWindowFocus: false,
     select: (data) =>
       data.filter((region) => {
-        const validatedRegion = RegionSchema.safeParse(region);
+        const validatedRegion = v.safeParse(RegionSchema, region);
 
         if (!validatedRegion.success) {
           console.error(
             `Region with name ${region.name} is invalid`,
-            validatedRegion.error
+            validatedRegion.issues
           );
         }
 
@@ -33,4 +34,4 @@ const useRegions = () => {
   });
 };
 
-export default useRegions;
+export { useRegions };
