@@ -1,6 +1,6 @@
 import * as v from 'valibot';
-import { ProgramSchema } from '~/routes/use-filtered-programs';
-import { type Program } from '~/routes/use-filtered-programs';
+import { ProgramSchema } from '~/routes/schema';
+import { type Program } from '~/routes/schema';
 
 export const getGeoJSONFromPrograms = (programs: Array<Program>) => {
   const locations = programs.filter((program) => {
