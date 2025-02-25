@@ -1,5 +1,5 @@
 import React from 'react';
-import { fetchApi } from '../../api/fetch.ts';
+import { fetchApi } from '~/api/fetch.ts';
 import { useQuery } from '@tanstack/react-query';
 import { defaultState, reducer } from './reducer.ts';
 
@@ -26,7 +26,7 @@ export const allProgramsKeys = {
 };
 
 const useAllPrograms = (): [AllProgramsState, AllProgramsDispatch] => {
-  const { data, status, error, isInitialLoading } = useQuery({
+  const { data, status, error, isLoading } = useQuery({
     queryKey: allProgramsKeys.all,
     queryFn: fetchAllPrograms,
     retry: false,
