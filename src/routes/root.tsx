@@ -4,8 +4,8 @@
 // - Add better Error handling
 // - Update tests to reflect new hooks and functions
 
-import { useLoaderData, type LoaderFunctionArgs } from 'react-router';
-import { QueryClient, useQuery } from '@tanstack/react-query';
+import { useLoaderData } from 'react-router';
+import { useQuery } from '@tanstack/react-query';
 import * as v from 'valibot';
 
 // Components
@@ -23,36 +23,7 @@ import { ProgramSchema } from '~/hooks/useAllPrograms/schema';
 
 // CSS
 import 'leaflet/dist/leaflet.css';
-
-export const loader =
-  (queryClient: QueryClient) =>
-  ({ request }: LoaderFunctionArgs) => {
-    const url = new URL(request.url);
-    const searchParams = new URLSearchParams(url.search);
-
-    const address = searchParams.get('address') || '';
-    const regions = searchParams.getAll('region[]') || [];
-    const programTypes = searchParams.getAll('program-type[]') || [];
-    const languages = searchParams.getAll('languages[]') || [];
-    const audiences = searchParams.getAll('audience[]') || [];
-    const venues = searchParams.getAll('venue[]') || [];
-    const organizationName = searchParams.get('organization-name') || '';
-
-    // Invalidate the query cache if the user has initiated a new search
-    if (queryClient.getQueryData(allProgramsKeys.all)) {
-      queryClient.invalidateQueries();
-    }
-
-    return {
-      address,
-      regions,
-      programTypes,
-      languages,
-      venues,
-      audiences,
-      organizationName
-    };
-  };
+import { RootLoader } from './loader';
 
 const useFilteredPrograms = (
   filters: {
@@ -181,9 +152,7 @@ const useFilteredPrograms = (
   });
 };
 
-export type RootLoader = typeof loader;
-
-export default function Root() {
+export function Root() {
   const data = useLoaderData<LoaderData<ReturnType<RootLoader>>>();
   const {
     data: filteredProgramsData,
