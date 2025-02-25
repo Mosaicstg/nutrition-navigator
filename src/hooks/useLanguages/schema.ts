@@ -1,20 +1,11 @@
-import { z } from 'zod';
-import { number, object, string, url } from 'valibot';
+import * as v from 'valibot';
 
-export const LanguageSchema = z.object({
-  id: z.number(),
-  name: z.string(),
-  slug: z.string(),
-  taxonomy: z.string(),
-  link: z.string()
+export const LanguageSchema = v.object({
+  id: v.number(),
+  name: v.string(),
+  slug: v.string(),
+  taxonomy: v.string(),
+  link: v.pipe(v.string(), v.url())
 });
 
-export const Language = object({
-  id: number(),
-  name: string(),
-  slug: string(),
-  taxonomy: string(),
-  link: string([url()])
-});
-
-export type Language = Readonly<z.infer<typeof LanguageSchema>>;
+export type Language = Readonly<v.InferOutput<typeof LanguageSchema>>;

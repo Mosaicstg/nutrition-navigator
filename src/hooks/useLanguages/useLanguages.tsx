@@ -1,9 +1,9 @@
 import { useQuery } from '@tanstack/react-query';
 import { fetchApi } from '../../api/fetch.ts';
-import { Language } from './schema.ts';
-import { safeParse, Output } from 'valibot';
+import { type Language, LanguageSchema } from './schema.ts';
+import * as v from 'valibot';
 
-const fetchAllLanguages = (): Promise<Array<Output<typeof Language>>> => {
+const fetchAllLanguages = (): Promise<Array<Language>> => {
   // There's probably NEVER going to be more than 5 or 6 so for now querying the first 100
   // suits our use case.
   return fetchApi('/wp-json/wp/v2/language?per_page=100').then((res) =>
@@ -21,7 +21,7 @@ export const useLanguages = () => {
     select: (data) =>
       data.filter((venue) => {
         // const validatedLanguage = LanguageSchema.safeParse(venue);
-        const validatedLanguage = safeParse(Language, venue);
+        const validatedLanguage = v.safeParse(LanguageSchema, venue);
 
         if (!validatedLanguage.success) {
           console.error(
