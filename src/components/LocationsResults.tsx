@@ -1,4 +1,4 @@
-import { type Program } from '~/routes/use-filtered-programs';
+import { type Program } from '~/routes/schema';
 
 export type LocationsResultsProps = {
   locations: Array<Program>;

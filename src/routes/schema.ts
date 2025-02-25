@@ -53,3 +53,15 @@ export const ProgramSchema = v.object({
 });
 
 export type Program = Readonly<v.InferOutput<typeof ProgramSchema>>;
+
+export const MapFiltersSchema = v.object({
+  'program-types': v.array(v.string()),
+  venues: v.array(v.string()),
+  audiences: v.array(v.string()),
+  'organization-name': v.string(),
+  address: v.string(),
+  regions: v.array(v.string()),
+  languages: v.array(v.string())
+});
+
+export type MapFilters = v.InferOutput<typeof MapFiltersSchema>;

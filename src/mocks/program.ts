@@ -1,4 +1,4 @@
-import { type Program } from '~/routes/use-filtered-programs.tsx';
+import { type Program } from '~/routes/schema';
 import { faker } from '@faker-js/faker';
 import { createFakeLatitudeOrLatitude, createFakeSlugs } from './helpers.ts';
 

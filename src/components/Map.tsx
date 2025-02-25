@@ -9,7 +9,7 @@ import L, { MarkerCluster } from 'leaflet';
 import config from '~/config';
 import MarkerClusterGroup from 'react-leaflet-cluster';
 import MarkerPopUp from './MarkerPopUp.tsx';
-import { type Program } from '~/routes/use-filtered-programs';
+import { type Program } from '~/routes/schema';
 import { getGeoJSONFromPrograms } from '~/utils/get-bounds-from-locations/get-geojson-from-programs.ts';
 import mapPinImage from '~/assets/map-pin.png';
 

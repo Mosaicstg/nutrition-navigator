@@ -1,6 +1,6 @@
 import { Popup } from 'react-leaflet';
 import { useProgramTypes } from '~/hooks/useProgramTypes/useProgramTypes.tsx';
-import { Program } from '~/routes/use-filtered-programs';
+import { Program } from '~/routes/schema';
 import { decode } from 'html-entities';
 
 const MarkerPopUp = (props: { program: Program }) => {

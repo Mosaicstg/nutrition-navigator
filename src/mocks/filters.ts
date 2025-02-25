@@ -1,4 +1,4 @@
-import { MapFilters } from '~/routes/use-filtered-programs.tsx';
+import { type MapFilters } from '~/routes/schema';
 import { createFakeSlugs } from './helpers.ts';
 import { faker } from '@faker-js/faker';
 

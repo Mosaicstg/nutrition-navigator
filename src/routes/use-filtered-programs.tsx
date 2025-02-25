@@ -1,38 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import * as v from 'valibot';
-import { fetchApi } from '~/api/fetch';
-import { Program, ProgramSchema } from './schema';
-
-export const fetchAllPrograms = (): Promise<Program[]> => {
-  return fetchApi('/wp-json/nutrition-navigator/v1/programs').then((res) =>
-    res.json()
-  );
-};
-
-export const allProgramsKeys = {
-  all: ['allPrograms'] as const,
-  filtered: (filters: {
-    address: string;
-    regions: Array<string>;
-    programTypes: Array<string>;
-    languages: Array<string>;
-    venues: Array<string>;
-    audiences: Array<string>;
-    organizationName: string;
-  }) => [...allProgramsKeys.all, { filters }] as const
-};
-
-export const MapFiltersSchema = v.object({
-  'program-types': v.array(v.string()),
-  venues: v.array(v.string()),
-  audiences: v.array(v.string()),
-  'organization-name': v.string(),
-  address: v.string(),
-  regions: v.array(v.string()),
-  languages: v.array(v.string())
-});
-
-export type MapFilters = v.InferOutput<typeof MapFiltersSchema>;
+import { ProgramSchema } from './schema';
+import { allProgramsKeys, fetchAllPrograms } from './loader';
 
 export const useFilteredPrograms = (
   filters: {
