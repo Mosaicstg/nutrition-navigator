@@ -11,13 +11,14 @@ import { type RootLoader } from './loader';
 import Loading from '~/components/Loading';
 import LocationsResults from '~/components/LocationsResults';
 import Map from '~/components/Map';
-import MapFilters, { type LoaderData } from '~/components/MapFilters';
+import MapFilters from '~/components/MapFilters';
 
 // Hooks
 import { useFilteredPrograms } from './use-filtered-programs';
 
 // CSS
 import 'leaflet/dist/leaflet.css';
+import { type LoaderData } from './types';
 
 export function Root() {
   const data = useLoaderData<LoaderData<ReturnType<RootLoader>>>();

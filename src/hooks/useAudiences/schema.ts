@@ -1,11 +1,11 @@
-import { pipe, number, string, object, url, InferOutput } from 'valibot';
+import * as v from 'valibot';
 
-export const AudienceSchema = object({
-  id: number(),
-  name: string(),
-  slug: string(),
-  taxonomy: string(),
-  link: pipe(string(), url())
+export const AudienceSchema = v.object({
+  id: v.number(),
+  name: v.string(),
+  slug: v.string(),
+  taxonomy: v.string(),
+  link: v.pipe(v.string(), v.url())
 });
 
-export type Audience = Readonly<InferOutput<typeof AudienceSchema>>;
+export type Audience = Readonly<v.InferOutput<typeof AudienceSchema>>;

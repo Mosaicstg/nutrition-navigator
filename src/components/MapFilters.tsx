@@ -1,6 +1,6 @@
 import React from 'react';
 import { decode } from 'html-entities';
-import { Form, LoaderFunction, useLocation, useSubmit } from 'react-router';
+import { Form, useLocation, useSubmit } from 'react-router';
 
 // Hooks
 import { useProgramTypes } from '~/hooks/useProgramTypes/useProgramTypes.tsx';
@@ -11,9 +11,6 @@ import { useLanguages } from '~/hooks/useLanguages/useLanguages.tsx';
 
 // Components
 import LabelCheckBox from './LabelCheckBox.tsx';
-
-export type LoaderData<TLoaderFn extends LoaderFunction> =
-  Awaited<ReturnType<TLoaderFn>> extends Response | infer D ? D : never;
 
 type MapFiltersProps = {
   address: string;
