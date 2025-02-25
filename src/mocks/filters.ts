@@ -1,8 +1,8 @@
-import { Filters } from '../hooks/useMapFilters/useMapFilters.tsx';
+import { MapFilters } from '~/routes/use-filtered-programs.tsx';
 import { createFakeSlugs } from './helpers.ts';
 import { faker } from '@faker-js/faker';
 
-export function createFakeMapFilters(): Filters {
+export function createFakeMapFilters(): MapFilters {
   return {
     'program-types': createFakeSlugs(),
     regions: createFakeSlugs(),

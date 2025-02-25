@@ -1,8 +1,8 @@
-import { ProgramSchema } from '../../hooks/useAllPrograms/schema.ts';
-import { Program } from '~/hooks/useAllPrograms/types.ts';
 import * as v from 'valibot';
+import { ProgramSchema } from '~/routes/use-filtered-programs';
+import { type Program } from '~/routes/use-filtered-programs';
 
-export const getGeoJSONFromPrograms = (programs: Program[]) => {
+export const getGeoJSONFromPrograms = (programs: Array<Program>) => {
   const locations = programs.filter((program) => {
     const validatedProgram = v.safeParse(ProgramSchema, program);
 

@@ -1,4 +1,4 @@
-import { Program } from '../hooks/useAllPrograms/types.ts';
+import { type Program } from '~/routes/use-filtered-programs.tsx';
 import { faker } from '@faker-js/faker';
 import { createFakeLatitudeOrLatitude, createFakeSlugs } from './helpers.ts';
 
@@ -19,6 +19,6 @@ export function createFakeProgram(): Program {
   };
 }
 
-export function createFakePrograms(): Program[] {
+export function createFakePrograms(): Array<Program> {
   return faker.helpers.multiple(() => createFakeProgram());
 }

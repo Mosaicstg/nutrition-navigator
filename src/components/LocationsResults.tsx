@@ -1,7 +1,7 @@
-import { Program } from '../hooks/useAllPrograms/types.ts';
+import { type Program } from '~/routes/use-filtered-programs';
 
 export type LocationsResultsProps = {
-  locations: Program[];
+  locations: Array<Program>;
 };
 
 const LocationsResults = (props: LocationsResultsProps) => {

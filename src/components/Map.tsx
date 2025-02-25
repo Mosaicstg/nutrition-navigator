@@ -5,17 +5,17 @@ import {
   TileLayer,
   useMap
 } from 'react-leaflet';
-import config from '../config';
+import L, { MarkerCluster } from 'leaflet';
+import config from '~/config';
 import MarkerClusterGroup from 'react-leaflet-cluster';
 import MarkerPopUp from './MarkerPopUp.tsx';
-import { Program } from '../hooks/useAllPrograms/types.ts';
-import L, { MarkerCluster } from 'leaflet';
-import { getGeoJSONFromPrograms } from '../utils/get-bounds-from-locations/get-geojson-from-programs.ts';
-import mapPinImage from '../assets/map-pin.png';
+import { type Program } from '~/routes/use-filtered-programs';
+import { getGeoJSONFromPrograms } from '~/utils/get-bounds-from-locations/get-geojson-from-programs.ts';
+import mapPinImage from '~/assets/map-pin.png';
 
 type MapProps = {
-  filteredLocations: Program[];
-  programs?: Program[];
+  filteredLocations: Array<Program>;
+  programs?: Array<Program>;
 };
 
 const createClusterCustomIcon = function (cluster: MarkerCluster) {
@@ -39,7 +39,7 @@ const createCustomMapPin = L.icon({
  * @param props
  * @constructor
  */
-const HandleMapUpdates = (props: MapProps) => {
+function HandleMapUpdates(props: MapProps) {
   const { filteredLocations } = props;
   const map = useMap();
 
@@ -51,7 +51,7 @@ const HandleMapUpdates = (props: MapProps) => {
   }
 
   return null;
-};
+}
 
 const Map = (props: MapProps) => {
   const { filteredLocations, programs } = props;

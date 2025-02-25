@@ -1,6 +1,6 @@
 import { type QueryClient } from '@tanstack/react-query';
 import { type LoaderFunctionArgs } from 'react-router';
-import { allProgramsKeys } from '~/hooks/useAllPrograms/useAllPrograms';
+import { allProgramsKeys } from '~/routes/use-filtered-programs';
 
 export const loader =
   (queryClient: QueryClient) =>
