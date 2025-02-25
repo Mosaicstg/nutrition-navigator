@@ -1,9 +1,9 @@
 import React from 'react';
+import * as v from 'valibot';
 import { ProgramSchema } from './schema.ts';
-import { z } from 'zod';
 import { Filters } from '../useMapFilters/useMapFilters.tsx';
 
-export type Program = Readonly<z.infer<typeof ProgramSchema>>;
+export type Program = Readonly<v.InferOutput<typeof ProgramSchema>>;
 
 export type AllProgramsState = Readonly<{
   programs: Array<Program>;

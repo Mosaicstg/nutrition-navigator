@@ -1,23 +1,32 @@
+// TODO::
+// - Replace all instances of Zod with valibot. This will dreastically reduce the bundle size.
+// - Refactor/clean-up types, functions and imports
+// - Add better Error handling
+// - Update tests to reflect new hooks and functions
+
+import { useLoaderData, type LoaderFunctionArgs } from 'react-router';
+import { QueryClient, useQuery } from '@tanstack/react-query';
+import * as v from 'valibot';
+
+// Components
 import Loading from '~/components/Loading';
 import LocationsResults from '~/components/LocationsResults';
-import MapFilters, { LoaderData } from '~/components/MapFilters';
 import Map from '~/components/Map';
-import { useLoaderData, type LoaderFunction } from 'react-router';
+import MapFilters, { LoaderData } from '~/components/MapFilters';
 
 // Hooks
 import {
   allProgramsKeys,
   fetchAllPrograms
 } from '~/hooks/useAllPrograms/useAllPrograms.tsx';
+import { ProgramSchema } from '~/hooks/useAllPrograms/schema';
 
 // CSS
 import 'leaflet/dist/leaflet.css';
-import { LoaderFunctionArgs } from 'react-router';
-import { QueryClient, useQuery } from '@tanstack/react-query';
-import { ProgramSchema } from '~/hooks/useAllPrograms/schema';
 
-export const loader = (queryClient: QueryClient) =>
-  (async ({ request }: LoaderFunctionArgs) => {
+export const loader =
+  (queryClient: QueryClient) =>
+  ({ request }: LoaderFunctionArgs) => {
     const url = new URL(request.url);
     const searchParams = new URLSearchParams(url.search);
 
@@ -43,7 +52,7 @@ export const loader = (queryClient: QueryClient) =>
       audiences,
       organizationName
     };
-  }) satisfies LoaderFunction;
+  };
 
 const useFilteredPrograms = (
   filters: {
@@ -71,12 +80,12 @@ const useFilteredPrograms = (
     refetchOnWindowFocus: false,
     select: (data) => {
       const validatedPrograms = data.filter((program) => {
-        const validation = ProgramSchema.safeParse(program);
+        const validation = v.safeParse(ProgramSchema, program);
 
         if (!validation.success) {
           console.error(
             `Program with name: "${program.name}" is invalid`,
-            validation.error
+            validation.issues
           );
         }
 

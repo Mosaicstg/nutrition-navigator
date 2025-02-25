@@ -1,3 +1,4 @@
+import * as v from 'valibot';
 import { ProgramSchema } from '../schema.ts';
 
 // Types
@@ -10,12 +11,12 @@ export const set = ([state, action]: [
   const programs = action.data;
 
   const validatedPrograms = programs.filter((program) => {
-    const validation = ProgramSchema.safeParse(program);
+    const validation = v.safeParse(ProgramSchema, program);
 
     if (!validation.success) {
       console.error(
         `Program with name: "${program.name}" is invalid`,
-        validation.error
+        validation.issues
       );
     }
 
