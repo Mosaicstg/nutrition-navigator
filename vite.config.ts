@@ -7,6 +7,7 @@ export default defineConfig({
   plugins: [react(), tsconfigPaths()],
   build: {
     target: 'es2020',
+    sourcemap: true,
     // This ensures that assets import no larger than 5KB are turned into "data:image" urls
     assetsInlineLimit: 5120,
     rollupOptions: {
