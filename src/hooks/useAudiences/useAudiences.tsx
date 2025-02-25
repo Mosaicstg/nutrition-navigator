@@ -1,9 +1,9 @@
 import { useQuery } from '@tanstack/react-query';
-import { fetchApi } from '../../api/fetch.ts';
-import { Audience } from './schema.ts';
-import { safeParse, Output } from 'valibot';
+import { fetchApi } from '~/api/fetch.ts';
+import { Audience, AudienceSchema } from './schema.ts';
+import { safeParse } from 'valibot';
 
-const fetchAllAudiences = (): Promise<Output<typeof Audience>[]> => {
+const fetchAllAudiences = (): Promise<Audience[]> => {
   return fetchApi('/wp-json/wp/v2/audience?per_page=100').then((res) =>
     res.json()
   );
@@ -18,8 +18,7 @@ const useAudiences = () => {
     refetchOnWindowFocus: false,
     select: (data) =>
       data.filter((audience) => {
-        // const validation = AudienceSchema.safeParse(audience);
-        const validation = safeParse(Audience, audience);
+        const validation = safeParse(AudienceSchema, audience);
 
         if (!validation.success) {
           console.error(
@@ -33,4 +32,4 @@ const useAudiences = () => {
   });
 };
 
-export default useAudiences;
+export { useAudiences };

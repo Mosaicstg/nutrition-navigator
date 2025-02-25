@@ -1,20 +1,11 @@
-import { z } from 'zod';
-import { number, string, object, url } from 'valibot';
+import { pipe, number, string, object, url, InferOutput } from 'valibot';
 
-export const AudienceSchema = z.object({
-  id: z.number(),
-  name: z.string(),
-  slug: z.string(),
-  taxonomy: z.string(),
-  link: z.string()
-});
-
-export const Audience = object({
+export const AudienceSchema = object({
   id: number(),
   name: string(),
   slug: string(),
   taxonomy: string(),
-  link: string([url()])
+  link: pipe(string(), url())
 });
 
-export type Audience = Readonly<z.infer<typeof AudienceSchema>>;
+export type Audience = Readonly<InferOutput<typeof AudienceSchema>>;
