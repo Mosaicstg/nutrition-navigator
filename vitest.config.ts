@@ -1,11 +1,13 @@
-import { defineConfig } from 'vitest/config';
-import tsConfigPaths from 'vite-tsconfig-paths';
+import { defineConfig, mergeConfig } from 'vitest/config';
+import viteConfig from './vite.config.ts';
 
-export default defineConfig({
-  plugins: [tsConfigPaths()],
-  test: {
-    typecheck: {
-      enabled: true
+export default mergeConfig(
+  viteConfig,
+  defineConfig({
+    test: {
+      typecheck: {
+        enabled: true
+      }
     }
-  }
-});
+  })
+);
