@@ -1,6 +1,4 @@
 // TODO::
-// - Replace all instances of Zod with valibot. This will dreastically reduce the bundle size.
-// - Refactor/clean-up types, functions and imports
 // - Add better Error handling
 // - Update tests to reflect new hooks and functions
 

@@ -1,6 +1,6 @@
-import { describe, it, expect, expectTypeOf } from 'vitest';
+import { describe, expect, expectTypeOf, it } from 'vitest';
 import { getGeoJSONFromPrograms } from '../get-geojson-from-programs.ts';
-import { createFakePrograms } from '../../../mocks/program.ts';
+import { createFakePrograms } from '~/mocks/program.ts';
 
 describe('Get Bounds From Locations', () => {
   it('returns empty features array', () => {
