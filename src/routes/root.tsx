@@ -16,6 +16,7 @@ import { useFilteredPrograms } from './use-filtered-programs';
 
 // CSS
 import 'leaflet/dist/leaflet.css';
+import '~/index.scss';
 import { type LoaderData } from './types';
 
 export function Root() {
@@ -23,7 +24,8 @@ export function Root() {
   const {
     data: filteredProgramsData,
     status,
-    isLoading
+    isLoading,
+    error
   } = useFilteredPrograms(data);
 
   const filterProps = {
@@ -35,6 +37,8 @@ export function Root() {
     audiences: data?.audiences || [],
     organizationName: data?.organizationName || ''
   };
+
+  console.log(isLoading, status, error);
 
   return (
     <div className={'nutrition-navigator__map'}>
