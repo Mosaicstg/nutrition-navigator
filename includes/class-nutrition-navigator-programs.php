@@ -527,7 +527,7 @@ class Nutrition_Navigator_Programs {
 
 		// Not open to public
 		echo '<p>';
-		echo '<label for="program-not-open-to-public" style="display">Not Open To Public</label><br/>';
+		echo '<label for="program-not-open-to-public">Not Open To Public</label><br/>';
 		echo '<input type="checkbox" id="program-not-open-to-public" name="program-not-open-to-public" class="widefat" ' .
 			($not_open_to_public ? 'checked' : '') .
 			'/>';
@@ -919,7 +919,7 @@ class Nutrition_Navigator_Programs {
 			);
 		}
 
-		// Save/update Program Quick View Headline
+		// Save/update Program Quick View Description
 		if (array_key_exists('program-quick-view-description', $_POST)) {
 			update_post_meta(
 				$post_id,
