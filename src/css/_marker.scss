@@ -48,7 +48,7 @@
 
 .nutrition-navigator__marker-not-open-to-public {
   display:flex;
-  grid-gap: 8px;
+  gap: 8px;
   align-items: center;
   color: var(--nutrition-navigator-red);
   font-family: var(--nutrition-navigator-body-font);
