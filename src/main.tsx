@@ -5,7 +5,6 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { RouterProvider } from 'react-router';
 import { queryClient } from './query-client';
 import { router } from './routes';
-import './index.scss';
 
 ReactDOM.createRoot(
   document.getElementById('nutrition-navigator') as HTMLElement

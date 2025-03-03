@@ -8,9 +8,11 @@ import { QueryClientProvider } from '@tanstack/react-query';
 describe('Root', () => {
   it('Should render the root of the app', async () => {
     const screen = render(
-      <QueryClientProvider client={queryClient}>
-        <RouterProvider router={router} />
-      </QueryClientProvider>
+      <div id="nutrition-navigator">
+        <QueryClientProvider client={queryClient}>
+          <RouterProvider router={router} />
+        </QueryClientProvider>
+      </div>
     );
 
     await screen.getByRole('textbox');

@@ -24,8 +24,7 @@ export function Root() {
   const {
     data: filteredProgramsData,
     status,
-    isLoading,
-    error
+    isLoading
   } = useFilteredPrograms(data);
 
   const filterProps = {
@@ -37,8 +36,6 @@ export function Root() {
     audiences: data?.audiences || [],
     organizationName: data?.organizationName || ''
   };
-
-  console.log(isLoading, status, error);
 
   return (
     <div className={'nutrition-navigator__map'}>
