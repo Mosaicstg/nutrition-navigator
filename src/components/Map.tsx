@@ -60,7 +60,8 @@ const Map = (props: MapProps) => {
     scrollWheelZoom: false,
     style: { height: 650 },
     attributionControl: false,
-    maxZoom: 15
+    maxZoom: 15,
+    id: 'map-container'
   };
 
   const mapGeoJSON = L.geoJson(

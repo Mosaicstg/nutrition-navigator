@@ -11,9 +11,13 @@ const fetchAllRegions = (): Promise<Region[]> => {
   );
 };
 
+export const allRegionsQueryKeys = {
+  all: ['allRegions']
+};
+
 const useRegions = () => {
   return useQuery({
-    queryKey: ['allRegions'],
+    queryKey: allRegionsQueryKeys.all,
     queryFn: fetchAllRegions,
     // Only run query on page load or component mount
     retry: false,
