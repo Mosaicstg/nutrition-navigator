@@ -10,7 +10,7 @@ export default mergeConfig(
         enabled: true
       },
       env: {
-        MODE: 'development'
+        MODE: 'production'
       },
       server: {
         deps: {
