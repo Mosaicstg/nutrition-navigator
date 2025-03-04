@@ -49,7 +49,7 @@ describe('App', () => {
     expect(searchParams.get('address')).toBe(zipCode);
   });
 
-  test<TestContextWithScreen>('Filter By Region', async ({ screen }) => {
+  test<TestContextWithScreen>('Filter by region', async ({ screen }) => {
     // We have to wait til the Regions query has resolved in order to select the region checkbox
     await queryClient.prefetchQuery({ queryKey: allRegionsQueryKeys.all });
 
