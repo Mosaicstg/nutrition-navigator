@@ -59,8 +59,6 @@ describe('App', () => {
 
     await toggleFilterButton.click();
 
-    // queryClient.getQueryState(allRegionsQueryKeys.all);
-    //
     const regionCheckbox = screen.container.querySelector<HTMLInputElement>(
       'input[name="region[]"]'
     );
