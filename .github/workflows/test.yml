@@ -25,6 +25,7 @@ jobs:
         uses: oven-sh/setup-bun@v2
         with:
           bun-version: 1.2.3
+      # Make sure to install playwright before running vitest browser mode
       - run: bunx playwright install
       - run: bun install
-      - run: bun run test
+      - run: bun run test:ci
