@@ -49,26 +49,37 @@ describe('App', () => {
     expect(searchParams.get('address')).toBe(zipCode);
   });
 
-  // TODO: continue to flesh this out
-  // - need to figure out how to select the region checkbox
-  // - need to figure out how to wait for the useQuery to come back with a 'success'
-  //    - This is when the filters finish loading
   test<TestContextWithScreen>('Filter By Region', async ({ screen }) => {
-    // const toggleFilterButton = screen.getByRole('button', {
-    //   name: 'Toggle Filters Window Open and Close'
-    // });
-    //
-    // await toggleFilterButton.click();
-    //
+    // We have to wait til the Regions query has resolved in order to select the region checkbox
+    await queryClient.prefetchQuery({ queryKey: allRegionsQueryKeys.all });
+
+    const toggleFilterButton = screen.getByRole('button', {
+      name: 'Toggle Filters Window Open and Close'
+    });
+
+    await toggleFilterButton.click();
+
     // queryClient.getQueryState(allRegionsQueryKeys.all);
     //
-    // const regionCheckbox = screen.container.querySelector(
-    //   'input[name="region[]"]'
-    // );
-    //
-    // console.log(regionCheckbox);
-    // console.log(regionCheckbox instanceof HTMLElement);
-    //
-    // expect(regionCheckbox).toBeInstanceOf(HTMLInputElement);
+    const regionCheckbox = screen.container.querySelector<HTMLInputElement>(
+      'input[name="region[]"]'
+    );
+
+    // Make sure it's an input element
+    expect(regionCheckbox).toBeInstanceOf(HTMLInputElement);
+
+    // @ts-expect-error The test will never get here and report an error since we check the type above
+    regionCheckbox.checked = true;
+
+    const searchInput = screen.getByRole('button', { name: 'Search' });
+
+    await searchInput.click();
+
+    const searchParams = new URLSearchParams(window.location.search);
+
+    const regionParams = searchParams.getAll('region[]');
+
+    // Validate that the URL contains the zip code
+    expect(regionParams[0]).toBe(regionCheckbox?.value);
   });
 });
