@@ -11,7 +11,7 @@ $concrete: #f3f3f3;
 $tango: #f15d22;
 $sun-orange: #f9b418;
 $atomic-tangerine: #fb9e72;
-$fresh-eggplant: #AA1A72;
+$fresh-eggplant: #aa1a72;
 $forget-me-not: #fff1eb;
 $sushi: #8dc63f;
 $frost: #f3faee;
@@ -21,7 +21,7 @@ $light-gray: #f3f3f3;
 $pale-green: #f3faee;
 $green: #8dc63f;
 $orange: #f15d22;
-$purple: #AA1A72;
+$purple: #aa1a72;
 $blue: #101d3d;
 $dark-gray: #403c3b;
 
@@ -81,7 +81,7 @@ $h6-font: $body-font;
 $h6-font-size: 20px;
 $h6-line-height: 1em;
 $h6-font-weight: $font-weight-bold;
-$h6-letter-spacing: .08em;
+$h6-letter-spacing: 0.08em;
 $h6-text-transform: uppercase;
 $mobile-h6-font-size: 12px;
 
@@ -93,12 +93,12 @@ $xl: 1200px;
 $xxl: 1420px;
 
 $breakpoints: (
-        xs: 0,
-        sm: $sm,
-        md: $md,
-        lg: $lg,
-        xl: $xl,
-        xxl: $xxl
+  xs: 0,
+  sm: $sm,
+  md: $md,
+  lg: $lg,
+  xl: $xl,
+  xxl: $xxl,
 );
 
 :root {

@@ -1,3 +1,6 @@
+@use "variables" as *;
+@use "mixins" as *;
+
 .nutrition-navigator__hide {
   display: none;
 }
@@ -116,24 +119,6 @@
           background: var(--nutrition-navigator-dark-gray);
           color: var(--nutrition-navigator-white);
         }
-      }
-    }
-
-    border-color: var(--nutrition-navigator-dark-gray);
-    background: none;
-    color: var(--nutrition-navigator-dark-gray);
-
-    &:focus {
-      border-color: var(--nutrition-navigator-dark-gray);
-      background: var(--nutrition-navigator-dark-gray);
-      color: var(--nutrition-navigator-white);
-    }
-
-    @media (hover: hover) {
-      &:hover {
-        border-color: var(--nutrition-navigator-dark-gray);
-        background: var(--nutrition-navigator-dark-gray);
-        color: var(--nutrition-navigator-white);
       }
     }
   }

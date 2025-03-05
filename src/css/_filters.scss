@@ -1,3 +1,6 @@
+@use "variables" as *;
+@use "mixins" as *;
+
 .nutrition-navigator__filters-wrap {
   position: relative;
   z-index: 9999;
@@ -15,7 +18,7 @@
   padding: 30px;
   border-radius: 5px;
   background: var(--nutrition-navigator-light-gray);
-  box-shadow: 0 0 6px rgba(0, 0, 0, .16);
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.16);
   color: var(--nutrition-navigator-dark-gray);
 
   @include media-breakpoint-up(lg) {
@@ -145,7 +148,7 @@
       color: var(--nutrition-navigator-white);
 
       &::placeholder {
-        transition: all .25s ease-in-out;
+        transition: all 0.25s ease-in-out;
         color: var(--nutrition-navigator-white);
       }
     }
@@ -209,17 +212,17 @@
     left: 0;
     width: 100%;
     padding: 40px 40px 80px;
-    box-shadow: 0 0 6px rgba(0, 0, 0, .16);
+    box-shadow: 0 0 6px rgba(0, 0, 0, 0.16);
   }
 }
 
 .nutrition-navigator__regions-body-wrap {
   display: grid;
   grid-gap: 20px;
-  grid-template-columns:1fr;
+  grid-template-columns: 1fr;
   margin-bottom: 30px;
   padding-bottom: 30px;
-  border-bottom: .2px solid var(--nutrition-navigator-dark-gray);
+  border-bottom: 0.2px solid var(--nutrition-navigator-dark-gray);
 
   h2 {
     margin: 0;
@@ -351,7 +354,7 @@
   flex-flow: column;
   margin-top: 30px;
   padding-top: 30px;
-  border-top: .2px solid var(--nutrition-navigator-dark-gray);
+  border-top: 0.2px solid var(--nutrition-navigator-dark-gray);
 
   > h2 {
     margin: 0;
@@ -427,7 +430,6 @@
     display: none;
     margin: 0;
   }
-
 
   @include media-breakpoint-up(lg) {
     display: block;

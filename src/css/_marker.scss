@@ -1,3 +1,5 @@
+@use "mixins" as *;
+
 .nutrition-navigator__marker-cluster-icon {
   display: flex;
   align-items: center;

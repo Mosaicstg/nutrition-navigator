@@ -1,3 +1,5 @@
+@use "mixins" as *;
+
 .nutrition-navigator__checkbox-items-wrap {
   display: grid;
   grid-gap: 10px;
@@ -67,7 +69,7 @@
 .nutrition-navigator__checkbox {
   @include app-scope-css-properties() {
     padding: 7px;
-    transition: background-color .15s ease-in-out;
+    transition: background-color 0.15s ease-in-out;
     border: 1px solid var(--nutrition-navigator-dark-gray);
     border-radius: 5px;
     appearance: none;
@@ -85,8 +87,8 @@
   #nutrition-navigator & {
     position: relative;
     padding: 10px 30px;
-    transition: all .25s ease-in-out;
-    border: .5px solid;
+    transition: all 0.25s ease-in-out;
+    border: 0.5px solid;
     border-radius: 5px;
     background: transparent;
     font-family: var(--nutrition-navigator-body-font);
@@ -97,7 +99,7 @@
       color: var(--nutrition-navigator-dark-gray);
       font-family: var(--nutrition-navigator-body-font);
       font-weight: bold;
-      letter-spacing: .03em;
+      letter-spacing: 0.03em;
       text-transform: uppercase;
     }
   }
