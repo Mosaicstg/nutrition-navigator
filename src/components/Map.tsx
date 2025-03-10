@@ -12,6 +12,7 @@ import { Program } from '../hooks/useAllPrograms/types.ts';
 import L, { MarkerCluster } from 'leaflet';
 import { getGeoJSONFromPrograms } from '../utils/get-bounds-from-locations/get-geojson-from-programs.ts';
 import mapPinImage from '../assets/map-pin.png';
+import mapPinNotOpenToPublic from '../assets/map-pin-not-open-to-public.png';
 
 type MapProps = {
   filteredLocations: Program[];
@@ -27,6 +28,11 @@ const createClusterCustomIcon = function (cluster: MarkerCluster) {
 
 const createCustomMapPin = L.icon({
   iconUrl: mapPinImage,
+  iconSize: new L.Point(30, 35)
+});
+
+const customPinForNotOpenToPublic = L.icon({
+  iconUrl: mapPinNotOpenToPublic,
   iconSize: new L.Point(30, 35)
 });
 
@@ -84,7 +90,11 @@ const Map = (props: MapProps) => {
         {filteredLocations?.map((program, index) => {
           return (
             <Marker
-              icon={createCustomMapPin}
+              icon={
+                program?.['not-open-to-public']
+                  ? customPinForNotOpenToPublic
+                  : createCustomMapPin
+              }
               key={index}
               position={[program.latitude, program.longitude]}
             >
