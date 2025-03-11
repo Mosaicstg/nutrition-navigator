@@ -96,5 +96,22 @@ export const ProgramSchema = z.object({
     .string({
       invalid_type_error: 'Program Zip Code field should be a string'
     })
+    .optional(),
+  'not-open-to-public': z
+    .string({
+      invalid_type_error:
+        'Program `Not Open To Public` field should be a string'
+    })
+    .optional(),
+  'quick-view-headline': z
+    .string({
+      invalid_type_error: 'Program Quick View Headline field should be a string'
+    })
+    .optional(),
+  'quick-view-description': z
+    .string({
+      invalid_type_error:
+        'Program Quick View Description field should be a string'
+    })
     .optional()
 });
