@@ -1,7 +1,7 @@
-@use "sass:meta";
+@use 'sass:meta';
 
-@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Bitter:wght@700;800&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,700;0,800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bitter:wght@700;800&display=swap');
 
 // Color system
 //
@@ -24,9 +24,10 @@ $orange: #f15d22;
 $purple: #aa1a72;
 $blue: #101d3d;
 $dark-gray: #403c3b;
+$red: #ff3232;
 
-$body-font: "Montserrat", sans-serif;
-$heading-font: "Bitter", sans-serif;
+$body-font: 'Montserrat', sans-serif;
+$heading-font: 'Bitter', sans-serif;
 
 $font-weight-normal: 400;
 $font-weight-bold: 700;
@@ -163,4 +164,5 @@ $breakpoints: (
   --nutrition-navigator-purple: #{$purple};
   --nutrition-navigator-blue: #{$blue};
   --nutrition-navigator-dark-gray: #{$dark-gray};
+  --nutrition-navigator-red: #{$red};
 }

@@ -319,6 +319,20 @@ class Nutrition_Navigator_Programs {
 			'show_in_rest' => true
 		]);
 
+		// Quick View Headline
+		register_post_meta(self::POST_SLUG, 'program-quick-view-headline', [
+			'type' => 'string',
+			'single' => true,
+			'show_in_rest' => true
+		]);
+
+		// Quick View Description
+		register_post_meta(self::POST_SLUG, 'program-quick-view-description', [
+			'type' => 'string',
+			'single' => true,
+			'show_in_rest' => true
+		]);
+
 		// Contact Phone
 		register_post_meta(self::POST_SLUG, 'program-contact-phone', [
 			'type' => 'string',
@@ -339,6 +353,13 @@ class Nutrition_Navigator_Programs {
 			'single' => true,
 			'show_in_rest' => true,
 			'sanitized_callback' => [$this, 'sanitize_download_file_id_custom_field']
+		]);
+
+		// "Not Open to Public" checkbox
+		register_term_meta(self::POST_SLUG, 'program-not-open-to-public', [
+			'type' => 'string',
+			'single' => true,
+			'show_in_rest' => true
 		]);
 
 		// Website url
@@ -501,6 +522,36 @@ class Nutrition_Navigator_Programs {
 			'textarea_rows' => 5,
 			'media_buttons' => false
 		]);
+
+		$not_open_to_public = $this->get_program_not_open_to_public($post);
+
+		// Not open to public
+		echo '<p>';
+		echo '<label for="program-not-open-to-public">Not Open To Public</label><br/>';
+		echo '<input type="checkbox" id="program-not-open-to-public" name="program-not-open-to-public" class="widefat" ' .
+			($not_open_to_public ? 'checked' : '') .
+			'/>';
+		echo '</p>';
+
+		$quick_view_headline = $this->get_program_quick_view_headline($post);
+
+		// Quick View Headline
+		echo '<p>';
+		echo '<label for="program-quick-view-headline">Quick View Headline</label>';
+		echo '<input type="text" id="program-quick-view-headline" value="' .
+			esc_attr($quick_view_headline) .
+			'" name="program-quick-view-headline" class="widefat" placeholder="Headline for map marker popup"/>';
+		echo '</p>';
+
+		$quick_view_description = $this->get_program_quick_view_description($post);
+
+		// Quick View description
+		echo '<p>';
+		echo '<label for="program-quick-view-description">Quick View Description</label>';
+		echo '<input type="text" id="program-quick-view-description" value="' .
+			esc_attr($quick_view_description) .
+			'" name="program-quick-view-description" class="widefat" placeholder="Description for map marker popup"/>';
+		echo '</p>';
 
 		$website_url = $this->get_program_website_url($post);
 
@@ -844,6 +895,36 @@ class Nutrition_Navigator_Programs {
 				$post_id,
 				'program-download-file-id',
 				intval(sanitize_text_field(wp_unslash($_POST['program-download-file-id'])))
+			);
+		}
+
+		if (array_key_exists('program-not-open-to-public', $_POST)) {
+			update_post_meta(
+				$post_id,
+				'program-not-open-to-public',
+				sanitize_textarea_field(wp_unslash($_POST['program-not-open-to-public']))
+			);
+		} else {
+			// NOTE: Checkbox values are not sent in the $_POST array if they are unchecked.
+			// So we need to manually update the value to an empty string if the checkbox is unchecked.
+			update_post_meta($post_id, 'program-not-open-to-public', '');
+		}
+
+		// Save/update Program Quick View Headline
+		if (array_key_exists('program-quick-view-headline', $_POST)) {
+			update_post_meta(
+				$post_id,
+				'program-quick-view-headline',
+				sanitize_textarea_field(wp_unslash($_POST['program-quick-view-headline']))
+			);
+		}
+
+		// Save/update Program Quick View Description
+		if (array_key_exists('program-quick-view-description', $_POST)) {
+			update_post_meta(
+				$post_id,
+				'program-quick-view-description',
+				sanitize_textarea_field(wp_unslash($_POST['program-quick-view-description']))
 			);
 		}
 
@@ -1358,6 +1439,53 @@ class Nutrition_Navigator_Programs {
 		}
 
 		return $icon;
+	}
+
+	/**
+	 * A getter for a Program's 'Not open to the public'
+	 *
+	 * @param WP_Post $post Post object.
+	 *
+	 * @return boolean
+	 */
+	public function get_program_not_open_to_public(WP_Post $post): bool {
+		$not_open_to_public = get_post_meta($post->ID, 'program-not-open-to-public', true);
+
+		return !empty($not_open_to_public);
+	}
+
+	/**
+	 * A getter for a Program's Quick View Headline
+	 *
+	 * @param WP_Post $post Post object.
+	 *
+	 * @return string
+	 */
+	public function get_program_quick_view_headline(WP_Post $post): string {
+		$quick_view_headline = get_post_meta($post->ID, 'program-quick-view-headline', true);
+
+		if (empty($quick_view_headline)) {
+			$quick_view_headline = '';
+		}
+
+		return $quick_view_headline;
+	}
+
+	/**
+	 * A getter for a Program's Quick View Description
+	 *
+	 * @param WP_Post $post Post object.
+	 *
+	 * @return string
+	 */
+	public function get_program_quick_view_description(WP_Post $post): string {
+		$quick_view_description = get_post_meta($post->ID, 'program-quick-view-description', true);
+
+		if (empty($quick_view_description)) {
+			$quick_view_description = '';
+		}
+
+		return $quick_view_description;
 	}
 }
 

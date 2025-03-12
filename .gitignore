@@ -148,6 +148,5 @@ dist-ssr
 *.sw?
 *.cache
 
-.husky
-
 /vendor/
+*.cache
