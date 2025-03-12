@@ -49,7 +49,16 @@ export const ProgramSchema = v.object({
   'dates-times-offered': v.optional(
     v.string('Program Date And Times offered field should be a string.')
   ),
-  'zip-code': v.optional(v.string('Program Zip Code field should be a string'))
+  'zip-code': v.optional(v.string('Program Zip Code field should be a string')),
+  'not-open-to-public': v.optional(
+    v.string('Program `Not Open To Public` field should be a string')
+  ),
+  'quick-view-headline': v.optional(
+    v.string('Program Quick View Headline field should be a string')
+  ),
+  'quick-view-description': v.optional(
+    v.string('Program Quick View Description field should be a string')
+  )
 });
 
 export type Program = Readonly<v.InferOutput<typeof ProgramSchema>>;
