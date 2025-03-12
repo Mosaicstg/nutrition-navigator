@@ -95,7 +95,7 @@ const Map = (props: MapProps) => {
           return (
             <Marker
               icon={
-                program?.['not-open-to-public']
+                program['not-open-to-public']
                   ? customPinForNotOpenToPublic
                   : createCustomMapPin
               }
