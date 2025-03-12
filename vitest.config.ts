@@ -9,9 +9,6 @@ export default mergeConfig(
       typecheck: {
         enabled: true
       },
-      env: {
-        MODE: 'production'
-      },
       server: {
         deps: {
           inline: ['react-leaflet-cluster']

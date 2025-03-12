@@ -63,6 +63,8 @@ describe('App', () => {
       'input[name="region[]"]'
     );
 
+    console.log(import.meta.env.MODE);
+
     // Make sure it's an input element
     expect(regionCheckbox).toBeInstanceOf(HTMLInputElement);
 
