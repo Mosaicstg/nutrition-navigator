@@ -92,7 +92,6 @@
     ],
     "*.{js,php}": [
       "prettier --write"
-    ],
-    "*.php": "vendor/bin/phpcs"
+    ]
   }
 }
