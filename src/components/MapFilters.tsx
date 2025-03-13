@@ -159,7 +159,7 @@ const MapFilters = (props: MapFiltersProps) => {
                           <LabelCheckBox
                             {...{
                               label: name,
-                              name: 'region[]',
+                              name: 'regions[]',
                               value: slug,
                               id: slug,
                               defaultChecked: defaultRegions.includes(slug)
@@ -202,7 +202,7 @@ const MapFilters = (props: MapFiltersProps) => {
                             </label>
                             <input
                               type="checkbox"
-                              name="program-type[]"
+                              name="program-types[]"
                               value={slug}
                               id={slug}
                               className="nutrition-navigator__checkbox"
@@ -277,7 +277,7 @@ const MapFilters = (props: MapFiltersProps) => {
                                 <LabelCheckBox
                                   {...{
                                     label: venue.name,
-                                    name: 'venue[]',
+                                    name: 'venues[]',
                                     value: venue.slug,
                                     id: venue.slug,
                                     defaultChecked: defaultVenues.includes(
@@ -312,7 +312,7 @@ const MapFilters = (props: MapFiltersProps) => {
                                 <LabelCheckBox
                                   {...{
                                     label: audience.name,
-                                    name: 'audience[]',
+                                    name: 'audiences[]',
                                     value: audience.slug,
                                     id: audience.slug,
                                     defaultChecked: defaultAudiences.includes(

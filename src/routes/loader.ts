@@ -29,11 +29,11 @@ export const loader =
     const searchParams = new URLSearchParams(url.search);
 
     const address = searchParams.get('address') || '';
-    const regions = searchParams.getAll('region[]') || [];
-    const programTypes = searchParams.getAll('program-type[]') || [];
+    const regions = searchParams.getAll('regions[]') || [];
+    const programTypes = searchParams.getAll('program-types[]') || [];
     const languages = searchParams.getAll('languages[]') || [];
-    const audiences = searchParams.getAll('audience[]') || [];
-    const venues = searchParams.getAll('venue[]') || [];
+    const audiences = searchParams.getAll('audiences[]') || [];
+    const venues = searchParams.getAll('venues[]') || [];
     const organizationName = searchParams.get('organization-name') || '';
 
     // Invalidate the query cache if the user has initiated a new search

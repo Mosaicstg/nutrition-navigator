@@ -60,10 +60,8 @@ describe('App', () => {
     await toggleFilterButton.click();
 
     const regionCheckbox = screen.container.querySelector<HTMLInputElement>(
-      'input[name="region[]"]'
+      'input[name="regions[]"]'
     );
-
-    console.log(import.meta.env.MODE);
 
     // Make sure it's an input element
     expect(regionCheckbox).toBeInstanceOf(HTMLInputElement);
@@ -77,7 +75,7 @@ describe('App', () => {
 
     const searchParams = new URLSearchParams(window.location.search);
 
-    const regionParams = searchParams.getAll('region[]');
+    const regionParams = searchParams.getAll('regions[]');
 
     // Validate that the URL contains the zip code
     expect(regionParams[0]).toBe(regionCheckbox?.value);
