@@ -5,17 +5,18 @@ import {
   TileLayer,
   useMap
 } from 'react-leaflet';
-import config from '../config';
+import L, { MarkerCluster } from 'leaflet';
+import config from '~/config';
 import MarkerClusterGroup from 'react-leaflet-cluster';
 import MarkerPopUp from './MarkerPopUp.tsx';
-import { Program } from '../hooks/useAllPrograms/types.ts';
-import L, { MarkerCluster } from 'leaflet';
-import { getGeoJSONFromPrograms } from '../utils/get-bounds-from-locations/get-geojson-from-programs.ts';
-import mapPinImage from '../assets/map-pin.png';
-import mapPinNotOpenToPublic from '../assets/map-pin-not-open-to-public.png';
+import { type Program } from '~/routes/schema';
+import { getGeoJSONFromPrograms } from '~/utils/get-bounds-from-locations/get-geojson-from-programs.ts';
+import mapPinImage from '~/assets/map-pin.png';
+import mapPinNotOpenToPublic from '~/assets/map-pin-not-open-to-public.png';
 
 type MapProps = {
-  filteredLocations: Program[];
+  filteredLocations: Array<Program>;
+  programs?: Array<Program>;
 };
 
 const createClusterCustomIcon = function (cluster: MarkerCluster) {
@@ -44,7 +45,7 @@ const customPinForNotOpenToPublic = L.icon({
  * @param props
  * @constructor
  */
-const HandleMapUpdates = (props: MapProps) => {
+function HandleMapUpdates(props: MapProps) {
   const { filteredLocations } = props;
   const map = useMap();
 
@@ -56,19 +57,22 @@ const HandleMapUpdates = (props: MapProps) => {
   }
 
   return null;
-};
+}
 
 const Map = (props: MapProps) => {
-  const { filteredLocations } = props;
+  const { filteredLocations, programs } = props;
 
   const mapContainerProps: MapContainerProps = {
     scrollWheelZoom: false,
     style: { height: 650 },
     attributionControl: false,
-    maxZoom: 15
+    maxZoom: 15,
+    id: 'map-container'
   };
 
-  const mapGeoJSON = L.geoJson(getGeoJSONFromPrograms(filteredLocations));
+  const mapGeoJSON = L.geoJson(
+    getGeoJSONFromPrograms(programs?.length ? programs : filteredLocations)
+  );
 
   const mapBounds = mapGeoJSON.getBounds();
 
@@ -91,7 +95,7 @@ const Map = (props: MapProps) => {
           return (
             <Marker
               icon={
-                program?.['not-open-to-public']
+                program['not-open-to-public']
                   ? customPinForNotOpenToPublic
                   : createCustomMapPin
               }

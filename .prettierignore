@@ -7,7 +7,6 @@ dist
 
 # File patterns
 *.md
-*.scss
 *.min.js
 
 # Miscellaneous files

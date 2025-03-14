@@ -1,11 +1,11 @@
-import { z } from 'zod';
+import * as v from 'valibot';
 
-export const VenueSchema = z.object({
-  id: z.number(),
-  name: z.string(),
-  slug: z.string(),
-  taxonomy: z.string(),
-  link: z.string()
+export const VenueSchema = v.object({
+  id: v.number(),
+  name: v.string(),
+  slug: v.string(),
+  taxonomy: v.string(),
+  link: v.string()
 });
 
-export type Venue = Readonly<z.infer<typeof VenueSchema>>;
+export type Venue = Readonly<v.InferOutput<typeof VenueSchema>>;
