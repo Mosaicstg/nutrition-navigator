@@ -17,10 +17,9 @@ import { useFilteredPrograms } from './use-filtered-programs';
 // CSS
 import 'leaflet/dist/leaflet.css';
 import '~/index.scss';
-import { type LoaderData } from './types';
 
 export function Root() {
-  const data = useLoaderData<LoaderData<ReturnType<RootLoader>>>();
+  const data = useLoaderData<RootLoader>();
   const {
     data: filteredProgramsData,
     status,
