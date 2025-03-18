@@ -403,6 +403,14 @@ class Nutrition_Navigator_Programs {
 			'single' => true,
 			'show_in_rest' => true
 		]);
+
+		// Kill Date
+		register_post_meta(self::POST_SLUG, 'program-location-kill-date', [
+			'type' => 'integer',
+			'single' => true,
+			'show_in_rest' => true,
+			'sanitize_callback' => [$this, 'sanitize_kill_date_custom_field']
+		]);
 	}
 
 	/**
@@ -432,6 +440,21 @@ class Nutrition_Navigator_Programs {
 	 * @return integer
 	 */
 	public function sanitize_download_file_id_custom_field($meta_value, $meta_key, $object_type, $object_subtype) {
+		return intval($meta_value);
+	}
+
+	/**
+	 * A sanitizer function for the kill date field.
+	 *
+	 * @param mixed  $meta_value     Metadata value to sanitize.
+	 * @param string $meta_key       Metadata key.
+	 * @param string $object_type    Type of object metadata is for. Accepts 'post', 'comment', 'term', 'user',
+	 *                               or any other object type with an associated meta table.
+	 * @param string $object_subtype Object subtype.
+	 *
+	 * @return integer
+	 */
+	public function sanitize_kill_date_custom_field($meta_value, $meta_key, $object_type, $object_subtype) {
 		return intval($meta_value);
 	}
 
@@ -677,6 +700,15 @@ class Nutrition_Navigator_Programs {
 			'textarea_rows' => 5,
 			'media_buttons' => false
 		]);
+
+		$kill_date = $this->get_program_location_kill_date($post);
+
+		echo '<p>';
+		echo '<label for="program-location-kill-date">Kill Date</label><br/>';
+		echo '<input type="date" id="program-location-kill-date" value="' .
+			esc_attr($kill_date) .
+			'" name="program-location-kill-date" class="" placeholder=""/>';
+		echo '</p>';
 	}
 
 	/**
@@ -980,6 +1012,14 @@ class Nutrition_Navigator_Programs {
 				'program-tiktok-url',
 				sanitize_textarea_field(wp_unslash($_POST['program-tiktok-url']))
 			);
+		}
+
+		// Save/update Program Kill Date
+		if (array_key_exists('program-location-kill-date', $_POST)) {
+			$kill_date = $_POST['program-location-kill-date'];
+			$kill_date = sanitize_text_field(strtotime($kill_date));
+
+			update_post_meta($post_id, 'program-location-kill-date', intval($kill_date));
 		}
 	}
 
@@ -1286,6 +1326,20 @@ class Nutrition_Navigator_Programs {
 		}
 
 		return $dates_times_offered;
+	}
+
+	public function get_program_location_kill_date($post) {
+		$kill_date = get_post_meta($post->ID, 'program-location-kill-date', true);
+
+		if (empty($kill_date)) {
+			$kill_date = '';
+
+			return $kill_date;
+		}
+
+		$kill_date = date('Y-m-d', $kill_date);
+
+		return $kill_date;
 	}
 
 	/**
