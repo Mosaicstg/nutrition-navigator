@@ -47,6 +47,14 @@ class Nutrition_Navigator_REST_API {
 		$data = [];
 
 		foreach ($posts as $post) {
+			$programs_kill_date = get_post_meta($post->ID, 'program-location-kill-date', true);
+			$todays_date = strtotime('now');
+
+			// Skip programs whose kill date has passed
+			if ($programs_kill_date && $todays_date > strtotime($programs_kill_date)) {
+				continue;
+			}
+
 			$program_data = [];
 
 			$program_data['id'] = $post->ID;
