@@ -139,7 +139,6 @@
 }
 
 .leaflet-popup-content {
-  min-width: max-content;
   margin: 0;
 
   @include media-breakpoint-up(lg) {

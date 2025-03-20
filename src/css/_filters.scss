@@ -1,5 +1,5 @@
-@use "variables" as *;
-@use "mixins" as *;
+@use 'variables' as *;
+@use 'mixins' as *;
 
 .nutrition-navigator__filters-wrap {
   position: relative;
@@ -51,7 +51,7 @@
   position: relative;
 
   &::before {
-    content: "";
+    content: '';
     display: block;
     position: absolute;
     top: 50%;
@@ -98,7 +98,7 @@
     text-transform: none;
 
     &::after {
-      content: "";
+      content: '';
       display: inline-block;
       position: relative;
       width: 15px;
@@ -310,8 +310,13 @@
     list-style: none;
     cursor: pointer;
 
+    // Remove the default marker for Safari browsers
+    &::-webkit-details-marker {
+      display: none;
+    }
+
     &::before {
-      content: "";
+      content: '';
       display: block;
       padding: 5px;
       background-image: url("data:image/svg+xml,%3Csvg width='9' height='10' viewBox='0 0 9 10' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M8.07422 4.35321C8.74089 4.73811 8.74089 5.70036 8.07422 6.08526L2.07422 9.54936C1.40755 9.93426 0.574219 9.45314 0.574219 8.68334V1.75514C0.574219 0.985337 1.40755 0.504211 2.07422 0.889111L8.07422 4.35321Z' fill='%23F27024'/%3E%3C/svg%3E%0A");
@@ -390,7 +395,7 @@
     padding-left: 16px;
   }
 
-  input[type="text"] {
+  input[type='text'] {
     width: 100%;
 
     #nutrition-navigator & {
@@ -400,7 +405,7 @@
   }
 
   &::after {
-    content: "";
+    content: '';
     display: block;
     position: absolute;
     top: 50%;
