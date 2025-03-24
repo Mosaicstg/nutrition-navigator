@@ -47,15 +47,15 @@ class Nutrition_Navigator_REST_API {
 		$data = [];
 
 		foreach ($posts as $post) {
-			$programs_kill_date = get_post_meta($post->ID, 'program-location-kill-date', true);
+			$program_kill_date = get_post_meta($post->ID, 'program-location-kill-date', true);
 
-			if (!empty($programs_kill_date)) {
+			if (!empty($program_kill_date)) {
 				$todays_date = strtotime('now');
 				// NOTE: Even though the value is supposed to be a timestamp, it is stored as a string
-				$programs_kill_date = intval($programs_kill_date);
+				$program_kill_date = intval($program_kill_date);
 
 				// Skip programs whose kill date has passed
-				if (!empty($programs_kill_date) && $todays_date > $programs_kill_date) {
+				if (!empty($program_kill_date) && $todays_date > $program_kill_date) {
 					continue;
 				}
 			}
