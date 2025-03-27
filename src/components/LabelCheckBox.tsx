@@ -1,30 +1,26 @@
-import React from 'react';
+import { ComponentProps } from 'react';
 
-const LabelCheckBox = (props: {
+type Props = ComponentProps<'input'> & {
   label: string;
   value: string;
-  name: string;
-  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  isChecked: boolean;
-}) => {
-  const { label, name, value, onChange, isChecked } = props;
+  // isChecked: boolean;
+};
+
+const LabelCheckBox = (props: Props) => {
+  const { label, ...inputProps } = props;
 
   return (
     <>
       <label
         className="nutrition-navigator__checkbox-label"
-        htmlFor={value}
+        htmlFor={inputProps.id}
         // Text is retrieved from WP REST API and comes with HTML entities
         dangerouslySetInnerHTML={{ __html: label }}
       />
       <input
         type="checkbox"
-        name={name}
-        value={value}
-        id={value}
         className="nutrition-navigator__checkbox"
-        onChange={onChange}
-        checked={isChecked}
+        {...inputProps}
       />
     </>
   );

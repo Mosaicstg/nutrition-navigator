@@ -1,3 +1,5 @@
+@use "mixins" as *;
+
 #nutrition-navigator {
   font-family: var(--nutrition-navigator-body-font);
   font-size: var(--nutrition-navigator-body-font-size);

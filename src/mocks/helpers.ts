@@ -1,4 +1,4 @@
-import { Program } from '../hooks/useAllPrograms/types.ts';
+import { type Program } from '~/routes/schema';
 import { faker } from '@faker-js/faker';
 
 export type GetValueByKey<T, K extends keyof T> = K extends keyof T

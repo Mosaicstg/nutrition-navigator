@@ -1,3 +1,5 @@
+@use "mixins" as *;
+
 .nutrition-navigator__map-results {
   @include app-scope-css-properties() {
     padding: 20px;

@@ -1,6 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
-import { fetchApi } from '../../api/fetch.ts';
+import { fetchApi } from '~/api/fetch.ts';
 import { Venue, VenueSchema } from './schema.ts';
+import * as v from 'valibot';
 
 const fetchAllVenues = (): Promise<Venue[]> => {
   // There's probably NEVER going to be more than 5 or 6 so for now querying the first 100
@@ -19,12 +20,12 @@ const useVenues = () => {
     refetchOnWindowFocus: false,
     select: (data) =>
       data.filter((venue) => {
-        const validatedVenue = VenueSchema.safeParse(venue);
+        const validatedVenue = v.safeParse(VenueSchema, venue);
 
         if (!validatedVenue.success) {
           console.error(
             `Venue with name ${venue.name} is invalid`,
-            validatedVenue.error
+            validatedVenue.issues
           );
         }
 
@@ -33,4 +34,4 @@ const useVenues = () => {
   });
 };
 
-export default useVenues;
+export { useVenues };

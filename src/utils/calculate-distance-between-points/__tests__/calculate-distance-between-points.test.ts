@@ -1,6 +1,6 @@
 import { expect, describe, it } from 'vitest';
 import { calculateDistanceBetweenPoints } from '../calculate-distance-between-points.ts';
-import { createFakeLatAndLongObject } from '../../../mocks/helpers.ts';
+import { createFakeLatAndLongObject } from '~/mocks/helpers.ts';
 
 describe('Calculate Distance Between Points', () => {
   it('returns zero', () => {

@@ -1,11 +1,11 @@
-import { z } from 'zod';
+import * as v from 'valibot';
 
-export const RegionSchema = z.object({
-  id: z.number(),
-  name: z.string(),
-  slug: z.string(),
-  taxonomy: z.string(),
-  link: z.string()
+export const RegionSchema = v.object({
+  id: v.number(),
+  name: v.string(),
+  slug: v.string(),
+  taxonomy: v.string(),
+  link: v.string()
 });
 
-export type Region = Readonly<z.infer<typeof RegionSchema>>;
+export type Region = Readonly<v.InferOutput<typeof RegionSchema>>;

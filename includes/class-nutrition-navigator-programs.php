@@ -356,49 +356,49 @@ class Nutrition_Navigator_Programs {
 		]);
 
 		// "Not Open to Public" checkbox
-		register_term_meta(self::POST_SLUG, 'program-not-open-to-public', [
+		register_post_meta(self::POST_SLUG, 'program-not-open-to-public', [
 			'type' => 'string',
 			'single' => true,
 			'show_in_rest' => true
 		]);
 
 		// Website url
-		register_term_meta(self::POST_SLUG, 'program-website-url', [
+		register_post_meta(self::POST_SLUG, 'program-website-url', [
 			'type' => 'string',
 			'single' => true,
 			'show_in_rest' => true
 		]);
 
 		// Twitter url
-		register_term_meta(self::POST_SLUG, 'program-twitter-url', [
+		register_post_meta(self::POST_SLUG, 'program-twitter-url', [
 			'type' => 'string',
 			'single' => true,
 			'show_in_rest' => true
 		]);
 
 		// Facebook url
-		register_term_meta(self::POST_SLUG, 'program-facebook-url', [
+		register_post_meta(self::POST_SLUG, 'program-facebook-url', [
 			'type' => 'string',
 			'single' => true,
 			'show_in_rest' => true
 		]);
 
 		// Instagram url
-		register_term_meta(self::POST_SLUG, 'program-instagram-url', [
+		register_post_meta(self::POST_SLUG, 'program-instagram-url', [
 			'type' => 'string',
 			'single' => true,
 			'show_in_rest' => true
 		]);
 
 		// LinkedIn url
-		register_term_meta(self::POST_SLUG, 'program-linkedin-url', [
+		register_post_meta(self::POST_SLUG, 'program-linkedin-url', [
 			'type' => 'string',
 			'single' => true,
 			'show_in_rest' => true
 		]);
 
 		// Tiktok url
-		register_term_meta(self::POST_SLUG, 'program-tiktok-url', [
+		register_post_meta(self::POST_SLUG, 'program-tiktok-url', [
 			'type' => 'string',
 			'single' => true,
 			'show_in_rest' => true
