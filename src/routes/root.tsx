@@ -19,11 +19,20 @@ import 'leaflet/dist/leaflet.css';
 import '~/index.scss';
 import React from 'react';
 
-function FiltersButton() {
+type FiltersButtonProps = {
+  filtersOpen: boolean;
+  setFiltersOpen: React.Dispatch<React.SetStateAction<boolean>>;
+};
+
+function FiltersButton(props: FiltersButtonProps) {
+  const { filtersOpen, setFiltersOpen } = props;
+
   return (
     <button
       type="button"
-      className="nutrition-navigator__floating-filters-toggle-button"
+      className={`nutrition-navigator__floating-filters-toggle-button ${filtersOpen ? 'nutrition-navigator__floating-filters-toggle-button--open' : ''}`}
+      onClick={() => setFiltersOpen((open) => !open)}
+      disabled={filtersOpen}
     >
       Filters
     </button>
@@ -50,12 +59,21 @@ export function Root() {
   };
 
   return (
-    <div className="nutrition-navigator__map">
+    <div
+      className={`nutrition-navigator__map ${filtersOpen ? 'nutrition-navigator__map--filters-open' : ''}`}
+    >
       {isLoading ? (
         <Loading />
       ) : 'success' === status ? (
         <>
-          <MapFilters {...filterProps} />
+          {/**
+           * TODO: send down filtersOpen down to new button and update UI on the top level button level
+           */}
+          <MapFilters
+            {...filterProps}
+            showFilters={filtersOpen}
+            setShowFilters={setFiltersOpen}
+          />
           <FiltersButton {...{ filtersOpen, setFiltersOpen }} />
           <LocationsResults locations={filteredProgramsData.filteredPrograms} />
           <Map

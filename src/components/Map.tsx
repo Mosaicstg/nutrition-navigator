@@ -64,7 +64,7 @@ const Map = (props: MapProps) => {
 
   const mapContainerProps: MapContainerProps = {
     scrollWheelZoom: false,
-    style: { height: 650 },
+    // style: { height: 700 },
     attributionControl: false,
     maxZoom: 15,
     id: 'map-container'
@@ -85,6 +85,8 @@ const Map = (props: MapProps) => {
     <MapContainer
       {...mapContainerProps}
       className="nutrition-navigator__map-container"
+      // TODO: check if we really want to remove zoomControl from map
+      zoomControl={false}
     >
       <TileLayer
         url="https://api.mapbox.com/styles/v1/mapbox/streets-v12/tiles/{z}/{x}/{y}?access_token={accessToken}"

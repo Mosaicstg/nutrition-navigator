@@ -1,4 +1,4 @@
-@use "mixins" as *;
+@use 'mixins' as *;
 
 .nutrition-navigator__checkbox-items-wrap {
   display: grid;
@@ -18,14 +18,6 @@
 
   @include app-scope-css-properties() {
     padding: 0;
-
-    @include media-breakpoint-up(md) {
-      padding-left: 15px;
-    }
-
-    @include media-breakpoint-up(lg) {
-      padding-left: 16px;
-    }
   }
 }
 
