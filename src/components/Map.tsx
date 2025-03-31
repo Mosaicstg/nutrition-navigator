@@ -82,7 +82,10 @@ const Map = (props: MapProps) => {
   }
 
   return (
-    <MapContainer {...mapContainerProps}>
+    <MapContainer
+      {...mapContainerProps}
+      className="nutrition-navigator__map-container"
+    >
       <TileLayer
         url="https://api.mapbox.com/styles/v1/mapbox/streets-v12/tiles/{z}/{x}/{y}?access_token={accessToken}"
         accessToken={config.mapBoxToken}

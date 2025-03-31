@@ -20,9 +20,10 @@ type MapFiltersProps = {
   venues: Array<string>;
   audiences: Array<string>;
   organizationName: string;
+  showFilters?: boolean;
 };
 
-const MapFilters = (props: MapFiltersProps) => {
+export const MapFilters = (props: MapFiltersProps) => {
   const {
     address: defaultAddress,
     regions: defaultRegions,
@@ -381,5 +382,3 @@ const MapFilters = (props: MapFiltersProps) => {
     </Form>
   );
 };
-
-export default MapFilters;

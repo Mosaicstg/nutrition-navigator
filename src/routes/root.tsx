@@ -3,13 +3,13 @@
 // - Update tests to reflect new hooks and functions
 
 import { useLoaderData } from 'react-router';
-import { type RootLoader } from './loader';
+import type { RootLoader } from './loader';
 
 // Components
 import Loading from '~/components/Loading';
 import LocationsResults from '~/components/LocationsResults';
 import Map from '~/components/Map';
-import MapFilters from '~/components/MapFilters';
+import { MapFilters } from '~/components/MapFilters';
 
 // Hooks
 import { useFilteredPrograms } from './use-filtered-programs';
@@ -17,6 +17,18 @@ import { useFilteredPrograms } from './use-filtered-programs';
 // CSS
 import 'leaflet/dist/leaflet.css';
 import '~/index.scss';
+import React from 'react';
+
+function FiltersButton() {
+  return (
+    <button
+      type="button"
+      className="nutrition-navigator__floating-filters-toggle-button"
+    >
+      Filters
+    </button>
+  );
+}
 
 export function Root() {
   const data = useLoaderData<RootLoader>();
@@ -25,6 +37,7 @@ export function Root() {
     status,
     isLoading
   } = useFilteredPrograms(data);
+  const [filtersOpen, setFiltersOpen] = React.useState(false);
 
   const filterProps = {
     address: data?.address || '',
@@ -37,12 +50,13 @@ export function Root() {
   };
 
   return (
-    <div className={'nutrition-navigator__map'}>
-      <MapFilters {...filterProps} />
+    <div className="nutrition-navigator__map">
       {isLoading ? (
         <Loading />
       ) : 'success' === status ? (
         <>
+          <MapFilters {...filterProps} />
+          <FiltersButton {...{ filtersOpen, setFiltersOpen }} />
           <LocationsResults locations={filteredProgramsData.filteredPrograms} />
           <Map
             filteredLocations={filteredProgramsData.filteredPrograms}

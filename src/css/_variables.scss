@@ -23,6 +23,7 @@ $green: #8dc63f;
 $orange: #f15d22;
 $purple: #aa1a72;
 $blue: #101d3d;
+$gray: #aaa;
 $dark-gray: #403c3b;
 $red: #ff3232;
 
@@ -163,6 +164,7 @@ $breakpoints: (
   --nutrition-navigator-yellow: #{$sun-orange};
   --nutrition-navigator-purple: #{$purple};
   --nutrition-navigator-blue: #{$blue};
+  --nutrition-navigator-gray: #{$gray};
   --nutrition-navigator-dark-gray: #{$dark-gray};
   --nutrition-navigator-red: #{$red};
 }
