@@ -22,6 +22,8 @@
   transition: all 0.2s ease-in-out;
 
   .nutrition-navigator__map--filters-open & {
+    border: 1px solid var(--nutrition-navigator-gray);
+    border-right: 0;
     border-top-left-radius: 20px;
     border-bottom-left-radius: 20px;
   }
