@@ -73,6 +73,7 @@ export function Root() {
             {...filterProps}
             showFilters={filtersOpen}
             setShowFilters={setFiltersOpen}
+            programs={filteredProgramsData.programs}
           />
           <FiltersButton {...{ filtersOpen, setFiltersOpen }} />
           <LocationsResults locations={filteredProgramsData.filteredPrograms} />

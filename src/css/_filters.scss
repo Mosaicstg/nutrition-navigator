@@ -198,7 +198,8 @@
     position: sticky;
     z-index: 2;
     bottom: 0;
-    grid-gap: 18px;
+    grid-gap: 30px 18px;
+    grid-template-columns: 1fr 1fr;
     padding: 20px 40px 35px;
     background: var(--nutrition-navigator-white);
   }
@@ -246,6 +247,25 @@
     max-height: 100%;
     padding: 0 40px 35px;
     overflow-y: auto;
+  }
+
+  &::-webkit-scrollbar {
+    appearance: none;
+    width: 10px;
+  }
+
+  &::-webkit-scrollbar-track {
+    --nutrition-navigator-scrollbar-track-color: #d9d9d9;
+    border: none;
+    border-radius: 10px;
+
+    background: var(--nutrition-navigator-scrollbar-track-color);
+  }
+
+  &::-webkit-scrollbar-thumb {
+    --nutrition-navigator-scrollbar-thumb-color: #676767;
+    border-radius: 10px;
+    background: var(--nutrition-navigator-scrollbar-thumb-color);
   }
 }
 
@@ -323,6 +343,7 @@
   summary {
     display: flex;
     grid-gap: 7px;
+    justify-content: space-between;
     list-style: none;
     cursor: pointer;
 
@@ -331,18 +352,28 @@
       display: none;
     }
 
-    &::before {
+    &::after {
       content: '';
       display: block;
-      padding: 5px;
+      padding: 10px 6px;
+      transition: all 0.25s ease-in-out;
       background-image: url("data:image/svg+xml,%3Csvg width='9' height='10' viewBox='0 0 9 10' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M8.07422 4.35321C8.74089 4.73811 8.74089 5.70036 8.07422 6.08526L2.07422 9.54936C1.40755 9.93426 0.574219 9.45314 0.574219 8.68334V1.75514C0.574219 0.985337 1.40755 0.504211 2.07422 0.889111L8.07422 4.35321Z' fill='%23F27024'/%3E%3C/svg%3E%0A");
       background-repeat: no-repeat;
       background-position: center;
       background-size: 100%;
+      rotate: 90deg;
     }
 
     + * {
       margin-top: 10px;
+    }
+  }
+
+  &[open] {
+    summary {
+      &::after {
+        rotate: -90deg;
+      }
     }
   }
 
@@ -380,7 +411,7 @@
   grid-template-columns: repeat(auto-fit, minmax(min(30ch, 100%), 1fr));
 
   @include media-breakpoint-up(md) {
-    grid-gap: 30px 15px;
+    grid-gap: 20px 15px;
   }
 
   @include media-breakpoint-up(lg) {
@@ -463,5 +494,21 @@
   &[open] {
     overflow: hidden;
     contain-intrinsic-size: auto 300px;
+  }
+}
+
+.nutrition-navigator__no-results {
+  grid-column: span 2;
+  text-align: left;
+
+  @include app-scope-css-properties() {
+    color: var(--nutrition-navigator-dark-gray);
+    font-family: var(--nutrition-navigator-body-font);
+    letter-spacing: 0;
+
+    span {
+      color: var(--nutrition-navigator-orange);
+      font-weight: bold;
+    }
   }
 }

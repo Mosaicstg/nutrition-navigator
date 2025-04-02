@@ -11,6 +11,7 @@ import { useLanguages } from '~/hooks/useLanguages/useLanguages.tsx';
 
 // Components
 import LabelCheckBox from './LabelCheckBox.tsx';
+import type { Program } from '~/routes/schema.ts';
 
 type MapFiltersProps = {
   address: string;
@@ -22,6 +23,7 @@ type MapFiltersProps = {
   organizationName: string;
   showFilters: boolean;
   setShowFilters: (show: boolean) => void;
+  programs?: Array<Program>;
 };
 
 export const MapFilters = (props: MapFiltersProps) => {
@@ -341,6 +343,14 @@ export const MapFilters = (props: MapFiltersProps) => {
           </div>
         </div>
         <div className="nutrition-navigator__filters-reset-submit-button-group">
+          <div className="nutrition-navigator__no-results">
+            <span>No results found.</span>{' '}
+            <em>
+              Please adjust your filter parameters to broaden the search
+              criteria
+            </em>
+            .
+          </div>
           <button
             className={`nutrition-navigator__button nutrition-navigator__button--outline ${
               isFiltersOpen ? 'nutrition-navigator__button--white' : ''
