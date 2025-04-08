@@ -52,6 +52,16 @@ export const MapFilters = (props: MapFiltersProps) => {
   const shouldBeUnFocusableWhenFiltersAreClosedOnDesktop =
     !shouldBeVisibleOnDesktop;
 
+  const filtersButtonRef = React.useRef<HTMLButtonElement>(null);
+
+  React.useEffect(() => {
+    if (!filtersButtonRef.current) return;
+
+    if (shouldBeVisibleOnDesktop) {
+      filtersButtonRef.current.focus();
+    }
+  }, [shouldBeVisibleOnDesktop, filtersButtonRef]);
+
   const onSearchButtonClick = () => {
     // Close Filters window
     setShowFilters(false);
@@ -141,6 +151,7 @@ export const MapFilters = (props: MapFiltersProps) => {
             }`}
           >
             <button
+              ref={filtersButtonRef}
               className="nutrition-navigator__button nutrition-navigator__filters-toggle-button"
               onClick={() => setShowFilters(!isFiltersOpen)}
               type="button"
