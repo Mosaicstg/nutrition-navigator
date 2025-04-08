@@ -26,9 +26,21 @@ type FiltersButtonProps = {
 
 function FiltersButton(props: FiltersButtonProps) {
   const { filtersOpen, setFiltersOpen } = props;
+  const buttonRef = React.useRef<HTMLButtonElement>(null);
+
+  React.useEffect(() => {
+    if (!buttonRef.current) return;
+
+    if (!filtersOpen && window.innerWidth > 758) {
+      // Focus the button ON DESKTOP when the user closes the
+      // filters sidebar form
+      buttonRef.current.focus();
+    }
+  }, [filtersOpen, buttonRef]);
 
   return (
     <button
+      ref={buttonRef}
       type="button"
       className={`nutrition-navigator__floating-filters-toggle-button ${filtersOpen ? 'nutrition-navigator__floating-filters-toggle-button--open' : ''}`}
       onClick={() => setFiltersOpen((open) => !open)}
