@@ -58,6 +58,8 @@ export const MapFilters = (props: MapFiltersProps) => {
     if (!filtersButtonRef.current) return;
 
     if (shouldBeVisibleOnDesktop) {
+      // Focus the button ON DESKTOP when the user opens the
+      // filters sidebar form
       filtersButtonRef.current.focus();
     }
   }, [shouldBeVisibleOnDesktop, filtersButtonRef]);
