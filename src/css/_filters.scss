@@ -8,7 +8,7 @@
 
   @include media-breakpoint-up(md) {
     width: 0;
-    height: 750px;
+    height: var(--nutrition-navigator-height);
     overflow: hidden;
     opacity: 0;
   }
@@ -48,7 +48,7 @@
   }
 
   @include media-breakpoint-up(md) {
-    height: 750px;
+    height: var(--nutrition-navigator-height);
   }
 
   @include media-breakpoint-up(lg) {
@@ -71,6 +71,7 @@
     grid-gap: 20px;
     flex-flow: row nowrap;
     align-items: center;
+    justify-content: space-between;
     padding-top: 18px;
     padding-right: 40px;
     padding-bottom: 25px;
@@ -139,6 +140,7 @@
       background-repeat: no-repeat;
       background-position: center;
       background-size: 100%;
+      rotate: -90deg;
     }
 
     @include media-breakpoint-down(md) {
@@ -152,6 +154,12 @@
       font-weight: $font-weight-bold;
       letter-spacing: 0;
       text-transform: uppercase;
+    }
+
+    &:focus-visible {
+      border-radius: 1px;
+      outline: 1px solid;
+      outline-offset: 8px;
     }
   }
 
@@ -200,7 +208,7 @@
     bottom: 0;
     grid-gap: 30px 18px;
     grid-template-columns: 1fr 1fr;
-    padding: 20px 40px 35px;
+    padding: 0 40px 35px;
     background: var(--nutrition-navigator-white);
   }
 }
@@ -245,7 +253,7 @@
   @include media-breakpoint-up(lg) {
     width: 100%;
     max-height: 100%;
-    padding: 0 40px 35px;
+    padding: 0 40px 30px;
     overflow-y: auto;
   }
 
@@ -290,6 +298,8 @@
 
   @include media-breakpoint-up(lg) {
     grid-gap: 30px;
+    margin-bottom: 0;
+    border: 0;
   }
 }
 
@@ -312,11 +322,8 @@
 
   h2 {
     margin: 0;
-
-    @include media-breakpoint-down(md) {
-      --nutrition-navigator-heading-h2-font-size: var(--nutrition-navigator-heading-h3-font-size);
-      --nutrition-navigator-heading-h2-line-height: var(--nutrition-navigator-heading-h3-line-height);
-    }
+    --nutrition-navigator-heading-h2-font-size: var(--nutrition-navigator-heading-h3-font-size);
+    --nutrition-navigator-heading-h2-line-height: var(--nutrition-navigator-heading-h3-line-height);
 
     @include media-breakpoint-up(lg) {
       min-width: 250px;
@@ -328,7 +335,6 @@
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
   max-width: 100%;
-  font-weight: 700;
 
   @include media-breakpoint-up(md) {
     grid-gap: 20px;
@@ -387,7 +393,7 @@
 .nutrition-navigator__filter-details--org-name {
   summary {
     @include media-breakpoint-up(lg) {
-      margin-bottom: 15px;
+      /* margin-bottom: 15px; */
     }
   }
 }
@@ -403,6 +409,12 @@
   > h2 {
     margin: 0;
   }
+
+  @include media-breakpoint-up(lg) {
+    margin: 0;
+    padding-top: 35px;
+    border: 0;
+  }
 }
 
 .nutrition-navigator__filters-grid {
@@ -415,7 +427,7 @@
   }
 
   @include media-breakpoint-up(lg) {
-    padding-top: 10px;
+    /* padding-top: 10px; */
   }
 }
 
@@ -425,11 +437,9 @@
   position: relative;
 
   @include media-breakpoint-up(md) {
-    padding-left: 15px;
   }
 
   @include media-breakpoint-up(md) {
-    padding-left: 16px;
   }
 
   input[type='text'] {
@@ -486,7 +496,6 @@
   flex-flow: column;
 
   @include media-breakpoint-up(lg) {
-    grid-gap: 30px;
   }
 }
 

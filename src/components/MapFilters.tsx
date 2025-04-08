@@ -216,9 +216,9 @@ export const MapFilters = (props: MapFiltersProps) => {
             </ul>
           </div>
           <div className="nutrition-navigator__sub-filters">
-            <h2 className="nutrition-navigator__heading--h3">
+            {/**h2 className="nutrition-navigator__heading--h3">
               More ways to search:
-            </h2>
+            </h2>**/}
             <div className="nutrition-navigator__filters-grid">
               <div className="nutrition-navigator__filter-column">
                 <details className="nutrition-navigator__filter-details">
