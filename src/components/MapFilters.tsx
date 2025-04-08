@@ -48,6 +48,9 @@ export const MapFilters = (props: MapFiltersProps) => {
   const { data: regions, status: regionsStatus } = useRegions();
 
   const isFiltersOpen = showFilters;
+  const shouldBeVisibleOnDesktop = isFiltersOpen && window.innerWidth > 768;
+  const shouldBeUnFocusableWhenFiltersAreClosedOnDesktop =
+    !shouldBeVisibleOnDesktop;
 
   const onSearchButtonClick = () => {
     // Close Filters window
@@ -101,6 +104,7 @@ export const MapFilters = (props: MapFiltersProps) => {
         showFilters ? 'nutrition-navigator__filters-wrap--open' : ''
       }`}
       onSubmit={onFormSubmit}
+      aria-hidden={!isFiltersOpen && window.innerWidth > 768}
     >
       <div className="nutrition-navigator__filters-header-wrap">
         <div className="nutrition-navigator__filter-header-address-filters-wrap">
@@ -123,6 +127,10 @@ export const MapFilters = (props: MapFiltersProps) => {
               }`}
               defaultValue={defaultAddress}
               autoComplete="true"
+              tabIndex={
+                shouldBeUnFocusableWhenFiltersAreClosedOnDesktop ? -1 : 0
+              }
+              disabled={shouldBeUnFocusableWhenFiltersAreClosedOnDesktop}
             />
           </div>
           <div
@@ -140,6 +148,10 @@ export const MapFilters = (props: MapFiltersProps) => {
               aria-expanded={isFiltersOpen}
               aria-controls="nutrition-navigator-filters"
               id="toggle-filters"
+              tabIndex={
+                shouldBeUnFocusableWhenFiltersAreClosedOnDesktop ? -1 : 0
+              }
+              disabled={shouldBeUnFocusableWhenFiltersAreClosedOnDesktop}
             >
               Filters
             </button>
@@ -150,7 +162,6 @@ export const MapFilters = (props: MapFiltersProps) => {
           className="nutrition-navigator__filters-body-wrap"
           aria-labelledby="toggle-filters"
           aria-hidden={!isFiltersOpen}
-          // hidden={!isFiltersOpen}
         >
           <div className="nutrition-navigator__regions-body-wrap">
             <h2 className="nutrition-navigator__heading--h2">
@@ -169,6 +180,14 @@ export const MapFilters = (props: MapFiltersProps) => {
                           id: slug,
                           defaultChecked: defaultRegions.includes(slug)
                         }}
+                        tabIndex={
+                          shouldBeUnFocusableWhenFiltersAreClosedOnDesktop
+                            ? -1
+                            : 0
+                        }
+                        disabled={
+                          shouldBeUnFocusableWhenFiltersAreClosedOnDesktop
+                        }
                       />
                     </li>
                   );
@@ -196,6 +215,7 @@ export const MapFilters = (props: MapFiltersProps) => {
                               'nutrition-navigator__checkbox-label-icon nutrition-navigator__program-type-icon'
                             }
                             alt={`Icon for ${decode(name)}`}
+                            aria-hidden="true"
                           />
                         ) : (
                           ''
@@ -209,6 +229,14 @@ export const MapFilters = (props: MapFiltersProps) => {
                         id={slug}
                         className="nutrition-navigator__checkbox"
                         defaultChecked={defaultProgramTypes.includes(slug)}
+                        tabIndex={
+                          shouldBeUnFocusableWhenFiltersAreClosedOnDesktop
+                            ? -1
+                            : 0
+                        }
+                        disabled={
+                          shouldBeUnFocusableWhenFiltersAreClosedOnDesktop
+                        }
                       />
                     </li>
                   );
@@ -221,7 +249,12 @@ export const MapFilters = (props: MapFiltersProps) => {
             </h2>**/}
             <div className="nutrition-navigator__filters-grid">
               <div className="nutrition-navigator__filter-column">
-                <details className="nutrition-navigator__filter-details">
+                <details
+                  className="nutrition-navigator__filter-details"
+                  tabIndex={
+                    shouldBeUnFocusableWhenFiltersAreClosedOnDesktop ? -1 : 0
+                  }
+                >
                   <summary>
                     <h5 className="nutrition-navigator__heading--h5">
                       By Language Offered
@@ -253,7 +286,12 @@ export const MapFilters = (props: MapFiltersProps) => {
                 </details>
               </div>
               <div className="nutrition-navigator__filter-column">
-                <details className="nutrition-navigator__filter-details">
+                <details
+                  className="nutrition-navigator__filter-details"
+                  tabIndex={
+                    shouldBeUnFocusableWhenFiltersAreClosedOnDesktop ? -1 : 0
+                  }
+                >
                   <summary>
                     <h5 className="nutrition-navigator__heading--h5">
                       By Venue
@@ -285,7 +323,12 @@ export const MapFilters = (props: MapFiltersProps) => {
                 </details>
               </div>
               <div className="nutrition-navigator__filter-column">
-                <details className="nutrition-navigator__filter-details">
+                <details
+                  className="nutrition-navigator__filter-details"
+                  tabIndex={
+                    shouldBeUnFocusableWhenFiltersAreClosedOnDesktop ? -1 : 0
+                  }
+                >
                   <summary>
                     <h5 className="nutrition-navigator__heading--h5">
                       By Audience
@@ -315,7 +358,12 @@ export const MapFilters = (props: MapFiltersProps) => {
                       })}
                   </ul>
                 </details>
-                <details className="nutrition-navigator__filter-details nutrition-navigator__filter-details--org-name">
+                <details
+                  className="nutrition-navigator__filter-details nutrition-navigator__filter-details--org-name"
+                  tabIndex={
+                    shouldBeUnFocusableWhenFiltersAreClosedOnDesktop ? -1 : 0
+                  }
+                >
                   <summary>
                     <h5 className="nutrition-navigator__heading--h5">
                       By Organization
@@ -357,6 +405,8 @@ export const MapFilters = (props: MapFiltersProps) => {
             }`}
             onClick={onFormReset}
             type="reset"
+            tabIndex={shouldBeUnFocusableWhenFiltersAreClosedOnDesktop ? -1 : 0}
+            disabled={shouldBeUnFocusableWhenFiltersAreClosedOnDesktop}
           >
             Reset
           </button>
@@ -366,6 +416,8 @@ export const MapFilters = (props: MapFiltersProps) => {
             }`}
             onClick={onSearchButtonClick}
             type="submit"
+            tabIndex={shouldBeUnFocusableWhenFiltersAreClosedOnDesktop ? -1 : 0}
+            disabled={shouldBeUnFocusableWhenFiltersAreClosedOnDesktop}
           >
             Search
           </button>

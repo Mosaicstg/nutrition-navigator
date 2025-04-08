@@ -33,6 +33,7 @@ function FiltersButton(props: FiltersButtonProps) {
       className={`nutrition-navigator__floating-filters-toggle-button ${filtersOpen ? 'nutrition-navigator__floating-filters-toggle-button--open' : ''}`}
       onClick={() => setFiltersOpen((open) => !open)}
       disabled={filtersOpen}
+      tabIndex={0}
     >
       Filters
     </button>
