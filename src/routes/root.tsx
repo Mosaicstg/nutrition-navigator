@@ -1,7 +1,3 @@
-// TODO::
-// - Add better Error handling
-// - Update tests to reflect new hooks and functions
-
 import { useLoaderData } from 'react-router';
 import type { RootLoader } from './loader';
 
