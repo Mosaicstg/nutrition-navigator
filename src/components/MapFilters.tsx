@@ -36,7 +36,8 @@ export const MapFilters = (props: MapFiltersProps) => {
     audiences: defaultAudiences,
     organizationName: defaultOrganizationName,
     showFilters,
-    setShowFilters
+    setShowFilters,
+    programs
   } = props;
   const location = useLocation();
   const submit = useSubmit();
@@ -140,7 +141,9 @@ export const MapFilters = (props: MapFiltersProps) => {
               defaultValue={defaultAddress}
               autoComplete="true"
               tabIndex={
-                shouldBeUnFocusableWhenFiltersAreClosedOnDesktop ? -1 : 0
+                shouldBeUnFocusableWhenFiltersAreClosedOnDesktop
+                  ? -1
+                  : undefined
               }
               disabled={shouldBeUnFocusableWhenFiltersAreClosedOnDesktop}
             />
@@ -162,7 +165,9 @@ export const MapFilters = (props: MapFiltersProps) => {
               aria-controls="nutrition-navigator-filters"
               id="toggle-filters"
               tabIndex={
-                shouldBeUnFocusableWhenFiltersAreClosedOnDesktop ? -1 : 0
+                shouldBeUnFocusableWhenFiltersAreClosedOnDesktop
+                  ? -1
+                  : undefined
               }
               disabled={shouldBeUnFocusableWhenFiltersAreClosedOnDesktop}
             >
@@ -196,7 +201,7 @@ export const MapFilters = (props: MapFiltersProps) => {
                         tabIndex={
                           shouldBeUnFocusableWhenFiltersAreClosedOnDesktop
                             ? -1
-                            : 0
+                            : undefined
                         }
                         disabled={
                           shouldBeUnFocusableWhenFiltersAreClosedOnDesktop
@@ -245,7 +250,7 @@ export const MapFilters = (props: MapFiltersProps) => {
                         tabIndex={
                           shouldBeUnFocusableWhenFiltersAreClosedOnDesktop
                             ? -1
-                            : 0
+                            : undefined
                         }
                         disabled={
                           shouldBeUnFocusableWhenFiltersAreClosedOnDesktop
@@ -265,7 +270,9 @@ export const MapFilters = (props: MapFiltersProps) => {
                 <details
                   className="nutrition-navigator__filter-details"
                   tabIndex={
-                    shouldBeUnFocusableWhenFiltersAreClosedOnDesktop ? -1 : 0
+                    shouldBeUnFocusableWhenFiltersAreClosedOnDesktop
+                      ? -1
+                      : undefined
                   }
                 >
                   <summary>
@@ -302,7 +309,9 @@ export const MapFilters = (props: MapFiltersProps) => {
                 <details
                   className="nutrition-navigator__filter-details"
                   tabIndex={
-                    shouldBeUnFocusableWhenFiltersAreClosedOnDesktop ? -1 : 0
+                    shouldBeUnFocusableWhenFiltersAreClosedOnDesktop
+                      ? -1
+                      : undefined
                   }
                 >
                   <summary>
@@ -339,7 +348,9 @@ export const MapFilters = (props: MapFiltersProps) => {
                 <details
                   className="nutrition-navigator__filter-details"
                   tabIndex={
-                    shouldBeUnFocusableWhenFiltersAreClosedOnDesktop ? -1 : 0
+                    shouldBeUnFocusableWhenFiltersAreClosedOnDesktop
+                      ? -1
+                      : undefined
                   }
                 >
                   <summary>
@@ -374,7 +385,9 @@ export const MapFilters = (props: MapFiltersProps) => {
                 <details
                   className="nutrition-navigator__filter-details nutrition-navigator__filter-details--org-name"
                   tabIndex={
-                    shouldBeUnFocusableWhenFiltersAreClosedOnDesktop ? -1 : 0
+                    shouldBeUnFocusableWhenFiltersAreClosedOnDesktop
+                      ? -1
+                      : undefined
                   }
                 >
                   <summary>
@@ -404,21 +417,25 @@ export const MapFilters = (props: MapFiltersProps) => {
           </div>
         </div>
         <div className="nutrition-navigator__filters-reset-submit-button-group">
-          <div className="nutrition-navigator__no-results">
-            <span>No results found.</span>{' '}
-            <em>
-              Please adjust your filter parameters to broaden the search
-              criteria
-            </em>
-            .
-          </div>
+          {programs?.length === 0 ? (
+            <div className="nutrition-navigator__no-results">
+              <span>No results found.</span>{' '}
+              <em>
+                Please adjust your filter parameters to broaden the search
+                criteria
+              </em>
+              .
+            </div>
+          ) : null}
           <button
             className={`nutrition-navigator__button nutrition-navigator__button--outline ${
               isFiltersOpen ? 'nutrition-navigator__button--white' : ''
             }`}
             onClick={onFormReset}
             type="reset"
-            tabIndex={shouldBeUnFocusableWhenFiltersAreClosedOnDesktop ? -1 : 0}
+            tabIndex={
+              shouldBeUnFocusableWhenFiltersAreClosedOnDesktop ? -1 : undefined
+            }
             disabled={shouldBeUnFocusableWhenFiltersAreClosedOnDesktop}
           >
             Reset
@@ -429,7 +446,9 @@ export const MapFilters = (props: MapFiltersProps) => {
             }`}
             onClick={onSearchButtonClick}
             type="submit"
-            tabIndex={shouldBeUnFocusableWhenFiltersAreClosedOnDesktop ? -1 : 0}
+            tabIndex={
+              shouldBeUnFocusableWhenFiltersAreClosedOnDesktop ? -1 : undefined
+            }
             disabled={shouldBeUnFocusableWhenFiltersAreClosedOnDesktop}
           >
             Search

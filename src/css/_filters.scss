@@ -49,6 +49,7 @@
   }
 
   @include media-breakpoint-up(lg) {
+    grid-template-rows: auto 1fr auto;
     padding: 0;
   }
 
