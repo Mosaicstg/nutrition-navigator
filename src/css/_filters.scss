@@ -12,9 +12,6 @@
     overflow: hidden;
     opacity: 0;
   }
-
-  @include media-breakpoint-up(lg) {
-  }
 }
 
 .nutrition-navigator__filters-wrap--open {
@@ -97,9 +94,6 @@
     background-repeat: no-repeat;
     background-position: center;
     background-size: 100%;
-  }
-
-  @include media-breakpoint-up(lg) {
   }
 
   input {
@@ -239,7 +233,10 @@
 }
 
 .nutrition-navigator__filters-body-wrap {
+  display: grid;
   z-index: 2;
+  grid-gap: 20px;
+  grid-template-columns: 1fr;
   padding: 35px 30px;
   border-radius: 5px;
   background: var(--nutrition-navigator-white);
@@ -251,6 +248,7 @@
   }
 
   @include media-breakpoint-up(lg) {
+    grid-gap: 30px;
     width: 100%;
     max-height: 100%;
     padding: 0 40px 30px;
@@ -281,9 +279,6 @@
   display: grid;
   grid-gap: 20px;
   grid-template-columns: 1fr;
-  margin-bottom: 30px;
-  padding-bottom: 30px;
-  border-bottom: 0.2px solid var(--nutrition-navigator-dark-gray);
 
   h2 {
     margin: 0;
@@ -297,15 +292,14 @@
   }
 
   @include media-breakpoint-up(lg) {
-    grid-gap: 30px;
-    margin-bottom: 0;
-    border: 0;
+    grid-gap: 22px;
   }
 }
 
 .nutrition-navigator__regions {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  grid-gap: 10px;
+  grid-template-columns: 1fr;
   max-width: 100%;
 
   @include media-breakpoint-up(lg) {
@@ -390,30 +384,13 @@
   }
 }
 
-.nutrition-navigator__filter-details--org-name {
-  summary {
-    @include media-breakpoint-up(lg) {
-      /* margin-bottom: 15px; */
-    }
-  }
-}
-
 .nutrition-navigator__sub-filters {
   display: flex;
   grid-gap: 20px;
   flex-flow: column;
-  margin-top: 30px;
-  padding-top: 30px;
-  border-top: 0.2px solid var(--nutrition-navigator-dark-gray);
 
   > h2 {
     margin: 0;
-  }
-
-  @include media-breakpoint-up(lg) {
-    margin: 0;
-    padding-top: 35px;
-    border: 0;
   }
 }
 
@@ -425,22 +402,12 @@
   @include media-breakpoint-up(md) {
     grid-gap: 20px 15px;
   }
-
-  @include media-breakpoint-up(lg) {
-    /* padding-top: 10px; */
-  }
 }
 
 .nutrition-navigator__organization-name-search-field-wrap {
   --input-search-field-icon-url: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='21' viewBox='0 0 20 21' fill='none'%3E%3Cpath d='M19.7319 17.6756L15.9418 13.8854C15.7707 13.7144 15.5388 13.6193 15.2955 13.6193H14.6759C15.7251 12.2774 16.3486 10.5895 16.3486 8.75338C16.3486 4.38542 12.8093 0.846191 8.44137 0.846191C4.07341 0.846191 0.53418 4.38542 0.53418 8.75338C0.53418 13.1213 4.07341 16.6606 8.44137 16.6606C10.2775 16.6606 11.9654 16.0371 13.3073 14.9879V15.6075C13.3073 15.8508 13.4024 16.0827 13.5734 16.2538L17.3636 20.0439C17.7209 20.4013 18.2987 20.4013 18.6523 20.0439L19.7281 18.9681C20.0855 18.6108 20.0855 18.0329 19.7319 17.6756ZM8.44137 13.6193C5.75368 13.6193 3.57541 11.4449 3.57541 8.75338C3.57541 6.0657 5.74988 3.88742 8.44137 3.88742C11.129 3.88742 13.3073 6.06189 13.3073 8.75338C13.3073 11.4411 11.1329 13.6193 8.44137 13.6193Z' fill='%23403c3b'/%3E%3C/svg%3E");
 
   position: relative;
-
-  @include media-breakpoint-up(md) {
-  }
-
-  @include media-breakpoint-up(md) {
-  }
 
   input[type='text'] {
     width: 100%;
@@ -494,9 +461,6 @@
   display: flex;
   grid-gap: 20px;
   flex-flow: column;
-
-  @include media-breakpoint-up(lg) {
-  }
 }
 
 .nutrition-navigator__filter-details {
