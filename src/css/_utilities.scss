@@ -1,5 +1,5 @@
-@use "variables" as *;
-@use "mixins" as *;
+@use 'variables' as *;
+@use 'mixins' as *;
 
 .nutrition-navigator__hide {
   display: none;
@@ -125,7 +125,7 @@
 
   &--green {
     @include app-scope-css-properties() {
-      border-color: var(--nutrition-navigator-dark-gray);
+      border-color: var(--nutrition-navigator-green);
       background: var(--nutrition-navigator-green);
       color: var(--nutrition-navigator-dark-gray);
 
@@ -152,14 +152,14 @@
       color: var(--nutrition-navigator-dark-gray);
 
       &:focus {
-        border-color: var(--nutrition-navigator-dark-gray);
+        border-color: var(--nutrition-navigator-green);
         background: var(--nutrition-navigator-green);
         color: var(--nutrition-navigator-dark-gray);
       }
 
       @media (hover: hover) {
         &:hover {
-          border-color: var(--nutrition-navigator-dark-gray);
+          border-color: var(--nutrition-navigator-green);
           background: var(--nutrition-navigator-green);
           color: var(--nutrition-navigator-dark-gray);
         }
