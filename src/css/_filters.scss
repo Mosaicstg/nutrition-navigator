@@ -18,15 +18,15 @@
   opacity: 1;
 
   @include media-breakpoint-up(md) {
-    width: 25%;
+    width: 65%;
     margin-right: 20px;
     border: 1px solid var(--nutrition-navigator-gray);
     border-left: 0;
     border-radius: 0 20px 20px 0;
   }
 
-  @include media-breakpoint-up(lg) {
-    width: 35%;
+  @include media-breakpoint-up(xl) {
+    width: 40%;
   }
 }
 
