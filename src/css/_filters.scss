@@ -68,6 +68,7 @@
   display: flex;
   grid-gap: 25px;
   flex-flow: column;
+  padding: 30px 30px 0;
 
   @include media-breakpoint-up(md) {
     grid-gap: 20px;

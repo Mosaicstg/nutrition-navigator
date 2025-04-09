@@ -50,10 +50,44 @@ export const MapFilters = (props: MapFiltersProps) => {
 
   const isFiltersOpen = showFilters;
   const shouldBeVisibleOnDesktop = isFiltersOpen && window.innerWidth > 768;
-  const shouldBeUnFocusableWhenFiltersAreClosedOnDesktop =
-    !shouldBeVisibleOnDesktop;
+  const [
+    shouldBeUnFocusableWhenFiltersAreClosedOnDesktop,
+    setShouldBeUnFocusableWhenFiltersAreClosedOnDesktop
+  ] = React.useState(() => !isFiltersOpen && window.innerWidth > 768);
 
   const filtersButtonRef = React.useRef<HTMLButtonElement>(null);
+
+  React.useEffect(() => {
+    setShouldBeUnFocusableWhenFiltersAreClosedOnDesktop(() => {
+      return !isFiltersOpen && window.innerWidth > 768;
+    });
+  }, [isFiltersOpen]);
+
+  React.useEffect(() => {
+    const abortController = new AbortController();
+
+    function handleResize() {
+      setShouldBeUnFocusableWhenFiltersAreClosedOnDesktop(() => {
+        console.log('hello world');
+
+        const isDesktop = window.innerWidth > 768;
+
+        if (!isDesktop) {
+          return false;
+        }
+
+        return isDesktop && !isFiltersOpen;
+      });
+    }
+    // Handle resizing event for sidebar form
+    window.addEventListener('resize', handleResize, {
+      signal: abortController.signal
+    });
+
+    return () => {
+      abortController.abort();
+    };
+  }, [setShouldBeUnFocusableWhenFiltersAreClosedOnDesktop, isFiltersOpen]);
 
   React.useEffect(() => {
     if (!filtersButtonRef.current) return;
@@ -114,7 +148,7 @@ export const MapFilters = (props: MapFiltersProps) => {
       method="get"
       action={location.pathname}
       className={`nutrition-navigator__filters-wrap ${
-        showFilters ? 'nutrition-navigator__filters-wrap--open' : ''
+        isFiltersOpen ? 'nutrition-navigator__filters-wrap--open' : ''
       }`}
       onSubmit={onFormSubmit}
       aria-hidden={!isFiltersOpen && window.innerWidth > 768}
@@ -145,7 +179,9 @@ export const MapFilters = (props: MapFiltersProps) => {
                   ? -1
                   : undefined
               }
-              disabled={shouldBeUnFocusableWhenFiltersAreClosedOnDesktop}
+              disabled={
+                shouldBeUnFocusableWhenFiltersAreClosedOnDesktop ?? undefined
+              }
             />
           </div>
           <div
