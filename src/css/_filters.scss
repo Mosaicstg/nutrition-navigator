@@ -66,6 +66,8 @@
 
 .nutrition-navigator__filter-header-address-filters-wrap {
   display: flex;
+  position: relative;
+  z-index: 3;
   grid-gap: 25px;
   flex-flow: column;
   padding: 30px 30px 0;
