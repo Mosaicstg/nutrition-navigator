@@ -15,14 +15,13 @@
 }
 
 .nutrition-navigator__filters-wrap--open {
-  opacity: 1;
-
   @include media-breakpoint-up(md) {
     width: 65%;
     margin-right: 20px;
     border: 1px solid var(--nutrition-navigator-gray);
     border-left: 0;
     border-radius: 0 20px 20px 0;
+    opacity: 1;
   }
 
   @include media-breakpoint-up(xl) {
@@ -32,9 +31,8 @@
 
 .nutrition-navigator__filters-header-wrap {
   display: grid;
-  grid-gap: 25px;
   grid-template-columns: 1fr;
-  padding: 30px;
+  overflow: hidden;
   border-radius: 5px;
   background: var(--nutrition-navigator-light-gray);
   box-shadow: 0 0 6px rgba(0, 0, 0, 0.16);
@@ -45,7 +43,9 @@
   }
 
   @include media-breakpoint-up(md) {
+    grid-gap: 25px;
     height: var(--nutrition-navigator-height);
+    padding: 30px;
   }
 
   @include media-breakpoint-up(lg) {
@@ -54,8 +54,13 @@
   }
 
   .nutrition-navigator__filters-wrap--open & {
-    background: var(--nutrition-navigator-white);
+    background: var(--nutrition-navigator-dark-gray);
     color: var(--nutrition-navigator-white);
+
+    @include media-breakpoint-up(md) {
+      background: var(--nutrition-navigator-white);
+      color: var(--nutrition-navigator-white);
+    }
   }
 }
 
@@ -63,9 +68,8 @@
   display: flex;
   grid-gap: 25px;
   flex-flow: column;
-  background: var(--nutrition-navigator-dark-gray);
 
-  @include media-breakpoint-up(lg) {
+  @include media-breakpoint-up(md) {
     grid-gap: 20px;
     flex-flow: row nowrap;
     align-items: center;
@@ -74,6 +78,7 @@
     padding-right: 40px;
     padding-bottom: 25px;
     padding-left: 40px;
+    background: var(--nutrition-navigator-dark-gray);
   }
 }
 
@@ -135,7 +140,10 @@
       background-repeat: no-repeat;
       background-position: center;
       background-size: 100%;
-      rotate: -90deg;
+
+      @include media-breakpoint-up(md) {
+        rotate: -90deg;
+      }
     }
 
     @include media-breakpoint-down(md) {
@@ -194,6 +202,7 @@
   display: grid;
   grid-gap: 15px;
   grid-template-columns: 1fr 1fr;
+  padding: 25px 30px 30px;
   text-align: center;
 
   @include media-breakpoint-up(lg) {
@@ -221,7 +230,7 @@
   }
 
   &--open {
-    padding-top: 25px;
+    padding-top: 20px;
     background: var(--nutrition-navigator-white);
     color: var(--nutrition-navigator-dark-gray);
 
@@ -234,17 +243,18 @@
 }
 
 .nutrition-navigator__filters-body-wrap {
-  display: grid;
+  display: none;
   z-index: 2;
   grid-gap: 20px;
   grid-template-columns: 1fr;
   padding: 35px 30px;
-  border-radius: 5px;
+  /* border-radius: 5px; */
   background: var(--nutrition-navigator-white);
   color: var(--nutrition-navigator-dark-gray);
   text-align: left;
 
   @include media-breakpoint-up(md) {
+    display: grid;
     padding: 40px 40px 60px;
   }
 
@@ -273,6 +283,10 @@
     --nutrition-navigator-scrollbar-thumb-color: #676767;
     border-radius: 10px;
     background: var(--nutrition-navigator-scrollbar-thumb-color);
+  }
+
+  .nutrition-navigator__filters-wrap--open & {
+    display: grid;
   }
 }
 

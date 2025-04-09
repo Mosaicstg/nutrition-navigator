@@ -3,6 +3,7 @@
 .nutrition-navigator__map-results {
   @include app-scope-css-properties() {
     display: block;
+    margin-top: 15px;
     padding: 20px;
     background: var(--nutrition-navigator-yellow);
     color: var(--nutrition-navigator-dark-gray);
