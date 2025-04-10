@@ -119,6 +119,28 @@ export const MapFilters = ({
     });
   }
 
+  const [formInert, setFormInert] = React.useState(
+    !showFilters && window.innerWidth > 992
+  );
+
+  React.useEffect(() => {
+    const abortController = new AbortController();
+
+    window.addEventListener(
+      'resize',
+      () => {
+        setFormInert(window.innerWidth > 992 && !showFilters);
+      },
+      {
+        signal: abortController.signal
+      }
+    );
+
+    return () => {
+      abortController.abort();
+    };
+  }, [showFilters]);
+
   return (
     <Form
       method="get"
@@ -127,7 +149,7 @@ export const MapFilters = ({
         isFiltersOpen ? 'nutrition-navigator__filters-wrap--open' : ''
       }`}
       onSubmit={onFormSubmit}
-      inert={!isFiltersOpen && window.innerWidth > 992}
+      inert={formInert}
     >
       <div className="nutrition-navigator__filters-header-wrap">
         <div className="nutrition-navigator__filter-header-address-filters-wrap">
