@@ -71,7 +71,7 @@ export const MapFilters = ({
   const onSearchButtonClick = () => {
     // Close Filters window
     flushSync(() => {
-      setShowFilters(false);
+      setShowFilters(() => false);
     });
 
     // Only focus the button if we're on "desktop"

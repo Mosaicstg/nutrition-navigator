@@ -35,7 +35,11 @@ function FiltersButton({
       setFiltersOpen(() => true);
     });
 
-    mobileButtonRef?.current?.focus();
+    // Wait till the next tick to focus
+    // On the next tick the filters are focusable
+    setTimeout(() => {
+      mobileButtonRef?.current?.focus();
+    });
   }
 
   return (
@@ -77,11 +81,9 @@ export function Root() {
   };
 
   React.useEffect(() => {
-    const abortController = new AbortController();
+    setFiltersFormInert(!filtersOpen && window.innerWidth > 992);
 
-    setFiltersFormInert(() => {
-      return !filtersOpen && window.innerWidth > 992;
-    });
+    const abortController = new AbortController();
 
     window.addEventListener(
       'resize',
