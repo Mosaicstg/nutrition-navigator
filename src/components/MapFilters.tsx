@@ -74,7 +74,10 @@ export const MapFilters = ({
       setShowFilters(false);
     });
 
-    desktopFiltersToggleButtonRef?.current?.focus();
+    // Only focus the button if we're on "desktop"
+    if (window.innerWidth > 768) {
+      desktopFiltersToggleButtonRef?.current?.focus();
+    }
   };
 
   function onFormSubmit(event: React.FormEvent<HTMLFormElement>) {
