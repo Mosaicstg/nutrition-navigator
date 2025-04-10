@@ -6,7 +6,7 @@
   z-index: 3;
   transition: all 0.25s ease-in-out;
 
-  @include media-breakpoint-up(md) {
+  @include media-breakpoint-up(lg) {
     width: 0;
     height: var(--nutrition-navigator-height);
     overflow: hidden;
@@ -15,7 +15,7 @@
 }
 
 .nutrition-navigator__filters-wrap--open {
-  @include media-breakpoint-up(md) {
+  @include media-breakpoint-up(lg) {
     width: 65%;
     margin-right: 20px;
     border: 1px solid var(--nutrition-navigator-gray);
@@ -42,14 +42,11 @@
     min-width: 0;
   }
 
-  @include media-breakpoint-up(md) {
+  @include media-breakpoint-up(lg) {
     grid-gap: 25px;
+    grid-template-rows: auto 1fr auto;
     height: var(--nutrition-navigator-height);
     padding: 30px;
-  }
-
-  @include media-breakpoint-up(lg) {
-    grid-template-rows: auto 1fr auto;
     padding: 0;
   }
 
@@ -57,7 +54,7 @@
     background: var(--nutrition-navigator-dark-gray);
     color: var(--nutrition-navigator-white);
 
-    @include media-breakpoint-up(md) {
+    @include media-breakpoint-up(lg) {
       background: var(--nutrition-navigator-white);
       color: var(--nutrition-navigator-white);
     }
@@ -72,7 +69,7 @@
   flex-flow: column;
   padding: 30px 30px 0;
 
-  @include media-breakpoint-up(md) {
+  @include media-breakpoint-up(lg) {
     grid-gap: 20px;
     flex-flow: row nowrap;
     align-items: center;
@@ -171,7 +168,7 @@
 
   .nutrition-navigator__filters-wrap--open & {
     @include app-scope-css-properties() {
-      @include media-breakpoint-down(md) {
+      @include media-breakpoint-down(lg) {
         &::after {
           transform: rotate(180deg);
         }
@@ -256,7 +253,7 @@
   color: var(--nutrition-navigator-dark-gray);
   text-align: left;
 
-  @include media-breakpoint-up(md) {
+  @include media-breakpoint-up(lg) {
     display: grid;
     padding: 40px 40px 60px;
   }
@@ -266,6 +263,7 @@
     width: 100%;
     max-height: 100%;
     padding: 0 40px 30px;
+    overflow: hidden;
     overflow-y: auto;
   }
 

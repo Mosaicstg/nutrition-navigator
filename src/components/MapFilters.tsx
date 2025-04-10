@@ -63,7 +63,7 @@ export const MapFilters = ({
       });
     });
 
-    if (!nextValue && window.innerWidth > 768) {
+    if (!nextValue && window.innerWidth > 992) {
       desktopFiltersToggleButtonRef?.current?.focus();
     }
   }
@@ -75,7 +75,7 @@ export const MapFilters = ({
     });
 
     // Only focus the button if we're on "desktop"
-    if (window.innerWidth > 768) {
+    if (window.innerWidth > 992) {
       desktopFiltersToggleButtonRef?.current?.focus();
     }
   };
@@ -127,7 +127,7 @@ export const MapFilters = ({
         isFiltersOpen ? 'nutrition-navigator__filters-wrap--open' : ''
       }`}
       onSubmit={onFormSubmit}
-      inert={!isFiltersOpen && window.innerWidth > 768}
+      inert={!isFiltersOpen && window.innerWidth > 992}
     >
       <div className="nutrition-navigator__filters-header-wrap">
         <div className="nutrition-navigator__filter-header-address-filters-wrap">
