@@ -11,6 +11,10 @@ const fetchAllLanguages = (): Promise<Array<Language>> => {
   );
 };
 
+export const languagesQueryKeys = {
+  all: ['allLanguages'] as const
+};
+
 export const useLanguages = () => {
   return useQuery({
     queryKey: ['allLanguages'],

@@ -4,7 +4,7 @@ import { RouterProvider } from 'react-router';
 import { router } from '~/routes';
 import { queryClient } from '~/query-client';
 import { QueryClientProvider } from '@tanstack/react-query';
-import { allRegionsQueryKeys } from '~/hooks/useRegions/useRegions';
+import { regionsQueryKeys } from '~/hooks/useRegions/useRegions';
 
 type TestContextWithScreen = TestContext & { screen: RenderResult };
 
@@ -51,7 +51,7 @@ describe('App', () => {
 
   test<TestContextWithScreen>('Filter by region', async ({ screen }) => {
     // We have to wait til the Regions query has resolved in order to select the region checkbox
-    await queryClient.prefetchQuery({ queryKey: allRegionsQueryKeys.all });
+    await queryClient.prefetchQuery({ queryKey: regionsQueryKeys.all });
 
     const toggleFilterButton = screen.getByRole('button', {
       name: 'Toggle Filters Window Open and Close'
