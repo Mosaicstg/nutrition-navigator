@@ -14,32 +14,36 @@ import { useFilteredPrograms } from './use-filtered-programs';
 import 'leaflet/dist/leaflet.css';
 import '~/index.scss';
 import React from 'react';
+import { flushSync } from 'react-dom';
 
 type FiltersButtonProps = {
   filtersOpen: boolean;
   setFiltersOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  ref: React.RefObject<HTMLButtonElement | null>;
+  mobileButtonRef?: React.RefObject<HTMLButtonElement | null>;
 };
 
-function FiltersButton(props: FiltersButtonProps) {
-  const { filtersOpen, setFiltersOpen } = props;
-  const buttonRef = React.useRef<HTMLButtonElement>(null);
+function FiltersButton({
+  filtersOpen,
+  setFiltersOpen,
+  ref,
+  mobileButtonRef
+}: FiltersButtonProps) {
+  function handleClick() {
+    // Force the UI to update first before focusing on the filters form button
+    flushSync(() => {
+      setFiltersOpen(() => true);
+    });
 
-  React.useEffect(() => {
-    if (!buttonRef.current) return;
-
-    if (!filtersOpen && window.innerWidth > 758) {
-      // Focus the button ON DESKTOP when the user closes the
-      // filters sidebar form
-      buttonRef.current.focus();
-    }
-  }, [filtersOpen, buttonRef]);
+    mobileButtonRef?.current?.focus();
+  }
 
   return (
     <button
-      ref={buttonRef}
+      ref={ref}
       type="button"
       className={`nutrition-navigator__floating-filters-toggle-button ${filtersOpen ? 'nutrition-navigator__floating-filters-toggle-button--open' : ''}`}
-      onClick={() => setFiltersOpen((open) => !open)}
+      onClick={handleClick}
       disabled={filtersOpen}
       tabIndex={0}
     >
@@ -56,6 +60,8 @@ export function Root() {
     isLoading
   } = useFilteredPrograms(data);
   const [filtersOpen, setFiltersOpen] = React.useState(false);
+  const desktopFiltersToggleButtonRef = React.useRef<HTMLButtonElement>(null);
+  const filtersFormToggleButtonRef = React.useRef<HTMLButtonElement>(null);
 
   const filterProps = {
     address: data?.address || '',
@@ -75,16 +81,19 @@ export function Root() {
         <Loading />
       ) : 'success' === status ? (
         <>
-          {/**
-           * TODO: send down filtersOpen down to new button and update UI on the top level button level
-           */}
           <MapFilters
             {...filterProps}
             showFilters={filtersOpen}
             setShowFilters={setFiltersOpen}
             programs={filteredProgramsData.programs}
+            desktopFiltersToggleButtonRef={desktopFiltersToggleButtonRef}
+            filtersFormToggleButtonRef={filtersFormToggleButtonRef}
           />
-          <FiltersButton {...{ filtersOpen, setFiltersOpen }} />
+          <FiltersButton
+            {...{ filtersOpen, setFiltersOpen }}
+            ref={desktopFiltersToggleButtonRef}
+            mobileButtonRef={filtersFormToggleButtonRef}
+          />
           <LocationsResults locations={filteredProgramsData.filteredPrograms} />
           <Map
             filteredLocations={filteredProgramsData.filteredPrograms}

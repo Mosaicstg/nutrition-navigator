@@ -1,4 +1,5 @@
 import React from 'react';
+import { flushSync } from 'react-dom';
 import { decode } from 'html-entities';
 import { Form, useLocation, useSubmit } from 'react-router';
 
@@ -22,23 +23,26 @@ type MapFiltersProps = {
   audiences: Array<string>;
   organizationName: string;
   showFilters: boolean;
-  setShowFilters: (show: boolean) => void;
+  setShowFilters: React.Dispatch<React.SetStateAction<boolean>>;
   programs?: Array<Program>;
+  desktopFiltersToggleButtonRef?: React.RefObject<HTMLButtonElement | null>;
+  filtersFormToggleButtonRef?: React.RefObject<HTMLButtonElement | null>;
 };
 
-export const MapFilters = (props: MapFiltersProps) => {
-  const {
-    address: defaultAddress,
-    regions: defaultRegions,
-    programTypes: defaultProgramTypes,
-    languages: defaultLanguages,
-    venues: defaultVenues,
-    audiences: defaultAudiences,
-    organizationName: defaultOrganizationName,
-    showFilters,
-    setShowFilters,
-    programs
-  } = props;
+export const MapFilters = ({
+  address: defaultAddress,
+  regions: defaultRegions,
+  programTypes: defaultProgramTypes,
+  languages: defaultLanguages,
+  venues: defaultVenues,
+  audiences: defaultAudiences,
+  organizationName: defaultOrganizationName,
+  showFilters,
+  setShowFilters,
+  programs,
+  desktopFiltersToggleButtonRef,
+  filtersFormToggleButtonRef
+}: MapFiltersProps) => {
   const location = useLocation();
   const submit = useSubmit();
 
@@ -49,59 +53,28 @@ export const MapFilters = (props: MapFiltersProps) => {
   const { data: regions, status: regionsStatus } = useRegions();
 
   const isFiltersOpen = showFilters;
-  const shouldBeVisibleOnDesktop = isFiltersOpen && window.innerWidth > 768;
-  const [
-    shouldBeUnFocusableWhenFiltersAreClosedOnDesktop,
-    setShouldBeUnFocusableWhenFiltersAreClosedOnDesktop
-  ] = React.useState(() => !isFiltersOpen && window.innerWidth > 768);
 
-  const filtersButtonRef = React.useRef<HTMLButtonElement>(null);
+  function handleFiltersToggleButtonClick() {
+    const nextValue = !showFilters;
 
-  React.useEffect(() => {
-    setShouldBeUnFocusableWhenFiltersAreClosedOnDesktop(() => {
-      return !isFiltersOpen && window.innerWidth > 768;
-    });
-  }, [isFiltersOpen]);
-
-  React.useEffect(() => {
-    const abortController = new AbortController();
-
-    function handleResize() {
-      setShouldBeUnFocusableWhenFiltersAreClosedOnDesktop(() => {
-        console.log('hello world');
-
-        const isDesktop = window.innerWidth > 768;
-
-        if (!isDesktop) {
-          return false;
-        }
-
-        return isDesktop && !isFiltersOpen;
+    flushSync(() => {
+      setShowFilters(() => {
+        return nextValue;
       });
-    }
-    // Handle resizing event for sidebar form
-    window.addEventListener('resize', handleResize, {
-      signal: abortController.signal
     });
 
-    return () => {
-      abortController.abort();
-    };
-  }, [setShouldBeUnFocusableWhenFiltersAreClosedOnDesktop, isFiltersOpen]);
-
-  React.useEffect(() => {
-    if (!filtersButtonRef.current) return;
-
-    if (shouldBeVisibleOnDesktop) {
-      // Focus the button ON DESKTOP when the user opens the
-      // filters sidebar form
-      filtersButtonRef.current.focus();
+    if (!nextValue && window.innerWidth > 768) {
+      desktopFiltersToggleButtonRef?.current?.focus();
     }
-  }, [shouldBeVisibleOnDesktop, filtersButtonRef]);
+  }
 
   const onSearchButtonClick = () => {
     // Close Filters window
-    setShowFilters(false);
+    flushSync(() => {
+      setShowFilters(false);
+    });
+
+    desktopFiltersToggleButtonRef?.current?.focus();
   };
 
   function onFormSubmit(event: React.FormEvent<HTMLFormElement>) {
@@ -151,7 +124,7 @@ export const MapFilters = (props: MapFiltersProps) => {
         isFiltersOpen ? 'nutrition-navigator__filters-wrap--open' : ''
       }`}
       onSubmit={onFormSubmit}
-      aria-hidden={!isFiltersOpen && window.innerWidth > 768}
+      inert={!isFiltersOpen && window.innerWidth > 768}
     >
       <div className="nutrition-navigator__filters-header-wrap">
         <div className="nutrition-navigator__filter-header-address-filters-wrap">
@@ -168,20 +141,12 @@ export const MapFilters = (props: MapFiltersProps) => {
               name="address"
               placeholder="Enter a Zip Code"
               className={`nutrition-navigator__text-field ${
-                isFiltersOpen
+                showFilters
                   ? 'nutrition-navigator__text-field--filters-open'
                   : ''
               }`}
               defaultValue={defaultAddress}
               autoComplete="true"
-              tabIndex={
-                shouldBeUnFocusableWhenFiltersAreClosedOnDesktop
-                  ? -1
-                  : undefined
-              }
-              disabled={
-                shouldBeUnFocusableWhenFiltersAreClosedOnDesktop ?? undefined
-              }
             />
           </div>
           <div
@@ -192,20 +157,14 @@ export const MapFilters = (props: MapFiltersProps) => {
             }`}
           >
             <button
-              ref={filtersButtonRef}
+              ref={filtersFormToggleButtonRef}
               className="nutrition-navigator__button nutrition-navigator__filters-toggle-button"
-              onClick={() => setShowFilters(!isFiltersOpen)}
+              onClick={handleFiltersToggleButtonClick}
               type="button"
               aria-label="Toggle Filters Window Open and Closed"
-              aria-expanded={isFiltersOpen}
+              aria-expanded={showFilters}
               aria-controls="nutrition-navigator-filters"
               id="toggle-filters"
-              tabIndex={
-                shouldBeUnFocusableWhenFiltersAreClosedOnDesktop
-                  ? -1
-                  : undefined
-              }
-              disabled={shouldBeUnFocusableWhenFiltersAreClosedOnDesktop}
             >
               Filters
             </button>
@@ -215,7 +174,7 @@ export const MapFilters = (props: MapFiltersProps) => {
           id="nutrition-navigator-filters"
           className="nutrition-navigator__filters-body-wrap"
           aria-labelledby="toggle-filters"
-          aria-hidden={!isFiltersOpen}
+          inert={!isFiltersOpen}
         >
           <div className="nutrition-navigator__regions-body-wrap">
             <h2 className="nutrition-navigator__heading--h2">
@@ -234,14 +193,6 @@ export const MapFilters = (props: MapFiltersProps) => {
                           id: slug,
                           defaultChecked: defaultRegions.includes(slug)
                         }}
-                        tabIndex={
-                          shouldBeUnFocusableWhenFiltersAreClosedOnDesktop
-                            ? -1
-                            : undefined
-                        }
-                        disabled={
-                          shouldBeUnFocusableWhenFiltersAreClosedOnDesktop
-                        }
                       />
                     </li>
                   );
@@ -283,14 +234,6 @@ export const MapFilters = (props: MapFiltersProps) => {
                         id={slug}
                         className="nutrition-navigator__checkbox"
                         defaultChecked={defaultProgramTypes.includes(slug)}
-                        tabIndex={
-                          shouldBeUnFocusableWhenFiltersAreClosedOnDesktop
-                            ? -1
-                            : undefined
-                        }
-                        disabled={
-                          shouldBeUnFocusableWhenFiltersAreClosedOnDesktop
-                        }
                       />
                     </li>
                   );
@@ -298,19 +241,9 @@ export const MapFilters = (props: MapFiltersProps) => {
             </ul>
           </div>
           <div className="nutrition-navigator__sub-filters">
-            {/**h2 className="nutrition-navigator__heading--h3">
-              More ways to search:
-            </h2>**/}
             <div className="nutrition-navigator__filters-grid">
               <div className="nutrition-navigator__filter-column">
-                <details
-                  className="nutrition-navigator__filter-details"
-                  tabIndex={
-                    shouldBeUnFocusableWhenFiltersAreClosedOnDesktop
-                      ? -1
-                      : undefined
-                  }
-                >
+                <details className="nutrition-navigator__filter-details">
                   <summary>
                     <h5 className="nutrition-navigator__heading--h5">
                       By Language Offered
@@ -342,14 +275,7 @@ export const MapFilters = (props: MapFiltersProps) => {
                 </details>
               </div>
               <div className="nutrition-navigator__filter-column">
-                <details
-                  className="nutrition-navigator__filter-details"
-                  tabIndex={
-                    shouldBeUnFocusableWhenFiltersAreClosedOnDesktop
-                      ? -1
-                      : undefined
-                  }
-                >
+                <details className="nutrition-navigator__filter-details">
                   <summary>
                     <h5 className="nutrition-navigator__heading--h5">
                       By Venue
@@ -381,14 +307,7 @@ export const MapFilters = (props: MapFiltersProps) => {
                 </details>
               </div>
               <div className="nutrition-navigator__filter-column">
-                <details
-                  className="nutrition-navigator__filter-details"
-                  tabIndex={
-                    shouldBeUnFocusableWhenFiltersAreClosedOnDesktop
-                      ? -1
-                      : undefined
-                  }
-                >
+                <details className="nutrition-navigator__filter-details">
                   <summary>
                     <h5 className="nutrition-navigator__heading--h5">
                       By Audience
@@ -418,14 +337,7 @@ export const MapFilters = (props: MapFiltersProps) => {
                       })}
                   </ul>
                 </details>
-                <details
-                  className="nutrition-navigator__filter-details nutrition-navigator__filter-details--org-name"
-                  tabIndex={
-                    shouldBeUnFocusableWhenFiltersAreClosedOnDesktop
-                      ? -1
-                      : undefined
-                  }
-                >
+                <details className="nutrition-navigator__filter-details nutrition-navigator__filter-details--org-name">
                   <summary>
                     <h5 className="nutrition-navigator__heading--h5">
                       By Organization
@@ -469,10 +381,6 @@ export const MapFilters = (props: MapFiltersProps) => {
             }`}
             onClick={onFormReset}
             type="reset"
-            tabIndex={
-              shouldBeUnFocusableWhenFiltersAreClosedOnDesktop ? -1 : undefined
-            }
-            disabled={shouldBeUnFocusableWhenFiltersAreClosedOnDesktop}
           >
             Reset
           </button>
@@ -482,10 +390,6 @@ export const MapFilters = (props: MapFiltersProps) => {
             }`}
             onClick={onSearchButtonClick}
             type="submit"
-            tabIndex={
-              shouldBeUnFocusableWhenFiltersAreClosedOnDesktop ? -1 : undefined
-            }
-            disabled={shouldBeUnFocusableWhenFiltersAreClosedOnDesktop}
           >
             Search
           </button>

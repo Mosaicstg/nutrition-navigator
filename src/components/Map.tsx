@@ -5,7 +5,10 @@ import {
   TileLayer,
   useMap
 } from 'react-leaflet';
-import L, { MarkerCluster } from 'leaflet';
+import L, {
+  // @ts-expect-error We need to resolve why the Type isn't being properly imported
+  MarkerCluster
+} from 'leaflet';
 import config from '~/config';
 import MarkerClusterGroup from 'react-leaflet-cluster';
 import MarkerPopUp from './MarkerPopUp.tsx';
@@ -90,6 +93,7 @@ const Map = (props: MapProps) => {
     >
       <TileLayer
         url="https://api.mapbox.com/styles/v1/mapbox/streets-v12/tiles/{z}/{x}/{y}?access_token={accessToken}"
+        // @ts-expect-error This still works even if the type definition is not correct
         accessToken={config.mapBoxToken}
       />
       <MarkerClusterGroup
