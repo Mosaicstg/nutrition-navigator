@@ -60,6 +60,9 @@ export function Root() {
     isLoading
   } = useFilteredPrograms(data);
   const [filtersOpen, setFiltersOpen] = React.useState(false);
+  const [filtersFormInert, setFiltersFormInert] = React.useState(
+    () => !filtersOpen && window.innerWidth > 992
+  );
   const desktopFiltersToggleButtonRef = React.useRef<HTMLButtonElement>(null);
   const filtersFormToggleButtonRef = React.useRef<HTMLButtonElement>(null);
 
@@ -72,6 +75,30 @@ export function Root() {
     audiences: data?.audiences || [],
     organizationName: data?.organizationName || ''
   };
+
+  React.useEffect(() => {
+    const abortController = new AbortController();
+
+    setFiltersFormInert(() => {
+      return !filtersOpen && window.innerWidth > 992;
+    });
+
+    window.addEventListener(
+      'resize',
+      () => {
+        setFiltersFormInert(() => {
+          return window.innerWidth > 992;
+        });
+      },
+      {
+        signal: abortController.signal
+      }
+    );
+
+    return () => {
+      abortController.abort();
+    };
+  }, [filtersOpen]);
 
   return (
     <div
@@ -88,6 +115,7 @@ export function Root() {
             programs={filteredProgramsData.programs}
             desktopFiltersToggleButtonRef={desktopFiltersToggleButtonRef}
             filtersFormToggleButtonRef={filtersFormToggleButtonRef}
+            filtersFormInert={filtersFormInert}
           />
           <FiltersButton
             {...{ filtersOpen, setFiltersOpen }}

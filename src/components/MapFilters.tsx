@@ -27,6 +27,7 @@ type MapFiltersProps = {
   programs?: Array<Program>;
   desktopFiltersToggleButtonRef?: React.RefObject<HTMLButtonElement | null>;
   filtersFormToggleButtonRef?: React.RefObject<HTMLButtonElement | null>;
+  filtersFormInert: boolean;
 };
 
 export const MapFilters = ({
@@ -41,7 +42,8 @@ export const MapFilters = ({
   setShowFilters,
   programs,
   desktopFiltersToggleButtonRef,
-  filtersFormToggleButtonRef
+  filtersFormToggleButtonRef,
+  filtersFormInert
 }: MapFiltersProps) => {
   const location = useLocation();
   const submit = useSubmit();
@@ -51,8 +53,6 @@ export const MapFilters = ({
   const { data: venues, status: venuesStatus } = useVenues();
   const { data: audiences, status: audiencesStatus } = useAudiences();
   const { data: regions, status: regionsStatus } = useRegions();
-
-  const isFiltersOpen = showFilters;
 
   function handleFiltersToggleButtonClick() {
     const nextValue = !showFilters;
@@ -119,37 +119,15 @@ export const MapFilters = ({
     });
   }
 
-  const [formInert, setFormInert] = React.useState(
-    !showFilters && window.innerWidth > 992
-  );
-
-  React.useEffect(() => {
-    const abortController = new AbortController();
-
-    window.addEventListener(
-      'resize',
-      () => {
-        setFormInert(window.innerWidth > 992 && !showFilters);
-      },
-      {
-        signal: abortController.signal
-      }
-    );
-
-    return () => {
-      abortController.abort();
-    };
-  }, [showFilters]);
-
   return (
     <Form
       method="get"
       action={location.pathname}
       className={`nutrition-navigator__filters-wrap ${
-        isFiltersOpen ? 'nutrition-navigator__filters-wrap--open' : ''
+        showFilters ? 'nutrition-navigator__filters-wrap--open' : ''
       }`}
       onSubmit={onFormSubmit}
-      inert={formInert}
+      inert={filtersFormInert}
     >
       <div className="nutrition-navigator__filters-header-wrap">
         <div className="nutrition-navigator__filter-header-address-filters-wrap">
@@ -176,7 +154,7 @@ export const MapFilters = ({
           </div>
           <div
             className={`nutrition-navigator__filters-button-grid-body-wrap ${
-              isFiltersOpen
+              showFilters
                 ? 'nutrition-navigator__filters-button-grid-body-wrap--open'
                 : ''
             }`}
@@ -199,7 +177,7 @@ export const MapFilters = ({
           id="nutrition-navigator-filters"
           className="nutrition-navigator__filters-body-wrap"
           aria-labelledby="toggle-filters"
-          inert={!isFiltersOpen}
+          inert={!showFilters}
         >
           <div className="nutrition-navigator__regions-body-wrap">
             <h2 className="nutrition-navigator__heading--h2">
@@ -402,7 +380,7 @@ export const MapFilters = ({
           ) : null}
           <button
             className={`nutrition-navigator__button nutrition-navigator__button--outline ${
-              isFiltersOpen ? 'nutrition-navigator__button--white' : ''
+              showFilters ? 'nutrition-navigator__button--white' : ''
             }`}
             onClick={onFormReset}
             type="reset"
@@ -411,7 +389,7 @@ export const MapFilters = ({
           </button>
           <button
             className={`nutrition-navigator__button ${
-              isFiltersOpen ? 'nutrition-navigator__button--green' : ''
+              showFilters ? 'nutrition-navigator__button--green' : ''
             }`}
             onClick={onSearchButtonClick}
             type="submit"
