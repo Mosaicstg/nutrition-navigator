@@ -63,7 +63,7 @@ export function Root() {
     status,
     isLoading
   } = useFilteredPrograms(data);
-  const [filtersOpen, setFiltersOpen] = React.useState(false);
+  const [filtersOpen, setFiltersOpen] = React.useState(true);
   const [filtersFormInert, setFiltersFormInert] = React.useState(
     () => !filtersOpen && window.innerWidth > 992
   );
@@ -114,7 +114,7 @@ export function Root() {
             {...filterProps}
             showFilters={filtersOpen}
             setShowFilters={setFiltersOpen}
-            programs={filteredProgramsData.programs}
+            programs={filteredProgramsData.filteredPrograms}
             desktopFiltersToggleButtonRef={desktopFiltersToggleButtonRef}
             filtersFormToggleButtonRef={filtersFormToggleButtonRef}
             filtersFormInert={filtersFormInert}
