@@ -483,6 +483,26 @@
   }
 }
 
+.nutrition-navigator__results {
+  grid-column: span 2;
+
+  @include app-scope-css-properties() {
+    display: none;
+    color: var(--nutrition-navigator-dark-gray);
+    font-family: var(--nutrition-navigator-body-font);
+    letter-spacing: 0;
+    text-align: center;
+
+    span {
+      font-weight: bold;
+    }
+
+    @include media-breakpoint-up(lg) {
+      display: block;
+    }
+  }
+}
+
 .nutrition-navigator__no-results {
   grid-column: span 2;
   text-align: left;

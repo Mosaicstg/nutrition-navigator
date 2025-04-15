@@ -378,6 +378,12 @@ export const MapFilters = ({
               .
             </div>
           ) : null}
+          {programs && programs.length > 0 ? (
+            <div className="nutrition-navigator__results">
+              <span>{programs.length}</span>{' '}
+              {programs.length === 1 ? 'result' : 'results'} found.
+            </div>
+          ) : null}
           <button
             className={`nutrition-navigator__button nutrition-navigator__button--outline ${
               showFilters ? 'nutrition-navigator__button--white' : ''

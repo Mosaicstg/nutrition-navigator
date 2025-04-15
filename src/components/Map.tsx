@@ -48,8 +48,7 @@ const customPinForNotOpenToPublic = L.icon({
  * @param props
  * @constructor
  */
-function HandleMapUpdates(props: MapProps) {
-  const { filteredLocations } = props;
+function HandleMapUpdates({ filteredLocations }: MapProps) {
   const map = useMap();
 
   const mapGeoJSON = L.geoJson(getGeoJSONFromPrograms(filteredLocations));
@@ -88,7 +87,6 @@ const Map = (props: MapProps) => {
     <MapContainer
       {...mapContainerProps}
       className="nutrition-navigator__map-container"
-      // TODO: check if we really want to remove zoomControl from map
       zoomControl={false}
     >
       <TileLayer
