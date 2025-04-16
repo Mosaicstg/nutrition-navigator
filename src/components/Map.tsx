@@ -54,7 +54,7 @@ function useRefreshMapTiles(map: L.Map, refresh: boolean) {
   React.useEffect(() => {
     const timeout = setTimeout(() => {
       map.invalidateSize();
-    }, 215);
+    }, 250);
 
     return () => {
       clearTimeout(timeout);
