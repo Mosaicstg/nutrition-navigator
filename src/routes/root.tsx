@@ -128,6 +128,7 @@ export function Root() {
           <Map
             filteredLocations={filteredProgramsData.filteredPrograms}
             programs={filteredProgramsData.programs}
+            filtersOpen={filtersOpen}
           />
         </>
       ) : (
