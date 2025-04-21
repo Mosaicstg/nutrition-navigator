@@ -65,7 +65,6 @@ function useRefreshMapTiles(
   React.useEffect(() => {
     const timeout = setTimeout(() => {
       map.invalidateSize();
-      console.log('map is updating');
     }, mapTransitionTiming);
 
     return () => {
@@ -100,49 +99,6 @@ function HandleMapUpdates({
 
   return null;
 }
-
-// function CustomTileLayer({
-//   url,
-//   accessToken
-// }: TileLayerProps & { refresh?: boolean; accessToken: string }) {
-//   const map = useMap();
-//   const tileLayerRef = React.useRef<L.TileLayer>(null);
-//   const root = document.querySelector(':root')!;
-//   const rootStyles = getComputedStyle(root);
-//   const mapTransitionTiming = +rootStyles
-//     .getPropertyValue('--nutrition-navigator-map-transition')
-//     .replaceAll('ms', '');
-//
-//   React.useEffect(() => {
-//     let timeout;
-//
-//     if (timeout) {
-//       clearTimeout(timeout);
-//     }
-//
-//     if (tileLayerRef.current) {
-//       timeout = setTimeout(() => {
-//         tileLayerRef?.current?.setUrl(url, true);
-//         map.invalidateSize();
-//       }, mapTransitionTiming);
-//     } else {
-//       tileLayerRef.current = L.tileLayer(url, {
-//         // @ts-expect-error This is supported by not picked up by the Types of this component
-//         accessToken
-//       });
-//       tileLayerRef.current.addTo(map);
-//     }
-//
-//     return () => {
-//       if (timeout) {
-//         clearTimeout(timeout);
-//       }
-//     };
-//   }, [url, accessToken, map, tileLayerRef, mapTransitionTiming]);
-//
-//   return null;
-// }
-//
 
 const Map = ({
   filteredLocations,
