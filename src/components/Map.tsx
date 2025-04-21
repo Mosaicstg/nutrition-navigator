@@ -51,11 +51,7 @@ const customPinForNotOpenToPublic = L.icon({
  *    3. Gray boxes appear in the tile layer of the map
  * This hook is used to force the map to refresh the tiles when the filters are toggled open/closed
  */
-function useRefreshMapTiles(
-  map: L.Map,
-  refresh: boolean,
-  tileLayerHash: number
-) {
+function useRefreshMapTiles(map: L.Map, tileLayerHash: number) {
   const root = document.querySelector(':root')!;
   const rootStyles = getComputedStyle(root);
   const mapTransitionTiming = +rootStyles
@@ -81,11 +77,7 @@ function useRefreshMapTiles(
  * @param props
  * @constructor
  */
-function HandleMapUpdates({
-  filteredLocations,
-  filtersOpen,
-  tileLayerHash
-}: MapProps) {
+function HandleMapUpdates({ filteredLocations, tileLayerHash }: MapProps) {
   const map = useMap();
 
   const mapGeoJSON = L.geoJson(getGeoJSONFromPrograms(filteredLocations));
@@ -95,7 +87,7 @@ function HandleMapUpdates({
     map.fitBounds(mapBounds);
   }
 
-  useRefreshMapTiles(map, filtersOpen, tileLayerHash ?? 0);
+  useRefreshMapTiles(map, tileLayerHash ?? 0);
 
   return null;
 }
