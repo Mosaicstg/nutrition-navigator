@@ -4,7 +4,7 @@
 .nutrition-navigator__filters-wrap {
   position: relative;
   z-index: 3;
-  transition: all 0.25s ease-in-out;
+  transition: all var(--nutrition-navigator-map-transition) ease-in-out;
 
   @include media-breakpoint-up(lg) {
     width: 0;

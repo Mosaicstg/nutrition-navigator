@@ -21,19 +21,23 @@ type FiltersButtonProps = {
   setFiltersOpen: React.Dispatch<React.SetStateAction<boolean>>;
   ref: React.RefObject<HTMLButtonElement | null>;
   mobileButtonRef?: React.RefObject<HTMLButtonElement | null>;
+  setTileLayerHash: React.Dispatch<React.SetStateAction<number>>;
 };
 
 function FiltersButton({
   filtersOpen,
   setFiltersOpen,
   ref,
-  mobileButtonRef
+  mobileButtonRef,
+  setTileLayerHash
 }: FiltersButtonProps) {
   function handleClick() {
     // Force the UI to update first before focusing on the filters form button
     flushSync(() => {
       setFiltersOpen(() => true);
     });
+
+    setTileLayerHash((prev) => prev + 1);
 
     // Wait till the next tick to focus
     // On the next tick the filters are focusable
@@ -69,6 +73,7 @@ export function Root() {
   );
   const desktopFiltersToggleButtonRef = React.useRef<HTMLButtonElement>(null);
   const filtersFormToggleButtonRef = React.useRef<HTMLButtonElement>(null);
+  const [tileLayerHash, setTileLayerHash] = React.useState<number>(0);
 
   const filterProps = {
     address: data?.address || '',
@@ -118,17 +123,20 @@ export function Root() {
             desktopFiltersToggleButtonRef={desktopFiltersToggleButtonRef}
             filtersFormToggleButtonRef={filtersFormToggleButtonRef}
             filtersFormInert={filtersFormInert}
+            setTileLayerHash={setTileLayerHash}
           />
           <FiltersButton
             {...{ filtersOpen, setFiltersOpen }}
             ref={desktopFiltersToggleButtonRef}
             mobileButtonRef={filtersFormToggleButtonRef}
+            setTileLayerHash={setTileLayerHash}
           />
           <LocationsResults locations={filteredProgramsData.filteredPrograms} />
           <Map
             filteredLocations={filteredProgramsData.filteredPrograms}
             programs={filteredProgramsData.programs}
             filtersOpen={filtersOpen}
+            tileLayerHash={tileLayerHash}
           />
         </>
       ) : (

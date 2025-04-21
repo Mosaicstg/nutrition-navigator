@@ -22,6 +22,7 @@ type MapProps = {
   filteredLocations: Array<Program>;
   filtersOpen: boolean;
   programs?: Array<Program>;
+  tileLayerHash?: number;
 };
 
 const createClusterCustomIcon = function (cluster: MarkerCluster) {
@@ -50,16 +51,27 @@ const customPinForNotOpenToPublic = L.icon({
  *    3. Gray boxes appear in the tile layer of the map
  * This hook is used to force the map to refresh the tiles when the filters are toggled open/closed
  */
-function useRefreshMapTiles(map: L.Map, refresh: boolean) {
+function useRefreshMapTiles(
+  map: L.Map,
+  refresh: boolean,
+  tileLayerHash: number
+) {
+  const root = document.querySelector(':root')!;
+  const rootStyles = getComputedStyle(root);
+  const mapTransitionTiming = +rootStyles
+    .getPropertyValue('--nutrition-navigator-map-transition')
+    .replaceAll('ms', '');
+
   React.useEffect(() => {
     const timeout = setTimeout(() => {
       map.invalidateSize();
-    }, 250);
+      console.log('map is updating');
+    }, mapTransitionTiming);
 
     return () => {
       clearTimeout(timeout);
     };
-  }, [refresh, map]);
+  }, [map, tileLayerHash, mapTransitionTiming]);
 }
 
 /**
@@ -70,7 +82,11 @@ function useRefreshMapTiles(map: L.Map, refresh: boolean) {
  * @param props
  * @constructor
  */
-function HandleMapUpdates({ filteredLocations, filtersOpen }: MapProps) {
+function HandleMapUpdates({
+  filteredLocations,
+  filtersOpen,
+  tileLayerHash
+}: MapProps) {
   const map = useMap();
 
   const mapGeoJSON = L.geoJson(getGeoJSONFromPrograms(filteredLocations));
@@ -80,12 +96,60 @@ function HandleMapUpdates({ filteredLocations, filtersOpen }: MapProps) {
     map.fitBounds(mapBounds);
   }
 
-  useRefreshMapTiles(map, filtersOpen);
+  useRefreshMapTiles(map, filtersOpen, tileLayerHash ?? 0);
 
   return null;
 }
 
-const Map = ({ filteredLocations, programs, filtersOpen }: MapProps) => {
+// function CustomTileLayer({
+//   url,
+//   accessToken
+// }: TileLayerProps & { refresh?: boolean; accessToken: string }) {
+//   const map = useMap();
+//   const tileLayerRef = React.useRef<L.TileLayer>(null);
+//   const root = document.querySelector(':root')!;
+//   const rootStyles = getComputedStyle(root);
+//   const mapTransitionTiming = +rootStyles
+//     .getPropertyValue('--nutrition-navigator-map-transition')
+//     .replaceAll('ms', '');
+//
+//   React.useEffect(() => {
+//     let timeout;
+//
+//     if (timeout) {
+//       clearTimeout(timeout);
+//     }
+//
+//     if (tileLayerRef.current) {
+//       timeout = setTimeout(() => {
+//         tileLayerRef?.current?.setUrl(url, true);
+//         map.invalidateSize();
+//       }, mapTransitionTiming);
+//     } else {
+//       tileLayerRef.current = L.tileLayer(url, {
+//         // @ts-expect-error This is supported by not picked up by the Types of this component
+//         accessToken
+//       });
+//       tileLayerRef.current.addTo(map);
+//     }
+//
+//     return () => {
+//       if (timeout) {
+//         clearTimeout(timeout);
+//       }
+//     };
+//   }, [url, accessToken, map, tileLayerRef, mapTransitionTiming]);
+//
+//   return null;
+// }
+//
+
+const Map = ({
+  filteredLocations,
+  programs,
+  filtersOpen,
+  tileLayerHash
+}: MapProps) => {
   const mapContainerProps: MapContainerProps = {
     scrollWheelZoom: false,
     // style: { height: 700 },
@@ -113,6 +177,7 @@ const Map = ({ filteredLocations, programs, filtersOpen }: MapProps) => {
     >
       <TileLayer
         url={`https://api.mapbox.com/styles/v1/mapbox/streets-v12/tiles/{z}/{x}/{y}?access_token={accessToken}`}
+        // url={`https://api.mapbox.com/styles/v1/mapbox/streets-v12/tiles/{z}/{x}/{y}?access_token={accessToken}&hash=${tileLayerHash}`}
         // @ts-expect-error This is supported by not picked up by the Types of this component
         accessToken={config.mapBoxToken}
       />
@@ -139,6 +204,7 @@ const Map = ({ filteredLocations, programs, filtersOpen }: MapProps) => {
       <HandleMapUpdates
         filteredLocations={filteredLocations}
         filtersOpen={filtersOpen}
+        tileLayerHash={tileLayerHash}
       />
     </MapContainer>
   );

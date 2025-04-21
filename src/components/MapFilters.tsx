@@ -28,6 +28,7 @@ type MapFiltersProps = {
   desktopFiltersToggleButtonRef?: React.RefObject<HTMLButtonElement | null>;
   filtersFormToggleButtonRef?: React.RefObject<HTMLButtonElement | null>;
   filtersFormInert: boolean;
+  setTileLayerHash: React.Dispatch<React.SetStateAction<number>>;
 };
 
 export const MapFilters = ({
@@ -43,7 +44,8 @@ export const MapFilters = ({
   programs,
   desktopFiltersToggleButtonRef,
   filtersFormToggleButtonRef,
-  filtersFormInert
+  filtersFormInert,
+  setTileLayerHash
 }: MapFiltersProps) => {
   const location = useLocation();
   const submit = useSubmit();
@@ -66,6 +68,8 @@ export const MapFilters = ({
     if (!nextValue && window.innerWidth > 992) {
       desktopFiltersToggleButtonRef?.current?.focus();
     }
+
+    setTileLayerHash((prev) => prev + 1);
   }
 
   const onSearchButtonClick = () => {
@@ -78,6 +82,8 @@ export const MapFilters = ({
     if (window.innerWidth > 992) {
       desktopFiltersToggleButtonRef?.current?.focus();
     }
+
+    setTileLayerHash((prev) => prev + 1);
   };
 
   function onFormSubmit(event: React.FormEvent<HTMLFormElement>) {

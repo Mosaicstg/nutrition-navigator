@@ -21,7 +21,7 @@
   z-index: 1;
   width: 100%;
   height: var(--nutrition-navigator-height);
-  transition: all 0.2s ease-in-out;
+  transition: all var(--nutrition-navigator-map-transition) ease-in-out;
 
   .nutrition-navigator__map--filters-open & {
     border: 1px solid var(--nutrition-navigator-gray);
@@ -39,7 +39,7 @@
     top: 80px;
     left: 0;
     padding: 15px 20px 15px 62px;
-    transition: all 0.2s ease-in-out;
+    transition: all var(--nutrition-navigator-map-transition) ease-in-out;
     border: 1px solid var(--nutrition-navigator-gray);
     border-left: none;
     border-radius: 0 20px 20px 0;
