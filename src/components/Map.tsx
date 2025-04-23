@@ -54,9 +54,9 @@ const customPinForNotOpenToPublic = L.icon({
 function useRefreshMapTiles(map: L.Map, tileLayerHash: number) {
   const root = document.querySelector(':root')!;
   const rootStyles = getComputedStyle(root);
-  const mapTransitionTiming = +rootStyles
-    .getPropertyValue('--nutrition-navigator-map-transition')
-    .replaceAll('ms', '');
+  const mapTransitionTiming = +rootStyles.getPropertyValue(
+    '--nutrition-navigator-map-transition-value'
+  );
 
   React.useEffect(() => {
     const timeout = setTimeout(() => {
