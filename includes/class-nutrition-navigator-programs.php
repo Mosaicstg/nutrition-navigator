@@ -704,7 +704,7 @@ class Nutrition_Navigator_Programs {
 		$kill_date = $this->get_program_location_kill_date($post);
 
 		echo '<p>';
-		echo '<label for="program-location-kill-date">Kill Date</label><br/>';
+		echo '<label for="program-location-kill-date">End Date</label><br/>';
 		echo '<input type="date" id="program-location-kill-date" value="' .
 			esc_attr($kill_date) .
 			'" name="program-location-kill-date" class="" placeholder=""/>';
