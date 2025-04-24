@@ -22,13 +22,6 @@
   width: 100%;
   height: var(--nutrition-navigator-height);
   transition: all var(--nutrition-navigator-map-transition) ease-in-out;
-
-  .nutrition-navigator__map--filters-open & {
-    border: 1px solid var(--nutrition-navigator-gray);
-    border-right: 0;
-    border-top-left-radius: 20px;
-    border-bottom-left-radius: 20px;
-  }
 }
 
 .nutrition-navigator__floating-filters-toggle-button {

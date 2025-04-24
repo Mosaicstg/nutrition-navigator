@@ -72,20 +72,6 @@ export const MapFilters = ({
     setTileLayerHash((prev) => prev + 1);
   }
 
-  const onSearchButtonClick = () => {
-    // Close Filters window
-    flushSync(() => {
-      setShowFilters(() => false);
-    });
-
-    // Only focus the button if we're on "desktop"
-    if (window.innerWidth > 992) {
-      desktopFiltersToggleButtonRef?.current?.focus();
-    }
-
-    setTileLayerHash((prev) => prev + 1);
-  };
-
   function onFormSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
@@ -102,7 +88,6 @@ export const MapFilters = ({
       formData.delete('organization-name');
     }
 
-    onSearchButtonClick();
     submit(formData, {
       action: location.pathname,
       method: 'get',
@@ -403,7 +388,6 @@ export const MapFilters = ({
             className={`nutrition-navigator__button ${
               showFilters ? 'nutrition-navigator__button--green' : ''
             }`}
-            onClick={onSearchButtonClick}
             type="submit"
           >
             Search

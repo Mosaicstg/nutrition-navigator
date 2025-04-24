@@ -17,10 +17,8 @@
 .nutrition-navigator__filters-wrap--open {
   @include media-breakpoint-up(lg) {
     width: 65%;
-    margin-right: 20px;
-    border: 1px solid var(--nutrition-navigator-gray);
+    max-width: 425px;
     border-left: 0;
-    border-radius: 0 20px 20px 0;
     opacity: 1;
   }
 
