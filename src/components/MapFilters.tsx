@@ -234,41 +234,35 @@ export const MapFilters = ({
                 })}
             </ul>
           </div>
+          {
+            // TODO: reorder: Org, venue, audience, languages
+          }
           <div className="nutrition-navigator__sub-filters">
             <div className="nutrition-navigator__filters-grid">
               <div className="nutrition-navigator__filter-column">
-                <details className="nutrition-navigator__filter-details">
+                <details className="nutrition-navigator__filter-details nutrition-navigator__filter-details--org-name">
                   <summary>
                     <h5 className="nutrition-navigator__heading--h5">
-                      By Language Offered
+                      By Organization
                     </h5>
                   </summary>
-                  <ul className="nutrition-navigator__checkbox-items-wrap nutrition-navigator__checkbox-items-wrap--languages">
-                    {languagesStatus === 'success' &&
-                      languages.map((language) => {
-                        return (
-                          <li
-                            className="nutrition-navigator__checkbox-wrap"
-                            key={language.id}
-                          >
-                            <LabelCheckBox
-                              {...{
-                                label: language.name,
-                                name: 'languages[]',
-                                value: language.slug,
-                                id: language.slug,
-                                defaultChecked: defaultLanguages.includes(
-                                  language.slug
-                                )
-                              }}
-                            />
-                          </li>
-                        );
-                      })}
-                  </ul>
+                  <div className="nutrition-navigator__organization-name-search-field-wrap">
+                    <label
+                      htmlFor="organization-name"
+                      className="nutrition-navigator__helper-text"
+                    >
+                      Search Organization Name
+                    </label>
+                    <input
+                      type="text"
+                      placeholder="Search Name"
+                      id="organization-name"
+                      name="organization-name"
+                      className="nutrition-navigator__text-field"
+                      defaultValue={defaultOrganizationName}
+                    />
+                  </div>
                 </details>
-              </div>
-              <div className="nutrition-navigator__filter-column">
                 <details className="nutrition-navigator__filter-details">
                   <summary>
                     <h5 className="nutrition-navigator__heading--h5">
@@ -299,8 +293,6 @@ export const MapFilters = ({
                       })}
                   </ul>
                 </details>
-              </div>
-              <div className="nutrition-navigator__filter-column">
                 <details className="nutrition-navigator__filter-details">
                   <summary>
                     <h5 className="nutrition-navigator__heading--h5">
@@ -331,28 +323,35 @@ export const MapFilters = ({
                       })}
                   </ul>
                 </details>
-                <details className="nutrition-navigator__filter-details nutrition-navigator__filter-details--org-name">
+                <details className="nutrition-navigator__filter-details">
                   <summary>
                     <h5 className="nutrition-navigator__heading--h5">
-                      By Organization
+                      By Language Offered
                     </h5>
                   </summary>
-                  <div className="nutrition-navigator__organization-name-search-field-wrap">
-                    <label
-                      htmlFor="organization-name"
-                      className="nutrition-navigator__helper-text"
-                    >
-                      Search Organization Name
-                    </label>
-                    <input
-                      type="text"
-                      placeholder="Search Name"
-                      id="organization-name"
-                      name="organization-name"
-                      className="nutrition-navigator__text-field"
-                      defaultValue={defaultOrganizationName}
-                    />
-                  </div>
+                  <ul className="nutrition-navigator__checkbox-items-wrap nutrition-navigator__checkbox-items-wrap--languages">
+                    {languagesStatus === 'success' &&
+                      languages.map((language) => {
+                        return (
+                          <li
+                            className="nutrition-navigator__checkbox-wrap"
+                            key={language.id}
+                          >
+                            <LabelCheckBox
+                              {...{
+                                label: language.name,
+                                name: 'languages[]',
+                                value: language.slug,
+                                id: language.slug,
+                                defaultChecked: defaultLanguages.includes(
+                                  language.slug
+                                )
+                              }}
+                            />
+                          </li>
+                        );
+                      })}
+                  </ul>
                 </details>
               </div>
             </div>
