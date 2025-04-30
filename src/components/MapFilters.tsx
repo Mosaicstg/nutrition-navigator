@@ -234,9 +234,6 @@ export const MapFilters = ({
                 })}
             </ul>
           </div>
-          {
-            // TODO: reorder: Org, venue, audience, languages
-          }
           <div className="nutrition-navigator__sub-filters">
             <div className="nutrition-navigator__filters-grid">
               <div className="nutrition-navigator__filter-column">
