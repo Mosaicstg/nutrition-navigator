@@ -5,7 +5,10 @@ import {
   TileLayer,
   useMap
 } from 'react-leaflet';
-import L, { MarkerCluster } from 'leaflet';
+import L, {
+  // @ts-expect-error We need to resolve why the Type isn't being properly imported
+  MarkerCluster
+} from 'leaflet';
 import config from '~/config';
 import MarkerClusterGroup from 'react-leaflet-cluster';
 import MarkerPopUp from './MarkerPopUp.tsx';
@@ -13,10 +16,13 @@ import { type Program } from '~/routes/schema';
 import { getGeoJSONFromPrograms } from '~/utils/get-bounds-from-locations/get-geojson-from-programs.ts';
 import mapPinImage from '~/assets/map-pin.png';
 import mapPinNotOpenToPublic from '~/assets/map-pin-not-open-to-public.png';
+import React from 'react';
 
 type MapProps = {
   filteredLocations: Array<Program>;
+  filtersOpen: boolean;
   programs?: Array<Program>;
+  tileLayerHash?: number;
 };
 
 const createClusterCustomIcon = function (cluster: MarkerCluster) {
@@ -38,6 +44,32 @@ const customPinForNotOpenToPublic = L.icon({
 });
 
 /**
+ * NOTE: There are instances where the map doesn't update when the filters are closed on desktop
+ *  This happens when:
+ *    1. The user is in desktop view
+ *    2. The page loads with the filters already open
+ *    3. Gray boxes appear in the tile layer of the map
+ * This hook is used to force the map to refresh the tiles when the filters are toggled open/closed
+ */
+function useRefreshMapTiles(map: L.Map, tileLayerHash: number) {
+  const root = document.querySelector(':root')!;
+  const rootStyles = getComputedStyle(root);
+  const mapTransitionTiming = +rootStyles.getPropertyValue(
+    '--nutrition-navigator-map-transition-value'
+  );
+
+  React.useEffect(() => {
+    const timeout = setTimeout(() => {
+      map.invalidateSize();
+    }, mapTransitionTiming);
+
+    return () => {
+      clearTimeout(timeout);
+    };
+  }, [map, tileLayerHash, mapTransitionTiming]);
+}
+
+/**
  * This Component is purely used to update map's bounds since prop/state updates
  * don't trigger map updates so the updates have to be done on the L.map object
  * within the React.useContext retrieved from `useMap()`
@@ -45,8 +77,7 @@ const customPinForNotOpenToPublic = L.icon({
  * @param props
  * @constructor
  */
-function HandleMapUpdates(props: MapProps) {
-  const { filteredLocations } = props;
+function HandleMapUpdates({ filteredLocations, tileLayerHash }: MapProps) {
   const map = useMap();
 
   const mapGeoJSON = L.geoJson(getGeoJSONFromPrograms(filteredLocations));
@@ -56,15 +87,20 @@ function HandleMapUpdates(props: MapProps) {
     map.fitBounds(mapBounds);
   }
 
+  useRefreshMapTiles(map, tileLayerHash ?? 0);
+
   return null;
 }
 
-const Map = (props: MapProps) => {
-  const { filteredLocations, programs } = props;
-
+const Map = ({
+  filteredLocations,
+  programs,
+  filtersOpen,
+  tileLayerHash
+}: MapProps) => {
   const mapContainerProps: MapContainerProps = {
     scrollWheelZoom: false,
-    style: { height: 650 },
+    // style: { height: 700 },
     attributionControl: false,
     maxZoom: 15,
     id: 'map-container'
@@ -82,9 +118,15 @@ const Map = (props: MapProps) => {
   }
 
   return (
-    <MapContainer {...mapContainerProps}>
+    <MapContainer
+      {...mapContainerProps}
+      className="nutrition-navigator__map-container"
+      zoomControl={false}
+    >
       <TileLayer
-        url="https://api.mapbox.com/styles/v1/mapbox/streets-v12/tiles/{z}/{x}/{y}?access_token={accessToken}"
+        url={`https://api.mapbox.com/styles/v1/mapbox/streets-v12/tiles/{z}/{x}/{y}?access_token={accessToken}`}
+        // url={`https://api.mapbox.com/styles/v1/mapbox/streets-v12/tiles/{z}/{x}/{y}?access_token={accessToken}&hash=${tileLayerHash}`}
+        // @ts-expect-error This is supported by not picked up by the Types of this component
         accessToken={config.mapBoxToken}
       />
       <MarkerClusterGroup
@@ -107,7 +149,11 @@ const Map = (props: MapProps) => {
           );
         })}
       </MarkerClusterGroup>
-      <HandleMapUpdates filteredLocations={filteredLocations} />
+      <HandleMapUpdates
+        filteredLocations={filteredLocations}
+        filtersOpen={filtersOpen}
+        tileLayerHash={tileLayerHash}
+      />
     </MapContainer>
   );
 };

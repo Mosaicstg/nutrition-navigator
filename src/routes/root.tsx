@@ -1,15 +1,11 @@
-// TODO::
-// - Add better Error handling
-// - Update tests to reflect new hooks and functions
-
 import { useLoaderData } from 'react-router';
-import { type RootLoader } from './loader';
+import type { RootLoader } from './loader';
 
 // Components
 import Loading from '~/components/Loading';
 import LocationsResults from '~/components/LocationsResults';
 import Map from '~/components/Map';
-import MapFilters from '~/components/MapFilters';
+import { MapFilters } from '~/components/MapFilters';
 
 // Hooks
 import { useFilteredPrograms } from './use-filtered-programs';
@@ -17,6 +13,52 @@ import { useFilteredPrograms } from './use-filtered-programs';
 // CSS
 import 'leaflet/dist/leaflet.css';
 import '~/index.scss';
+import React from 'react';
+import { flushSync } from 'react-dom';
+
+type FiltersButtonProps = {
+  filtersOpen: boolean;
+  setFiltersOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  ref: React.RefObject<HTMLButtonElement | null>;
+  mobileButtonRef?: React.RefObject<HTMLButtonElement | null>;
+  setTileLayerHash: React.Dispatch<React.SetStateAction<number>>;
+};
+
+function FiltersButton({
+  filtersOpen,
+  setFiltersOpen,
+  ref,
+  mobileButtonRef,
+  setTileLayerHash
+}: FiltersButtonProps) {
+  function handleClick() {
+    // Force the UI to update first before focusing on the filters form button
+    flushSync(() => {
+      setFiltersOpen(() => true);
+    });
+
+    setTileLayerHash((prev) => prev + 1);
+
+    // Wait till the next tick to focus
+    // On the next tick the filters are focusable
+    setTimeout(() => {
+      mobileButtonRef?.current?.focus();
+    });
+  }
+
+  return (
+    <button
+      ref={ref}
+      type="button"
+      className={`nutrition-navigator__floating-filters-toggle-button ${filtersOpen ? 'nutrition-navigator__floating-filters-toggle-button--open' : ''}`}
+      onClick={handleClick}
+      disabled={filtersOpen}
+      tabIndex={0}
+    >
+      Filters
+    </button>
+  );
+}
 
 export function Root() {
   const data = useLoaderData<RootLoader>();
@@ -25,6 +67,13 @@ export function Root() {
     status,
     isLoading
   } = useFilteredPrograms(data);
+  const [filtersOpen, setFiltersOpen] = React.useState(true);
+  const [filtersFormInert, setFiltersFormInert] = React.useState(
+    () => !filtersOpen && window.innerWidth > 992
+  );
+  const desktopFiltersToggleButtonRef = React.useRef<HTMLButtonElement>(null);
+  const filtersFormToggleButtonRef = React.useRef<HTMLButtonElement>(null);
+  const [tileLayerHash, setTileLayerHash] = React.useState<number>(0);
 
   const filterProps = {
     address: data?.address || '',
@@ -36,17 +85,58 @@ export function Root() {
     organizationName: data?.organizationName || ''
   };
 
+  React.useEffect(() => {
+    setFiltersFormInert(!filtersOpen && window.innerWidth > 992);
+
+    const abortController = new AbortController();
+
+    window.addEventListener(
+      'resize',
+      () => {
+        setFiltersFormInert(() => {
+          return window.innerWidth > 992;
+        });
+      },
+      {
+        signal: abortController.signal
+      }
+    );
+
+    return () => {
+      abortController.abort();
+    };
+  }, [filtersOpen]);
+
   return (
-    <div className={'nutrition-navigator__map'}>
-      <MapFilters {...filterProps} />
+    <div
+      className={`nutrition-navigator__map ${filtersOpen ? 'nutrition-navigator__map--filters-open' : ''}`}
+    >
       {isLoading ? (
         <Loading />
       ) : 'success' === status ? (
         <>
+          <MapFilters
+            {...filterProps}
+            showFilters={filtersOpen}
+            setShowFilters={setFiltersOpen}
+            programs={filteredProgramsData.filteredPrograms}
+            desktopFiltersToggleButtonRef={desktopFiltersToggleButtonRef}
+            filtersFormToggleButtonRef={filtersFormToggleButtonRef}
+            filtersFormInert={filtersFormInert}
+            setTileLayerHash={setTileLayerHash}
+          />
+          <FiltersButton
+            {...{ filtersOpen, setFiltersOpen }}
+            ref={desktopFiltersToggleButtonRef}
+            mobileButtonRef={filtersFormToggleButtonRef}
+            setTileLayerHash={setTileLayerHash}
+          />
           <LocationsResults locations={filteredProgramsData.filteredPrograms} />
           <Map
             filteredLocations={filteredProgramsData.filteredPrograms}
             programs={filteredProgramsData.programs}
+            filtersOpen={filtersOpen}
+            tileLayerHash={tileLayerHash}
           />
         </>
       ) : (

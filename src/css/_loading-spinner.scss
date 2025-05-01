@@ -1,7 +1,10 @@
 .nutrition-navigator__loading-spinner-wrap {
   display: flex;
+  flex-grow: 1;
+  flex-shrink: 0;
   align-items: center;
   justify-content: center;
+  width: 100%;
   height: 630px;
   background: var(--nutrition-navigator-orange);
 }

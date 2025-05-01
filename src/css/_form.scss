@@ -1,15 +1,16 @@
-@use "mixins" as *;
+@use 'mixins' as *;
 
 .nutrition-navigator__checkbox-items-wrap {
   display: grid;
   grid-gap: 10px;
   grid-template-columns: 1fr;
+  width: 100%;
   margin: 0;
   padding: 0;
   list-style: none;
 
   @include media-breakpoint-up(md) {
-    max-width: max-content;
+    /* max-width: max-content; */
   }
 
   @include media-breakpoint-up(lg) {
@@ -18,14 +19,6 @@
 
   @include app-scope-css-properties() {
     padding: 0;
-
-    @include media-breakpoint-up(md) {
-      padding-left: 15px;
-    }
-
-    @include media-breakpoint-up(lg) {
-      padding-left: 16px;
-    }
   }
 }
 
@@ -68,6 +61,7 @@
 
 .nutrition-navigator__checkbox {
   @include app-scope-css-properties() {
+    margin: 0;
     padding: 7px;
     transition: background-color 0.15s ease-in-out;
     border: 1px solid var(--nutrition-navigator-dark-gray);

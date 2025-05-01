@@ -1,6 +1,9 @@
 import { type LoaderFunctionArgs } from 'react-router';
 import { fetchApi } from '~/api/fetch';
 import { type Program } from './schema';
+import { queryClient } from '~/query-client';
+import { languagesQueryKeys } from '~/hooks/useLanguages/useLanguages';
+import { regionsQueryKeys } from '~/hooks/useRegions/useRegions';
 
 export const fetchAllPrograms = (): Promise<Program[]> => {
   return fetchApi('/wp-json/nutrition-navigator/v1/programs').then((res) =>
@@ -21,7 +24,7 @@ export const allProgramsKeys = {
   }) => [...allProgramsKeys.all, { filters }] as const
 };
 
-export const loader = ({ request }: LoaderFunctionArgs) => {
+export function loader({ request }: LoaderFunctionArgs) {
   const url = new URL(request.url);
   const searchParams = new URLSearchParams(url.search);
 
@@ -59,6 +62,14 @@ export const loader = ({ request }: LoaderFunctionArgs) => {
     }
   }
 
+  if (!queryClient.getQueryData(regionsQueryKeys.all)) {
+    queryClient.prefetchQuery({ queryKey: regionsQueryKeys.all });
+  }
+
+  if (!queryClient.getQueryData(languagesQueryKeys.all)) {
+    queryClient.prefetchQuery({ queryKey: languagesQueryKeys.all });
+  }
+
   return {
     address,
     regions,
@@ -68,6 +79,6 @@ export const loader = ({ request }: LoaderFunctionArgs) => {
     audiences,
     organizationName
   };
-};
+}
 
 export type RootLoader = typeof loader;

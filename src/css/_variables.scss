@@ -23,6 +23,7 @@ $green: #8dc63f;
 $orange: #f15d22;
 $purple: #aa1a72;
 $blue: #101d3d;
+$gray: #aaa;
 $dark-gray: #403c3b;
 $red: #ff3232;
 
@@ -73,7 +74,7 @@ $mobile-h4-font-size: 15px;
 $h5-font: $body-font;
 $h5-font-size: 13px;
 $h5-line-height: 1.5em;
-$h5-font-weight: $font-weight-black;
+$h5-font-weight: $font-weight-bold;
 $h5-letter-spacing: 0;
 $h5-text-transform: none;
 $mobile-h5-font-size: 15px;
@@ -163,6 +164,10 @@ $breakpoints: (
   --nutrition-navigator-yellow: #{$sun-orange};
   --nutrition-navigator-purple: #{$purple};
   --nutrition-navigator-blue: #{$blue};
+  --nutrition-navigator-gray: #{$gray};
   --nutrition-navigator-dark-gray: #{$dark-gray};
   --nutrition-navigator-red: #{$red};
+
+  --nutrition-navigator-map-transition-value: 250;
+  --nutrition-navigator-map-transition: 250ms;
 }
