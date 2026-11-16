@@ -1,6 +1,6 @@
 {
   "name": "nutrition-navigator",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Food Trust Nutrition Navigator",
   "type": "module",
   "main": "nutrition-navigator.js",

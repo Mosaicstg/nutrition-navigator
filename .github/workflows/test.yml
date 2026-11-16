@@ -12,7 +12,8 @@ on:
 jobs:
   test:
     name: Vitest Browser Mode
-    runs-on: ubuntu-latest
+    # Pinned: Playwright 1.52 can't install browsers on ubuntu-latest (26.04)
+    runs-on: ubuntu-24.04
 
     steps:
       - uses: actions/checkout@v4
@@ -20,7 +21,7 @@ jobs:
         uses: oven-sh/setup-bun@v2
         with:
           bun-version: 1.2.3
-      # Make sure to install playwright before running vitest browser mode
-      - run: bunx playwright install
       - run: bun install
+      # Install browsers after deps so bunx uses the project's pinned Playwright
+      - run: bunx playwright install --with-deps chromium
       - run: bun run test:ci
