@@ -9,7 +9,7 @@
  * Create shortcodes for plugin
  */
 class Nutrition_Navigator_Shortcodes {
-	const SHORTCODE_VERSION = '1.0.0';
+	const SHORTCODE_VERSION = '1.1.0';
 	/**
 	 * A bool value that tracks if shortcode is rendered.
 	 *
