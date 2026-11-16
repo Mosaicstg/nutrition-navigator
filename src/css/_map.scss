@@ -69,3 +69,35 @@
     }
   }
 }
+
+.nutrition-navigator__map-container .leaflet-control-zoom {
+  @include app-scope-css-properties() {
+    overflow: hidden;
+    border: 1px solid var(--nutrition-navigator-gray);
+    border-radius: 10px;
+    box-shadow: 0 3px 5px 0 #00000040;
+
+    a {
+      width: 36px;
+      height: 36px;
+      background-color: var(--nutrition-navigator-white);
+      color: var(--nutrition-navigator-dark-gray);
+      font-family: var(--nutrition-navigator-body-font);
+      font-size: 22px;
+      line-height: 36px;
+
+      &:hover {
+        background-color: var(--nutrition-navigator-light-gray);
+      }
+
+      &:focus-visible {
+        outline: 2px solid var(--nutrition-navigator-purple);
+        outline-offset: -2px;
+      }
+
+      &.leaflet-disabled {
+        color: var(--nutrition-navigator-gray);
+      }
+    }
+  }
+}

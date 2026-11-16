@@ -3,7 +3,8 @@ import {
   MapContainerProps,
   Marker,
   TileLayer,
-  useMap
+  useMap,
+  ZoomControl
 } from 'react-leaflet';
 import L, {
   // @ts-expect-error We need to resolve why the Type isn't being properly imported
@@ -121,8 +122,10 @@ const Map = ({
     <MapContainer
       {...mapContainerProps}
       className="nutrition-navigator__map-container"
+      // Default zoom control sits top-left, under the floating filters toggle
       zoomControl={false}
     >
+      <ZoomControl position="topright" />
       <TileLayer
         url={`https://api.mapbox.com/styles/v1/mapbox/streets-v12/tiles/{z}/{x}/{y}?access_token={accessToken}`}
         // url={`https://api.mapbox.com/styles/v1/mapbox/streets-v12/tiles/{z}/{x}/{y}?access_token={accessToken}&hash=${tileLayerHash}`}
